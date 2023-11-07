@@ -11,7 +11,7 @@ import SwiftUI
 struct CakeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AllDessertsView()
         }
     }
 }
