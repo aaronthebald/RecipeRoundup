@@ -15,6 +15,11 @@
 		0205AB122AF9A677003851EE /* AllDessertsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB112AF9A677003851EE /* AllDessertsResponse.swift */; };
 		0205AB142AF9C2E0003851EE /* AllDessertsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB132AF9C2E0003851EE /* AllDessertsViewModel.swift */; };
 		0205AB162AF9CB47003851EE /* DessertRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB152AF9CB47003851EE /* DessertRowView.swift */; };
+		0205AB182AFAE5F8003851EE /* DessertDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB172AFAE5F8003851EE /* DessertDetailsModel.swift */; };
+		0205AB1A2AFAEA8E003851EE /* DessertDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB192AFAEA8E003851EE /* DessertDetailsView.swift */; };
+		0205AB1C2AFAEAE9003851EE /* DessertDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB1B2AFAEAE9003851EE /* DessertDetailsViewModel.swift */; };
+		0205AB1F2AFAFCE0003851EE /* QuickImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB1E2AFAFCE0003851EE /* QuickImage.swift */; };
+		0205AB212AFB15E5003851EE /* IngredientListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB202AFB15E5003851EE /* IngredientListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +32,11 @@
 		0205AB112AF9A677003851EE /* AllDessertsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDessertsResponse.swift; sourceTree = "<group>"; };
 		0205AB132AF9C2E0003851EE /* AllDessertsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDessertsViewModel.swift; sourceTree = "<group>"; };
 		0205AB152AF9CB47003851EE /* DessertRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertRowView.swift; sourceTree = "<group>"; };
+		0205AB172AFAE5F8003851EE /* DessertDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertDetailsModel.swift; sourceTree = "<group>"; };
+		0205AB192AFAEA8E003851EE /* DessertDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertDetailsView.swift; sourceTree = "<group>"; };
+		0205AB1B2AFAEAE9003851EE /* DessertDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertDetailsViewModel.swift; sourceTree = "<group>"; };
+		0205AB1E2AFAFCE0003851EE /* QuickImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickImage.swift; sourceTree = "<group>"; };
+		0205AB202AFB15E5003851EE /* IngredientListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +69,7 @@
 		0205AAFC2AF9A55A003851EE /* Cake */ = {
 			isa = PBXGroup;
 			children = (
+				0205AB1D2AFAFC9E003851EE /* Components */,
 				0205AB102AF9A64A003851EE /* Models */,
 				0205AB0D2AF9A618003851EE /* Services */,
 				0205AB0C2AF9A5F2003851EE /* DessertDetailView */,
@@ -91,6 +102,8 @@
 		0205AB0C2AF9A5F2003851EE /* DessertDetailView */ = {
 			isa = PBXGroup;
 			children = (
+				0205AB192AFAEA8E003851EE /* DessertDetailsView.swift */,
+				0205AB1B2AFAEAE9003851EE /* DessertDetailsViewModel.swift */,
 			);
 			path = DessertDetailView;
 			sourceTree = "<group>";
@@ -107,8 +120,18 @@
 			isa = PBXGroup;
 			children = (
 				0205AB112AF9A677003851EE /* AllDessertsResponse.swift */,
+				0205AB172AFAE5F8003851EE /* DessertDetailsModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		0205AB1D2AFAFC9E003851EE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				0205AB1E2AFAFCE0003851EE /* QuickImage.swift */,
+				0205AB202AFB15E5003851EE /* IngredientListView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,11 +204,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0205AB212AFB15E5003851EE /* IngredientListView.swift in Sources */,
 				0205AB0F2AF9A63D003851EE /* AllDessertsDataService.swift in Sources */,
 				0205AB122AF9A677003851EE /* AllDessertsResponse.swift in Sources */,
+				0205AB1C2AFAEAE9003851EE /* DessertDetailsViewModel.swift in Sources */,
+				0205AB182AFAE5F8003851EE /* DessertDetailsModel.swift in Sources */,
 				0205AB162AF9CB47003851EE /* DessertRowView.swift in Sources */,
+				0205AB1F2AFAFCE0003851EE /* QuickImage.swift in Sources */,
 				0205AB002AF9A55A003851EE /* AllDessertsView.swift in Sources */,
 				0205AAFE2AF9A55A003851EE /* CakeApp.swift in Sources */,
+				0205AB1A2AFAEA8E003851EE /* DessertDetailsView.swift in Sources */,
 				0205AB142AF9C2E0003851EE /* AllDessertsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

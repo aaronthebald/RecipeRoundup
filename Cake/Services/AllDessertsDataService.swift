@@ -15,6 +15,7 @@ class AllDessertsDataService: ObservableObject {
         fetchAllDesserts()
     }
     @Published var desserts: [Dessert] = []
+    @Published var dessertDetails: DessertDetailsModel?
     
     var cancellables = Set<AnyCancellable>()
     func fetchAllDesserts()  {
@@ -35,6 +36,28 @@ class AllDessertsDataService: ObservableObject {
                 }
             } receiveValue: { [weak self] returnedResponse in
                 self?.desserts = returnedResponse.meals
+            }
+            .store(in: &cancellables)
+    }
+    
+    func fetchDessertDetails(mealID: String)  {
+        
+        guard let url = URL(string: "https://themealdb.com/api/json/v1/1/lookup.php?i=\(mealID)") else { print("There was an error with the URL"); return }
+        
+        URLSession.shared.dataTaskPublisher(for: url)
+            .subscribe(on: DispatchQueue.global(qos: .background))
+            .receive(on: DispatchQueue.main)
+            .tryMap(handleOutput)
+            .decode(type: DessertDetailsResponseModel.self, decoder: JSONDecoder())
+            .sink { (completion) in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print("error downloading data\(error)")
+                }
+            } receiveValue: { [weak self] returnedResponse in
+                self?.dessertDetails = returnedResponse.meals.first
             }
             .store(in: &cancellables)
     }
