@@ -37,7 +37,8 @@ struct DessertDetailsView: View {
                 Spacer()
             
         }
-        .navigationTitle(vm.dessertDetails.strMeal)
+        .navigationTitle(Text(vm.dessertDetails.strMeal))
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear(perform: {
             vm.fetchDetails(id: mealId)
         })
