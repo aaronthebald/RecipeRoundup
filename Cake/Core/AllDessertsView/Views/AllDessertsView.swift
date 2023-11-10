@@ -16,10 +16,11 @@ struct AllDessertsView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     ForEach(viewModel.sortedDesserts, id: \.idMeal) { dessert in
+                        let image = QuickImage(url: URL(string: dessert.strMealThumb))
                         NavigationLink {
-                            DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.idMeal)
+                            DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.idMeal, image: image)
                         } label: {
-                            DessertRowView(dessert: dessert)
+                            DessertRowView(dessert: dessert, image: image)
                         }
                     }
                 }

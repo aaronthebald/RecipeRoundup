@@ -17,7 +17,6 @@ struct QuickImage: View {
                 returnedImage
                     .resizable()
                     .scaledToFit()
-//                    .cornerRadius(20)
             case .failure:
                 Image(systemName: "x.circle")
                     .font(.headline)

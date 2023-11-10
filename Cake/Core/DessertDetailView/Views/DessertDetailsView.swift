@@ -12,16 +12,17 @@ struct DessertDetailsView: View {
     @StateObject var vm: DessertDetailsViewModel
     let dataService: DessertsDataService
     let mealId: String
-    
-    init(dataService: DessertsDataService, mealId: String) {
+    let image: QuickImage
+    init(dataService: DessertsDataService, mealId: String, image: QuickImage) {
         _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService))
         self.dataService = dataService
         self.mealId = mealId
+        self.image = image
     }
     
     var body: some View {
         ScrollView {
-                QuickImage(url: URL(string: vm.dessertDetails.strMealThumb))
+                image
                 VStack(alignment: .leading) {
                     HStack {
                         Text("Region:")
@@ -49,10 +50,6 @@ struct DessertDetailsView: View {
             vm.fetchDetails(id: mealId)
         })
     }
-}
-
-#Preview {
-    DessertDetailsView(dataService: DessertsDataService(), mealId: "52893")
 }
 
 extension DessertDetailsView {
