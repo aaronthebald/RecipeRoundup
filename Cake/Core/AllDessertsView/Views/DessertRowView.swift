@@ -20,6 +20,9 @@ struct DessertRowView: View {
                 Text(dessert.strMeal)
                     .font(.title2)
                     .tint(.primary)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .tint(.primary)
             }
             Divider()
         }

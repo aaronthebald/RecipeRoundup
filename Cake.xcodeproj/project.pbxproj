@@ -69,11 +69,10 @@
 		0205AAFC2AF9A55A003851EE /* Cake */ = {
 			isa = PBXGroup;
 			children = (
+				0205AB2F2AFE9971003851EE /* Core */,
 				0205AB1D2AFAFC9E003851EE /* Components */,
 				0205AB102AF9A64A003851EE /* Models */,
 				0205AB0D2AF9A618003851EE /* Services */,
-				0205AB0C2AF9A5F2003851EE /* DessertDetailView */,
-				0205AB0B2AF9A5D4003851EE /* AllDessertsView */,
 				0205AAFD2AF9A55A003851EE /* CakeApp.swift */,
 				0205AB012AF9A55B003851EE /* Assets.xcassets */,
 				0205AB032AF9A55B003851EE /* Preview Content */,
@@ -92,9 +91,8 @@
 		0205AB0B2AF9A5D4003851EE /* AllDessertsView */ = {
 			isa = PBXGroup;
 			children = (
-				0205AAFF2AF9A55A003851EE /* AllDessertsView.swift */,
-				0205AB132AF9C2E0003851EE /* AllDessertsViewModel.swift */,
-				0205AB152AF9CB47003851EE /* DessertRowView.swift */,
+				0205AB312AFE99A1003851EE /* ViewModels */,
+				0205AB302AFE9993003851EE /* Views */,
 			);
 			path = AllDessertsView;
 			sourceTree = "<group>";
@@ -102,8 +100,8 @@
 		0205AB0C2AF9A5F2003851EE /* DessertDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				0205AB192AFAEA8E003851EE /* DessertDetailsView.swift */,
-				0205AB1B2AFAEAE9003851EE /* DessertDetailsViewModel.swift */,
+				0205AB322AFE99B6003851EE /* Views */,
+				0205AB332AFE99C1003851EE /* ViewModels */,
 			);
 			path = DessertDetailView;
 			sourceTree = "<group>";
@@ -132,6 +130,48 @@
 				0205AB202AFB15E5003851EE /* IngredientListView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		0205AB2F2AFE9971003851EE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				0205AB0B2AF9A5D4003851EE /* AllDessertsView */,
+				0205AB0C2AF9A5F2003851EE /* DessertDetailView */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		0205AB302AFE9993003851EE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0205AB152AF9CB47003851EE /* DessertRowView.swift */,
+				0205AAFF2AF9A55A003851EE /* AllDessertsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0205AB312AFE99A1003851EE /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0205AB132AF9C2E0003851EE /* AllDessertsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		0205AB322AFE99B6003851EE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0205AB192AFAEA8E003851EE /* DessertDetailsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0205AB332AFE99C1003851EE /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0205AB1B2AFAEAE9003851EE /* DessertDetailsViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
