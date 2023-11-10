@@ -9,6 +9,7 @@ import SwiftUI
 
 struct IngredientListView: View {
     let dessert: DessertDetailsModel
+    // this view lays out the ingredients into a way that is easier to read.
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {

@@ -16,6 +16,7 @@ struct AllDessertsView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     ForEach(viewModel.sortedDesserts, id: \.idMeal) { dessert in
+                        // creating Image here to be passed into dependent views
                         let image = QuickImage(url: URL(string: dessert.strMealThumb))
                         NavigationLink {
                             DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.idMeal, image: image)

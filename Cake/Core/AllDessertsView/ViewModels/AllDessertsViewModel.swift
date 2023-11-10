@@ -22,6 +22,7 @@ class AllDessertsViewModel: ObservableObject {
     
     let dataService = DessertsDataService()
     var cancellables = Set<AnyCancellable>()
+    
     func subscribeDataService() {
         dataService.$desserts
             .sink { [weak self] desserts in
