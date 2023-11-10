@@ -17,7 +17,7 @@ struct AllDessertsView: View {
                 VStack(alignment: .leading) {
                     ForEach(viewModel.sortedDesserts, id: \.idMeal) { dessert in
                         NavigationLink {
-                            DessertDetailsView(mealId: dessert.idMeal)
+                            DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.idMeal)
                         } label: {
                             DessertRowView(dessert: dessert)
                         }

@@ -18,7 +18,7 @@ class AllDessertsViewModel: ObservableObject {
         
     }
     
-    let dataService = AllDessertsDataService()
+    let dataService = DessertsDataService()
     var cancellables = Set<AnyCancellable>()
     func subscribeDataService() {
         dataService.$desserts

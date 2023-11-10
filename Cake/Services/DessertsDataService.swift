@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 
-class AllDessertsDataService: ObservableObject {
+class DessertsDataService: ObservableObject {
    
     init() {
         fetchAllDesserts()

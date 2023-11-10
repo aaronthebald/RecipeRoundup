@@ -9,9 +9,15 @@ import SwiftUI
 
 struct DessertDetailsView: View {
     
-    @StateObject var vm: DessertDetailsViewModel = DessertDetailsViewModel()
-    
+    @StateObject var vm: DessertDetailsViewModel
+    let dataService: DessertsDataService
     let mealId: String
+    
+    init(dataService: DessertsDataService, mealId: String) {
+        _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService))
+        self.dataService = dataService
+        self.mealId = mealId
+    }
     
     var body: some View {
         ScrollView {
@@ -46,7 +52,7 @@ struct DessertDetailsView: View {
 }
 
 #Preview {
-    DessertDetailsView(mealId: "52893")
+    DessertDetailsView(dataService: DessertsDataService(), mealId: "52893")
 }
 
 extension DessertDetailsView {
