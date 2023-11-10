@@ -10,7 +10,7 @@ import SwiftUI
 struct AllDessertsView: View {
     
     @StateObject var viewModel: AllDessertsViewModel = AllDessertsViewModel()
-    
+    @State private var loadingBuffer: Bool = true
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -22,7 +22,14 @@ struct AllDessertsView: View {
                             DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.idMeal, image: image)
                         } label: {
                             DessertRowView(dessert: dessert, image: image)
+                                .overlay {
+                                    if loadingBuffer {
+                                        Rectangle()
+                                            .fill(.ultraThinMaterial)
+                                    }
+                                }
                         }
+                        .disabled(loadingBuffer)
                     }
                 }
                 .padding(.horizontal, 4)
@@ -38,8 +45,12 @@ struct AllDessertsView: View {
                 Text(viewModel.errorMessage ?? "")
             })
             .navigationTitle("All Desserts")
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+                    loadingBuffer = false
+                }
+            }
         }
-        
     }
 }
 
