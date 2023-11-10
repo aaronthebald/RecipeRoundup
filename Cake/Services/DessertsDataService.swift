@@ -16,11 +16,16 @@ class DessertsDataService: ObservableObject {
     }
     @Published var desserts: [Dessert] = []
     @Published var dessertDetails: DessertDetailsModel?
+    @Published var errorMessage: String?
     
     var cancellables = Set<AnyCancellable>()
     func fetchAllDesserts()  {
         
-        guard let url = URL(string: "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert") else { print("There was an error with the allDessertsURL"); return }
+        guard let url = URL(string: "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert") else {
+            print("There was an error with the allDessertsURL")
+            self.errorMessage = "There was an error with the allDessertsURL"
+            return
+        }
         
         URLSession.shared.dataTaskPublisher(for: url)
             .subscribe(on: DispatchQueue.main)
@@ -33,6 +38,7 @@ class DessertsDataService: ObservableObject {
                     break
                 case .failure(let error):
                     print("error downloading data\(error)")
+                    self.errorMessage = error.localizedDescription
                 }
             } receiveValue: { [weak self] returnedResponse in
                 self?.desserts = returnedResponse.meals
@@ -42,7 +48,11 @@ class DessertsDataService: ObservableObject {
     
     func fetchDessertDetails(mealID: String)  {
         
-        guard let url = URL(string: "https://themealdb.com/api/json/v1/1/lookup.php?i=\(mealID)") else { print("There was an error with the dessertDetails URL"); return }
+        guard let url = URL(string: "https://themealdb.com/api/json/v1/1/lookup.php?i=\(mealID)") else { 
+            print("There was an error with the dessertDetails URL")
+            self.errorMessage = "There was an error with the dessertDetails URL"
+            return
+        }
         
         URLSession.shared.dataTaskPublisher(for: url)
             .subscribe(on: DispatchQueue.main)
@@ -55,6 +65,7 @@ class DessertsDataService: ObservableObject {
                     break
                 case .failure(let error):
                     print("error downloading data\(error)")
+                    self.errorMessage = error.localizedDescription
                 }
             } receiveValue: { [weak self] returnedResponse in
                 self?.dessertDetails = returnedResponse.meals.first
@@ -67,6 +78,7 @@ class DessertsDataService: ObservableObject {
         guard
             let response = output.response as? HTTPURLResponse,
                 response.statusCode >= 200 && response.statusCode < 300 else {
+            self.errorMessage = "There is a problem with the server"
             throw URLError(.badServerResponse)
         }
         return output.data

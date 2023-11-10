@@ -26,6 +26,16 @@ struct AllDessertsView: View {
                 }
                 .padding(.horizontal, 4)
             }
+            .alert("Error", isPresented: $viewModel.showAlert, actions: {
+                Button {
+                    viewModel.showAlert = false
+                } label: {
+                    Text("Dismiss")
+                }
+
+            }, message: {
+                Text(viewModel.errorMessage ?? "")
+            })
             .navigationTitle("All Desserts")
         }
         

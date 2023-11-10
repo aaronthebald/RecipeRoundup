@@ -49,6 +49,16 @@ struct DessertDetailsView: View {
         .onAppear(perform: {
             vm.fetchDetails(id: mealId)
         })
+        .alert("Error", isPresented: $vm.showAlert, actions: {
+            Button {
+                vm.showAlert = false
+            } label: {
+                Text("Dismiss")
+            }
+
+        }, message: {
+            Text(vm.errorMessage ?? "")
+        })
     }
 }
 

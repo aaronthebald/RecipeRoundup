@@ -12,6 +12,8 @@ class AllDessertsViewModel: ObservableObject {
     
     @Published var desserts: [Dessert] = []
     @Published var sortedDesserts: [Dessert] = []
+    @Published var showAlert: Bool = false
+    @Published var errorMessage: String?
     
     init() {
         subscribeDataService()
@@ -25,6 +27,14 @@ class AllDessertsViewModel: ObservableObject {
             .sink { [weak self] desserts in
                 self?.desserts = desserts
                 self?.sortDesserts()
+            }
+            .store(in: &cancellables)
+        dataService.$errorMessage
+            .sink { [weak self] message in
+                if message != "" && message != nil {
+                    self?.showAlert = true
+                    self?.errorMessage = message
+                }
             }
             .store(in: &cancellables)
     }
