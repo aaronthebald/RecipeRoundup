@@ -15,29 +15,29 @@ struct DessertDetailsView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
-                QuickImage(url: getImageURL())
+                QuickImage(url: URL(string: vm.dessertDetails.strMealThumb))
                 VStack(alignment: .leading) {
-                    Text(vm.dessertDetails.strMeal)
-                        .font(.title2)
                     HStack {
                         Text("Region:")
-                        Text(vm.dessertDetails.strArea)
+                        Text(vm.dessertDetails.strArea ?? "")
                     }
                     .font(.title3)
+                    Divider()
                     Text("Ingredients")
                         .font(.headline)
                     IngredientListView(dessert: vm.dessertDetails)
-                    
+                    Divider()
                     Text("Instructions")
                         .font(.headline)
-                    Divider()
-                    Text(vm.dessertDetails.strInstructions)
+                    Text(vm.dessertDetails.strInstructions ?? "")
+                    Spacer()
+                    links
                 }
-                .padding(.horizontal, 5)
-            }
+                .padding(.horizontal)
+                Spacer()
+            
         }
-        .ignoresSafeArea()
+        .navigationTitle(vm.dessertDetails.strMeal)
         .onAppear(perform: {
             vm.fetchDetails(id: mealId)
         })
@@ -49,9 +49,21 @@ struct DessertDetailsView: View {
 }
 
 extension DessertDetailsView {
-    
-    private func getImageURL() -> URL {
-        guard let url = URL(string: vm.dessertDetails.strMealThumb) else { return URL(string: "www.google.com")!}
-        return url
+    private var links: some View {
+        VStack(alignment: .leading) {
+            if vm.dessertDetails.strSource != "" && vm.dessertDetails.strSource != nil {
+                    let url = URL(string: vm.dessertDetails.strSource!)
+                    Link(destination: url!, label: {
+                        Text("Recipe Link")
+                    })
+            }
+            
+            if vm.dessertDetails.strYoutube != "" && vm.dessertDetails.strYoutube != nil {
+                    let url = URL(string: vm.dessertDetails.strYoutube!)
+                    Link(destination: url!, label: {
+                        Text("YouTube Link")
+                    })
+            }
+        }
     }
 }

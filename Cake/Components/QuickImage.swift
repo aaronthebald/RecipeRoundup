@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct QuickImage: View {
-    let url: URL
+    let url: URL?
     var body: some View {
         AsyncImage(url: url) { phase in
             switch phase {
@@ -17,9 +17,9 @@ struct QuickImage: View {
                 returnedImage
                     .resizable()
                     .scaledToFit()
-                    .cornerRadius(20)
+//                    .cornerRadius(20)
             case .failure:
-                Image(systemName: "questionmark")
+                Image(systemName: "x.circle")
                     .font(.headline)
             default:
                 Image(systemName: "questionmark")

@@ -12,19 +12,18 @@ struct DessertRowView: View {
     let dessert: Dessert
     
     var body: some View {
-        HStack(alignment: .bottom) {
-            AsyncImage(url: URL(string: dessert.strMealThumb)) { Image in
-                Image
-                    .resizable()
-                    .frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-            } placeholder: {
-                ProgressView()
+        VStack(alignment: .leading) {
+            HStack(alignment: .bottom) {
+                QuickImage(url: URL(string: dessert.strMealThumb))
+                    .frame(width: 100, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                Text(dessert.strMeal)
+                    .font(.title2)
+                    .tint(.primary)
             }
-            Text(dessert.strMeal)
-                .font(.title2)
+            Divider()
         }
-        .padding(.horizontal, 4)
+       
     }
 }
 

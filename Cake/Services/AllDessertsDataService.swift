@@ -20,10 +20,10 @@ class AllDessertsDataService: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     func fetchAllDesserts()  {
         
-        guard let url = URL(string: "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert") else { return }
+        guard let url = URL(string: "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert") else { print("There was an error with the allDessertsURL"); return }
         
         URLSession.shared.dataTaskPublisher(for: url)
-            .subscribe(on: DispatchQueue.global(qos: .background))
+            .subscribe(on: DispatchQueue.main)
             .receive(on: DispatchQueue.main)
             .tryMap(handleOutput)
             .decode(type: AllDessertsResponse.self, decoder: JSONDecoder())
@@ -42,10 +42,10 @@ class AllDessertsDataService: ObservableObject {
     
     func fetchDessertDetails(mealID: String)  {
         
-        guard let url = URL(string: "https://themealdb.com/api/json/v1/1/lookup.php?i=\(mealID)") else { print("There was an error with the URL"); return }
+        guard let url = URL(string: "https://themealdb.com/api/json/v1/1/lookup.php?i=\(mealID)") else { print("There was an error with the dessertDetails URL"); return }
         
         URLSession.shared.dataTaskPublisher(for: url)
-            .subscribe(on: DispatchQueue.global(qos: .background))
+            .subscribe(on: DispatchQueue.main)
             .receive(on: DispatchQueue.main)
             .tryMap(handleOutput)
             .decode(type: DessertDetailsResponseModel.self, decoder: JSONDecoder())

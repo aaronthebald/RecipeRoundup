@@ -14,7 +14,7 @@ struct AllDessertsView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVStack(alignment: .leading) {
+                VStack(alignment: .leading) {
                     ForEach(viewModel.sortedDesserts, id: \.idMeal) { dessert in
                         NavigationLink {
                             DessertDetailsView(mealId: dessert.idMeal)
@@ -23,9 +23,11 @@ struct AllDessertsView: View {
                         }
                     }
                 }
+                .padding(.horizontal, 4)
             }
             .navigationTitle("All Desserts")
         }
+        
     }
 }
 
