@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// I'd rename this QuickAsyncImage
 struct QuickImage: View {
     let url: URL?
     var body: some View {

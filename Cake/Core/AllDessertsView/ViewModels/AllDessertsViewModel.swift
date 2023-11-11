@@ -11,7 +11,7 @@ import Combine
 class AllDessertsViewModel: ObservableObject {
     
     @Published var desserts: [Dessert] = []
-    @Published var sortedDesserts: [Dessert] = []
+    @Published var sortedDesserts: [Dessert] = [] // this could be a computed property rather than a published property
     @Published var showAlert: Bool = false
     @Published var errorMessage: String?
     
@@ -30,6 +30,7 @@ class AllDessertsViewModel: ObservableObject {
                 self?.sortDesserts()
             }
             .store(in: &cancellables)
+        
         dataService.$errorMessage
             .sink { [weak self] message in
                 if message != "" && message != nil {

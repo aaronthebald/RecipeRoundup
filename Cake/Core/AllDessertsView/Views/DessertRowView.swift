@@ -16,15 +16,19 @@ struct DessertRowView: View {
         VStack(alignment: .leading) {
             HStack(alignment: .bottom) {
                 image
-                    .frame(width: 100, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .frame(width: 100, height: 100) // default alignment is center
                     .clipShape(RoundedRectangle(cornerRadius: 20))
+                
                 Text(dessert.strMeal)
                     .font(.title2)
                     .tint(.primary)
+                
                 Spacer()
+                
                 Image(systemName: "chevron.right")
                     .tint(.primary)
             }
+            
             Divider()
         }
        

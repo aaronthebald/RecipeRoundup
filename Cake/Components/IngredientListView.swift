@@ -17,7 +17,9 @@ struct IngredientListView: View {
                 itemSectionThree
             }
             .padding(.horizontal, 2)
+            
             Spacer()
+            
             VStack(alignment: .leading) {
                 itemSectionTwo
                 itemsectionFour
@@ -28,7 +30,28 @@ struct IngredientListView: View {
     }
     
     var itemsSectionOne: some View {
+        
+        // you could put the ingredients for this section into a computed property that's an array of the specific ingreditents for each section, and then use a ForEach loop to reduce duplication, now `itemsSectionOne` would just be this for loop, which reduces 40 lines of code.
+        // now repeat with section 2, 3, 4, and you've reduced a ton of code and made it safer! No optionals!
+//        ForEach(dessert.sectionOne) { item in
+//            HStack(alignment:.top) {
+//                Text(item.measurement)
+//                Text(item.ingredient)
+//            }
+//        }
+        
         VStack(alignment: .leading) {
+            
+            // here's a better way to write all these if statements to avoid continually using nil coalescing
+            if let ingredient1 = dessert.strIngredient1,
+               let measure1 = dessert.strMeasure1,
+               !ingredient1.isEmpty {
+                HStack(alignment:.top) {
+                    Text(measure1)
+                    Text(ingredient1)
+                }
+            }
+            
             if dessert.strIngredient1 != "" && dessert.strIngredient1 != nil {
                 HStack(alignment:.top) {
                     Text(dessert.strMeasure1 ?? "There was an error")

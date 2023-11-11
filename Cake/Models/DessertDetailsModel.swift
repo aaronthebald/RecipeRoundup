@@ -83,7 +83,7 @@ struct DessertDetailsModel: Codable {
     let strMealThumb: String
     let strYoutube: String?
     let strTags: String?
-    let strIngredient1: String?
+    let strIngredient1: String? // don't name these all `str....` that's not a common Swift convention, you could use CodingKeys so that your Swift variables are named correctly, and the `str` prefix is only for decoding
     let strIngredient2: String?
     let strIngredient3: String?
     let strIngredient4: String?
@@ -127,6 +127,36 @@ struct DessertDetailsModel: Codable {
     let strImageSource: String?
     let strCreativeCommonsConfirmed: String?
     let dateModified: String?
+    
+    /// I was going to do ingredient and measurement as a Tuple, but Tuples can't conform to Hashable (which is requried for a ForEach), and given ingredients and measurements go together, it makes sense to make a struct of the two instead
+    var sectionOne: [IngredientMeasurement] {
+        [
+            IngredientMeasurement(ingredient: strIngredient1, measurement: strMeasure1),
+            IngredientMeasurement(ingredient: strIngredient2, measurement: strMeasure2),
+            IngredientMeasurement(ingredient: strIngredient3, measurement: strMeasure3),
+            IngredientMeasurement(ingredient: strIngredient4, measurement: strMeasure4),
+            IngredientMeasurement(ingredient: strIngredient5, measurement: strMeasure5),
+        ]
+            .compactMap { $0 }
+    }
+    
+    struct IngredientMeasurement: Hashable, Identifiable {
+        let id = UUID()
+        let ingredient: String
+        let measurement: String
+        
+        init?(ingredient: String?, measurement: String?) {
+            if let ingredient,
+               let measurement,
+               !ingredient.isEmpty,
+               !measurement.isEmpty {
+                self.ingredient = ingredient
+                self.measurement = measurement
+            } else {
+                return nil
+            }
+        }
+    }
     
     static let placeholderDetails = DessertDetailsModel(idMeal: "", strMeal: "", strDrinkAlternate: "", strCategory: "", strArea: "", strInstructions: "", strMealThumb: "", strYoutube: "", strTags: "", strIngredient1: "", strIngredient2: "", strIngredient3: "", strIngredient4: "", strIngredient5: "", strIngredient6: "", strIngredient7: "", strIngredient8: "", strIngredient9: "", strIngredient10: "", strIngredient11: "", strIngredient12: "", strIngredient13: "", strIngredient14: "", strIngredient15: "", strIngredient16: "", strIngredient17: "", strIngredient18: "", strIngredient19: "", strIngredient20: "", strMeasure1: "", strMeasure2: "", strMeasure3: "", strMeasure4: "", strMeasure5: "", strMeasure6: "", strMeasure7: "", strMeasure8: "", strMeasure9: "", strMeasure10: "", strMeasure11: "", strMeasure12: "", strMeasure13: "", strMeasure14: "", strMeasure15: "", strMeasure16: "", strMeasure17: "", strMeasure18: "", strMeasure19: "", strMeasure20: "", strSource: "", strImageSource: "", strCreativeCommonsConfirmed: "", dateModified: "")
 }
