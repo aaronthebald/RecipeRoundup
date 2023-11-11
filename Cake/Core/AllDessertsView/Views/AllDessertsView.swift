@@ -7,10 +7,15 @@
 
 import SwiftUI
 
+// I wouldn't call the folder "AllDesertsView", Just `AllDserts`, because technically there's more stuff than "views" in this, and that name is then closer to being groups by feature rather than by view
+
 struct AllDessertsView: View {
     
-    @StateObject var viewModel: AllDessertsViewModel = AllDessertsViewModel()
-    @State private var loadingBuffer: Bool = true
+    // don't need the type, because of type inference
+    
+    @StateObject var viewModel = AllDessertsViewModel()
+    @State private var loadingBuffer = true // this could go in teh viewModel
+    
     var body: some View {
         NavigationStack {
             ScrollView {
