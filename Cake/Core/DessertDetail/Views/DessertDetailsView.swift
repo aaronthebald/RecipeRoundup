@@ -13,9 +13,9 @@ struct DessertDetailsView: View {
     
     let dataService: DessertsDataService
     let mealId: String
-    let image: QuickImage
+    let image: QuickAsyncImage
     
-    init(dataService: DessertsDataService, mealId: String, image: QuickImage) {
+    init(dataService: DessertsDataService, mealId: String, image: QuickAsyncImage) {
         _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService))
         self.dataService = dataService
         self.mealId = mealId
@@ -29,7 +29,7 @@ struct DessertDetailsView: View {
                 VStack(alignment: .leading) {
                     HStack {
                         Text("Region:")
-                        Text(vm.dessertDetails.strArea ?? "")
+                        Text(vm.dessertDetails.area ?? "")
                     }
                     .font(.title3)
                     
@@ -45,7 +45,7 @@ struct DessertDetailsView: View {
                     Text("Instructions")
                         .font(.headline)
                     
-                    Text(vm.dessertDetails.strInstructions ?? "")
+                    Text(vm.dessertDetails.instructions ?? "")
                     
                     Spacer()
                     
@@ -55,7 +55,7 @@ struct DessertDetailsView: View {
                 Spacer()
             
         }
-        .navigationTitle(Text(vm.dessertDetails.strMeal))
+        .navigationTitle(Text(vm.dessertDetails.meal))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear(perform: {
             vm.fetchDetails(id: mealId)
@@ -77,25 +77,16 @@ extension DessertDetailsView {
     private var links: some View {
         VStack(alignment: .leading) {
             
-            // here's a better way to write this, because you always check that it's not nil and that it's not an empty string, and then to avoid force unwrapping of the URL
-            if let strSource = vm.dessertDetails.strSource, !strSource.isEmpty, let url = URL(string: strSource) {
+            if let strSource = vm.dessertDetails.source, !strSource.isEmpty, let url = URL(string: strSource) {
                 Link(destination: url, label: {
                     Text("Recipe Link")
                 })
             }
             
-//            if vm.dessertDetails.strSource != "" && vm.dessertDetails.strSource != nil {
-//                    let url = URL(string: vm.dessertDetails.strSource!)
-//                    Link(destination: url!, label: {
-//                        Text("Recipe Link")
-//                    })
-//            }
-            
-            if vm.dessertDetails.strYoutube != "" && vm.dessertDetails.strYoutube != nil {
-                    let url = URL(string: vm.dessertDetails.strYoutube!)
-                    Link(destination: url!, label: {
-                        Text("YouTube Link")
-                    })
+            if let youTubeString = vm.dessertDetails.youtube, !youTubeString.isEmpty, let url = URL(string: youTubeString) {
+                Link(destination: url, label: {
+                    Text("YouTube")
+                })
             }
         }
     }

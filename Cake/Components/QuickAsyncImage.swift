@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-// I'd rename this QuickAsyncImage
-struct QuickImage: View {
+struct QuickAsyncImage: View {
     let url: URL?
     var body: some View {
         AsyncImage(url: url) { phase in

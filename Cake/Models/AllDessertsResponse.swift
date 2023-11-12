@@ -11,11 +11,15 @@ struct AllDessertsResponse: Codable {
     let meals: [Dessert]
 }
 
-struct Dessert: Codable {
+struct Dessert: Codable, Identifiable {
     
-    // because it's not common to use `str` in front of variable names you could use CodingKeys, and make this conform to `Identifiable`, which will make it so that on the `AllDessertsView` you don't need `id: \.idMeal` on the ForEach loop
+    let meal: String
+    let mealThumb: String
+    let id: String
     
-    let strMeal: String
-    let strMealThumb: String
-    let idMeal: String
+    enum CodingKeys: String, CodingKey {
+        case meal = "strMeal"
+        case mealThumb = "strMealThumb"
+        case id = "idMeal"
+    }
 }

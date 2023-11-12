@@ -10,7 +10,7 @@ import SwiftUI
 struct DessertRowView: View {
     
     let dessert: Dessert
-    let image: QuickImage
+    let image: QuickAsyncImage
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -19,7 +19,7 @@ struct DessertRowView: View {
                     .frame(width: 100, height: 100) // default alignment is center
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                 
-                Text(dessert.strMeal)
+                Text(dessert.meal)
                     .font(.title2)
                     .tint(.primary)
                 
