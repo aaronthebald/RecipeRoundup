@@ -10,10 +10,12 @@ import SwiftUI
 struct DessertDetailsView: View {
     
     @StateObject var vm: DessertDetailsViewModel
+    
     let dataService: DessertsDataService
     let mealId: String
-    let image: QuickImage
-    init(dataService: DessertsDataService, mealId: String, image: QuickImage) {
+    let image: QuickAsyncImage
+    
+    init(dataService: DessertsDataService, mealId: String, image: QuickAsyncImage) {
         _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService))
         self.dataService = dataService
         self.mealId = mealId
@@ -23,28 +25,37 @@ struct DessertDetailsView: View {
     var body: some View {
         ScrollView {
                 image
+            
                 VStack(alignment: .leading) {
                     HStack {
                         Text("Region:")
-                        Text(vm.dessertDetails.strArea ?? "")
+                        Text(vm.dessertDetails.area ?? "")
                     }
                     .font(.title3)
+                    
                     Divider()
+                    
                     Text("Ingredients")
                         .font(.headline)
+                    
                     IngredientListView(dessert: vm.dessertDetails)
+                    
                     Divider()
+                    
                     Text("Instructions")
                         .font(.headline)
-                    Text(vm.dessertDetails.strInstructions ?? "")
+                    
+                    Text(vm.dessertDetails.instructions ?? "")
+                    
                     Spacer()
+                    
                     links
                 }
                 .padding(.horizontal)
                 Spacer()
             
         }
-        .navigationTitle(Text(vm.dessertDetails.strMeal))
+        .navigationTitle(Text(vm.dessertDetails.meal))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear(perform: {
             vm.fetchDetails(id: mealId)
@@ -65,18 +76,17 @@ struct DessertDetailsView: View {
 extension DessertDetailsView {
     private var links: some View {
         VStack(alignment: .leading) {
-            if vm.dessertDetails.strSource != "" && vm.dessertDetails.strSource != nil {
-                    let url = URL(string: vm.dessertDetails.strSource!)
-                    Link(destination: url!, label: {
-                        Text("Recipe Link")
-                    })
+            
+            if let strSource = vm.dessertDetails.source, !strSource.isEmpty, let url = URL(string: strSource) {
+                Link(destination: url, label: {
+                    Text("Recipe Link")
+                })
             }
             
-            if vm.dessertDetails.strYoutube != "" && vm.dessertDetails.strYoutube != nil {
-                    let url = URL(string: vm.dessertDetails.strYoutube!)
-                    Link(destination: url!, label: {
-                        Text("YouTube Link")
-                    })
+            if let youTubeString = vm.dessertDetails.youtube, !youTubeString.isEmpty, let url = URL(string: youTubeString) {
+                Link(destination: url, label: {
+                    Text("YouTube")
+                })
             }
         }
     }

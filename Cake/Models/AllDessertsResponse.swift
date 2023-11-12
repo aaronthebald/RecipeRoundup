@@ -11,8 +11,15 @@ struct AllDessertsResponse: Codable {
     let meals: [Dessert]
 }
 
-struct Dessert: Codable {
-    let strMeal: String
-    let strMealThumb: String
-    let idMeal: String
+struct Dessert: Codable, Identifiable {
+    
+    let meal: String
+    let mealThumb: String
+    let id: String
+    
+    enum CodingKeys: String, CodingKey {
+        case meal = "strMeal"
+        case mealThumb = "strMealThumb"
+        case id = "idMeal"
+    }
 }

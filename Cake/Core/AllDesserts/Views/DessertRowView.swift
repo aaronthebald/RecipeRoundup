@@ -10,21 +10,25 @@ import SwiftUI
 struct DessertRowView: View {
     
     let dessert: Dessert
-    let image: QuickImage
+    let image: QuickAsyncImage
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .bottom) {
                 image
-                    .frame(width: 100, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .frame(width: 100, height: 100) // default alignment is center
                     .clipShape(RoundedRectangle(cornerRadius: 20))
-                Text(dessert.strMeal)
+                
+                Text(dessert.meal)
                     .font(.title2)
                     .tint(.primary)
+                
                 Spacer()
+                
                 Image(systemName: "chevron.right")
                     .tint(.primary)
             }
+            
             Divider()
         }
        
