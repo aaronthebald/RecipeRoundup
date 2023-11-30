@@ -6,9 +6,12 @@
 //
 
 import XCTest
+@testable import Cake
+import Combine
 
 final class CakeTests: XCTestCase {
-
+    
+    var cancellables = Set<AnyCancellable>()
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -30,6 +33,22 @@ final class CakeTests: XCTestCase {
         measure {
             // Put the code you want to measure the time of here.
         }
+    }
+    
+    
+    func test_AllDessertsViewModel_sortDesserts_isSorting() {
+        let viewModel = AllDessertsViewModel(dataService: MockDessertsDataService())
+        let expectation = XCTestExpectation(description: "loading buffer should have changed")
+        viewModel.$desserts
+            .dropFirst()
+            .sink { desserts in
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+        
+        var desserts = viewModel.desserts.sorted(by: {$0.meal < $1.meal })
+        
+        
     }
 
 }
