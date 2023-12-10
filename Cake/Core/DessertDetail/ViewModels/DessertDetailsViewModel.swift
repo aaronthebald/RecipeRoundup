@@ -13,30 +13,22 @@ class DessertDetailsViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var errorMessage: String?
     
-    init(dataService: DessertsDataService) {
+    init(dataService: DessertsDataServiceProrocol) {
         self.dataService = dataService
-        subscribeToDessertDetails()
     }
     
-    let dataService: DessertsDataService
+    let dataService: DessertsDataServiceProrocol
     var cancellables = Set<AnyCancellable>()
-    func subscribeToDessertDetails() {
-        dataService.$dessertDetails
-            .sink { [weak self] dessertDetails in
-                guard let dessertsDetails = dessertDetails else { return }
-                self?.dessertDetails = dessertsDetails
+
+    func fetchDetails(id: String) async {
+        do {
+            let newDetails = try await dataService.fetchDessertDetails(mealID: id)
+           await MainActor.run {
+                dessertDetails = newDetails
             }
-            .store(in: &cancellables)
-        dataService.$errorMessage
-            .sink { [weak self] message in
-                if message != "" && message != nil {
-                    self?.showAlert = true
-                    self?.errorMessage = message
-                }
-            }
-            .store(in: &cancellables)
-    }
-    func fetchDetails(id: String) {
-        dataService.fetchDessertDetails(mealID: id)
+        } catch  {
+            showAlert = true
+            errorMessage = error.localizedDescription
+        }
     }
 }

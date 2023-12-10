@@ -11,11 +11,11 @@ struct DessertDetailsView: View {
     
     @StateObject var vm: DessertDetailsViewModel
     
-    let dataService: DessertsDataService
+    let dataService: DessertsDataServiceProrocol
     let mealId: String
     let image: QuickAsyncImage
     
-    init(dataService: DessertsDataService, mealId: String, image: QuickAsyncImage) {
+    init(dataService: DessertsDataServiceProrocol, mealId: String, image: QuickAsyncImage) {
         _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService))
         self.dataService = dataService
         self.mealId = mealId
@@ -57,9 +57,9 @@ struct DessertDetailsView: View {
         }
         .navigationTitle(Text(vm.dessertDetails.meal))
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear(perform: {
-            vm.fetchDetails(id: mealId)
-        })
+        .task {
+            await vm.fetchDetails(id: mealId)
+        }
         .alert("Error", isPresented: $vm.showAlert, actions: {
             Button {
                 vm.showAlert = false

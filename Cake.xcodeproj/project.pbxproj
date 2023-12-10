@@ -21,7 +21,23 @@
 		0205AB1F2AFAFCE0003851EE /* QuickAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB1E2AFAFCE0003851EE /* QuickAsyncImage.swift */; };
 		0205AB212AFB15E5003851EE /* IngredientListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB202AFB15E5003851EE /* IngredientListView.swift */; };
 		0205AB3C2AFEA840003851EE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0205AB3B2AFEA840003851EE /* Launch Screen.storyboard */; };
+		026E53972B266550000C5E0F /* DessertDetailsViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026E53962B266550000C5E0F /* DessertDetailsViewModel_Tests.swift */; };
+		029037912B04200900501F07 /* CakeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029037902B04200900501F07 /* CakeTests.swift */; };
+		0290379A2B06B43F00501F07 /* MockDessertsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029037992B06B43F00501F07 /* MockDessertsDataService.swift */; };
+		0290379C2B06B85E00501F07 /* AllDessertsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0290379B2B06B85E00501F07 /* AllDessertsResponse.json */; };
+		0290379E2B06BAA900501F07 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0290379D2B06BAA900501F07 /* Mockable.swift */; };
+		02D8FF5C2B12B18300E8DDE0 /* DessertDetailsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		029037922B04200900501F07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0205AAF22AF9A55A003851EE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0205AAF92AF9A55A003851EE;
+			remoteInfo = Cake;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0205AAFA2AF9A55A003851EE /* Cake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cake.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,10 +55,25 @@
 		0205AB1E2AFAFCE0003851EE /* QuickAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAsyncImage.swift; sourceTree = "<group>"; };
 		0205AB202AFB15E5003851EE /* IngredientListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListView.swift; sourceTree = "<group>"; };
 		0205AB3B2AFEA840003851EE /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		026E53952B264BFE000C5E0F /* Cake.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cake.xctestplan; sourceTree = "<group>"; };
+		026E53962B266550000C5E0F /* DessertDetailsViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertDetailsViewModel_Tests.swift; sourceTree = "<group>"; };
+		0290378E2B04200900501F07 /* CakeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CakeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		029037902B04200900501F07 /* CakeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CakeTests.swift; sourceTree = "<group>"; };
+		029037992B06B43F00501F07 /* MockDessertsDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDessertsDataService.swift; sourceTree = "<group>"; };
+		0290379B2B06B85E00501F07 /* AllDessertsResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AllDessertsResponse.json; sourceTree = "<group>"; };
+		0290379D2B06BAA900501F07 /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
+		02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DessertDetailsResponse.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0205AAF72AF9A55A003851EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0290378B2B04200900501F07 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -55,7 +86,9 @@
 		0205AAF12AF9A55A003851EE = {
 			isa = PBXGroup;
 			children = (
+				026E53952B264BFE000C5E0F /* Cake.xctestplan */,
 				0205AAFC2AF9A55A003851EE /* Cake */,
+				0290378F2B04200900501F07 /* CakeTests */,
 				0205AAFB2AF9A55A003851EE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				0205AAFA2AF9A55A003851EE /* Cake.app */,
+				0290378E2B04200900501F07 /* CakeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -185,6 +219,27 @@
 			path = LaunchScreen;
 			sourceTree = "<group>";
 		};
+		0290378F2B04200900501F07 /* CakeTests */ = {
+			isa = PBXGroup;
+			children = (
+				02D8FF5D2B12B19000E8DDE0 /* MockJSONData */,
+				029037902B04200900501F07 /* CakeTests.swift */,
+				029037992B06B43F00501F07 /* MockDessertsDataService.swift */,
+				0290379D2B06BAA900501F07 /* Mockable.swift */,
+				026E53962B266550000C5E0F /* DessertDetailsViewModel_Tests.swift */,
+			);
+			path = CakeTests;
+			sourceTree = "<group>";
+		};
+		02D8FF5D2B12B19000E8DDE0 /* MockJSONData */ = {
+			isa = PBXGroup;
+			children = (
+				0290379B2B06B85E00501F07 /* AllDessertsResponse.json */,
+				02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */,
+			);
+			path = MockJSONData;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -205,6 +260,24 @@
 			productReference = 0205AAFA2AF9A55A003851EE /* Cake.app */;
 			productType = "com.apple.product-type.application";
 		};
+		0290378D2B04200900501F07 /* CakeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 029037962B04200900501F07 /* Build configuration list for PBXNativeTarget "CakeTests" */;
+			buildPhases = (
+				0290378A2B04200900501F07 /* Sources */,
+				0290378B2B04200900501F07 /* Frameworks */,
+				0290378C2B04200900501F07 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				029037932B04200900501F07 /* PBXTargetDependency */,
+			);
+			name = CakeTests;
+			productName = CakeTests;
+			productReference = 0290378E2B04200900501F07 /* CakeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -217,6 +290,10 @@
 				TargetAttributes = {
 					0205AAF92AF9A55A003851EE = {
 						CreatedOnToolsVersion = 15.0.1;
+					};
+					0290378D2B04200900501F07 = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 0205AAF92AF9A55A003851EE;
 					};
 				};
 			};
@@ -234,6 +311,7 @@
 			projectRoot = "";
 			targets = (
 				0205AAF92AF9A55A003851EE /* Cake */,
+				0290378D2B04200900501F07 /* CakeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -246,6 +324,15 @@
 				0205AB3C2AFEA840003851EE /* Launch Screen.storyboard in Resources */,
 				0205AB052AF9A55B003851EE /* Preview Assets.xcassets in Resources */,
 				0205AB022AF9A55B003851EE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0290378C2B04200900501F07 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02D8FF5C2B12B18300E8DDE0 /* DessertDetailsResponse.json in Resources */,
+				0290379C2B06B85E00501F07 /* AllDessertsResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +357,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0290378A2B04200900501F07 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				026E53972B266550000C5E0F /* DessertDetailsViewModel_Tests.swift in Sources */,
+				0290379A2B06B43F00501F07 /* MockDessertsDataService.swift in Sources */,
+				0290379E2B06BAA900501F07 /* Mockable.swift in Sources */,
+				029037912B04200900501F07 /* CakeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		029037932B04200900501F07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0205AAF92AF9A55A003851EE /* Cake */;
+			targetProxy = 029037922B04200900501F07 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0205AB062AF9A55B003851EE /* Debug */ = {
@@ -458,6 +564,42 @@
 			};
 			name = Release;
 		};
+		029037942B04200900501F07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MW75NQ7TG5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AaronWilson.CakeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cake.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cake";
+			};
+			name = Debug;
+		};
+		029037952B04200900501F07 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MW75NQ7TG5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AaronWilson.CakeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cake.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Cake";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -475,6 +617,15 @@
 			buildConfigurations = (
 				0205AB092AF9A55B003851EE /* Debug */,
 				0205AB0A2AF9A55B003851EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		029037962B04200900501F07 /* Build configuration list for PBXNativeTarget "CakeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				029037942B04200900501F07 /* Debug */,
+				029037952B04200900501F07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

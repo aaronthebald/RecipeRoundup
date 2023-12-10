@@ -13,44 +13,31 @@ class AllDessertsViewModel: ObservableObject {
     @Published var desserts: [Dessert] = []
     @Published var showAlert: Bool = false
     @Published var errorMessage: String?
-    @Published var loadingBuffer: Bool = true
     
-    init() {
-        subscribeDataService()
-        
+    init(dataService: DessertsDataServiceProrocol) {
+        self.dataService = dataService
     }
     
-    let dataService = DessertsDataService()
+    let dataService: DessertsDataServiceProrocol
     var cancellables = Set<AnyCancellable>()
     
-    func subscribeDataService() {
-        dataService.$desserts
-            .sink { [weak self] desserts in
-                self?.desserts = desserts
-                self?.sortDesserts()
-                self?.allowLoadingBuffer()
+    func fetchDesserts() async {
+        do {
+            let newDesserts = try await dataService.fetchAllDesserts()
+            await MainActor.run {
+                self.desserts = newDesserts
             }
-            .store(in: &cancellables)
-        
-        dataService.$errorMessage
-            .sink { [weak self] message in
-                if message != "" && message != nil {
-                    self?.showAlert = true
-                    self?.errorMessage = message
-                }
+        } catch {
+            await MainActor.run {
+                self.showAlert = true
+                self.errorMessage = "There was an error \(error.localizedDescription)"
             }
-            .store(in: &cancellables)
+        }
     }
     
     /// This function sorts the array in alphabetical order. The API Currently delivers the array in alphabetical order but if that should change the UX is preserved via this function.
     func sortDesserts() {
         let sortedDesserts = desserts.sorted(by: {$0.meal < $1.meal })
         desserts = sortedDesserts
-    }
-    
-    func allowLoadingBuffer() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5)  {
-            self.loadingBuffer = false
-        }
     }
 }

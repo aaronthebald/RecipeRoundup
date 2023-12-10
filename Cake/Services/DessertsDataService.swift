@@ -8,80 +8,60 @@
 import Foundation
 import Combine
 
+protocol DessertsDataServiceProrocol {
+    var desserts: [Dessert] { get set }
+    var dessertDetails: DessertDetailsModel? { get set }
+    var errorMessage: String? { get set }
+    
+    func fetchAllDesserts() async throws -> [Dessert]
+    func fetchDessertDetails(mealID: String) async throws -> DessertDetailsModel
+    
+}
 
-class DessertsDataService: ObservableObject {
+class DessertsDataService: ObservableObject, DessertsDataServiceProrocol {
    
-    init() {
-        fetchAllDesserts()
-    }
     @Published var desserts: [Dessert] = []
     @Published var dessertDetails: DessertDetailsModel?
     @Published var errorMessage: String?
     
+    let allDessertsURLString = "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert"
+    let dessertDetailsString = "https://themealdb.com/api/json/v1/1/lookup.php?i="
     var cancellables = Set<AnyCancellable>()
-    func fetchAllDesserts()  {
-        
-        guard let url = URL(string: "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert") else {
-            print("There was an error with the allDessertsURL")
-            self.errorMessage = "There was an error with the allDessertsURL"
-            return
-        }
-        
-        URLSession.shared.dataTaskPublisher(for: url)
-            .subscribe(on: DispatchQueue.main)
-            .receive(on: DispatchQueue.main)
-            .tryMap(handleOutput)
-            .decode(type: AllDessertsResponse.self, decoder: JSONDecoder())
-            .sink { (completion) in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    print("error downloading data\(error)")
-                    self.errorMessage = error.localizedDescription
-                }
-            } receiveValue: { [weak self] returnedResponse in
-                self?.desserts = returnedResponse.meals
-            }
-            .store(in: &cancellables)
+    
+    enum DataServiceError: Error {
+        case badURL, badResponse, invalidURL, decodingError
     }
     
-    func fetchDessertDetails(mealID: String)  {
-        
-        guard let url = URL(string: "https://themealdb.com/api/json/v1/1/lookup.php?i=\(mealID)") else { 
-            print("There was an error with the dessertDetails URL")
-            self.errorMessage = "There was an error with the dessertDetails URL"
-            return
-        }
-        
-        URLSession.shared.dataTaskPublisher(for: url)
-            .subscribe(on: DispatchQueue.main)
-            .receive(on: DispatchQueue.main)
-            .tryMap(handleOutput)
-            .decode(type: DessertDetailsResponseModel.self, decoder: JSONDecoder())
-            .sink { (completion) in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    print("error downloading data\(error)")
-                    self.errorMessage = error.localizedDescription
-                }
-            } receiveValue: { [weak self] returnedResponse in
-                self?.dessertDetails = returnedResponse.meals.first
+    func fetchAllDesserts() async throws -> [Dessert] {
+        guard let url = URL(string: allDessertsURLString) else {  throw DataServiceError.invalidURL }
+        var dessetsArray: [Dessert] = []
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+                throw DataServiceError.badResponse
             }
-            .store(in: &cancellables)
+            let decodedData = try JSONDecoder().decode(AllDessertsResponse.self, from: data)
+            dessetsArray = decodedData.meals
+        } catch {
+            throw error
+        }
+        return dessetsArray
     }
     
-    private func handleOutput(output: URLSession.DataTaskPublisher.Output) throws -> Data {
-        
-        guard
-            let response = output.response as? HTTPURLResponse,
-                response.statusCode >= 200 && response.statusCode < 300 else {
-            self.errorMessage = "There is a problem with the server"
-            throw URLError(.badServerResponse)
+    func fetchDessertDetails(mealID: String) async throws -> DessertDetailsModel {
+        guard let url = URL(string: dessertDetailsString + mealID) else { throw DataServiceError.badURL}
+        do {
+            let (data, response) = try await  URLSession.shared.data(from: url)
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+                throw DataServiceError.badResponse
+            }
+            let details = try JSONDecoder().decode(DessertDetailsResponseModel.self, from: data)
+            guard let dessertDetails = details.meals.first else { throw DataServiceError.decodingError }
+            return dessertDetails
+        } catch {
+            throw error
         }
-        return output.data
     }
+    
 }
 

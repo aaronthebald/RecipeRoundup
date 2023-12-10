@@ -15,7 +15,12 @@ struct DessertRowView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .bottom) {
-                image
+                AsyncImage(url: URL(string: dessert.mealThumb), content: { image in
+                    image
+                        .resizable()
+                }, placeholder: {
+                    ProgressView()
+                })
                     .frame(width: 100, height: 100) // default alignment is center
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                 

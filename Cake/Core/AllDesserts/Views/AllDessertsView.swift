@@ -11,7 +11,7 @@ import SwiftUI
 struct AllDessertsView: View {
     
     
-    @StateObject var viewModel = AllDessertsViewModel()
+    @StateObject var viewModel = AllDessertsViewModel(dataService: DessertsDataService())
     
     var body: some View {
         NavigationStack {
@@ -24,17 +24,13 @@ struct AllDessertsView: View {
                             DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, image: image)
                         } label: {
                             DessertRowView(dessert: dessert, image: image)
-                                .overlay {
-                                    if viewModel.loadingBuffer {
-                                        Rectangle()
-                                            .fill(.ultraThinMaterial)
-                                    }
-                                }
                         }
-                        .disabled(viewModel.loadingBuffer)
                     }
                 }
                 .padding(.horizontal, 4)
+            }
+            .task {
+                await viewModel.fetchDesserts()
             }
             .alert("Error", isPresented: $viewModel.showAlert, actions: {
                 Button {
