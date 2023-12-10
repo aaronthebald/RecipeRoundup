@@ -2,6 +2,8 @@
 
 Cake is an open-source iOS app that allows users to discover and explore delicious dessert recipes. Built with Swift, SwiftUI, and Combine, Cake! leverages TheMealDB API to provide a delightful experience for users with a sweet tooth.
 
+UPDATE! Networking is now being handled with async/await. Also, Unit tests have been added!
+
 Features
 
 Browse Dessert Recipes: Explore a wide variety of dessert recipes, from classic cakes to modern treats.
