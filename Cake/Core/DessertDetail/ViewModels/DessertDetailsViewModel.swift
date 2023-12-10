@@ -27,6 +27,7 @@ class DessertDetailsViewModel: ObservableObject {
                 dessertDetails = newDetails
             }
         } catch  {
+            showAlert = true
             errorMessage = error.localizedDescription
         }
     }

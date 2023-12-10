@@ -7,17 +7,18 @@
 
 import XCTest
 @testable import Cake
-import Combine
 
 final class CakeTests: XCTestCase {
     
-    var cancellables = Set<AnyCancellable>()
+    var vm: AllDessertsViewModel?
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        vm = AllDessertsViewModel(dataService: MockDessertsDataService())
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        vm = nil
     }
 
     func testExample() throws {
@@ -28,27 +29,65 @@ final class CakeTests: XCTestCase {
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func test_AllDessertsViewModel_FetchDesserts_notNil() async {
+//        given
+        let dataArray: [Dessert] = []
+//        when
+        await vm?.fetchDesserts()
+//        then
+        XCTAssertNotEqual(dataArray, vm?.desserts)
     }
     
+    func test_AllDessertsViewModel_SortDesserts_isSortingCorrectly() async {
+//        given
+        let dessert = Dessert(meal: "AAAA", mealThumb: "", id: "")
+//        when
+        await vm?.fetchDesserts()
+        vm?.desserts.append(dessert)
+        vm?.sortDesserts()
+//        then
+        XCTAssertTrue(vm?.desserts.first == dessert)
+    }
     
-    func test_AllDessertsViewModel_sortDesserts_isSorting() {
-        let viewModel = AllDessertsViewModel(dataService: MockDessertsDataService())
-        let expectation = XCTestExpectation(description: "loading buffer should have changed")
-        viewModel.$desserts
-            .dropFirst()
-            .sink { desserts in
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-        
-        var desserts = viewModel.desserts.sorted(by: {$0.meal < $1.meal })
-        
-        
+    func test_AllDessertsViewModel_SortDesserts_isSortingCorrectly2() async {
+//        given
+        let dessert = Dessert(meal: "ZZZZ", mealThumb: "", id: "")
+//        when
+        await vm?.fetchDesserts()
+        vm?.desserts.append(dessert)
+        vm?.sortDesserts()
+//        then
+        XCTAssertFalse(vm?.desserts.first == dessert)
+    }
+    
+    func test_AllDessertsViewModel_FetchDesserts_showAlertIsFalse() async {
+//        given
+        let falseBool = false
+//        when
+        await vm?.fetchDesserts()
+//        then
+        XCTAssertEqual(vm?.showAlert, falseBool)
     }
 
+    func test_AllDessertsViewModel_showAlert_isTrue() async {
+//        given
+        vm = nil
+        let viewModel = AllDessertsViewModel(dataService: MockDessertsDataServiceError())
+//        when
+       await viewModel.fetchDesserts()
+//        then
+        XCTAssertTrue(viewModel.showAlert)
+        
+    }
+    
+    func test_AllDessertsViewModel_errorMessage_isNotNil() async {
+//        given
+        vm = nil
+        let viewModel = AllDessertsViewModel(dataService: MockDessertsDataServiceError())
+//        when
+        await viewModel.fetchDesserts()
+//        then
+        XCTAssertNotNil(viewModel.errorMessage)
+    }
 }

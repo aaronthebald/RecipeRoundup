@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "F8C08978-985B-4DAB-910B-D2894140DB7E",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Cake.xcodeproj",
+      "identifier" : "0205AAF92AF9A55A003851EE",
+      "name" : "Cake"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Cake.xcodeproj",
+        "identifier" : "0290378D2B04200900501F07",
+        "name" : "CakeTests"
+      }
+    }
+  ],
+  "version" : 1
+}

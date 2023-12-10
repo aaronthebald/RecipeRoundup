@@ -28,3 +28,26 @@ class MockDessertsDataService: DessertsDataServiceProrocol, Mockable {
         return details
     }
 }
+
+class MockDessertsDataServiceError: DessertsDataServiceProrocol, Mockable {
+    enum DataServiceError: Error {
+        case badURL, badResponse, invalidURL, decodingError
+    }
+    var desserts: [Cake.Dessert] = []
+    
+    var dessertDetails: Cake.DessertDetailsModel?
+    
+    var errorMessage: String?
+    
+    func fetchAllDesserts() async throws -> [Cake.Dessert] {
+        let error = DataServiceError.badResponse
+        throw error
+    }
+    
+    func fetchDessertDetails(mealID: String) async throws -> Cake.DessertDetailsModel {
+        let error = DataServiceError.badResponse
+        throw error
+    }
+    
+    
+}

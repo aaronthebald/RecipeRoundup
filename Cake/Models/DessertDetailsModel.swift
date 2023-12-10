@@ -72,7 +72,7 @@ struct DessertDetailsResponseModel: Codable {
     let meals: [DessertDetailsModel]
 }
 
-struct DessertDetailsModel: Codable {
+struct DessertDetailsModel: Codable, Equatable {
     
     let id: String
     let meal: String
