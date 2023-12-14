@@ -21,6 +21,7 @@
 		0205AB1F2AFAFCE0003851EE /* QuickAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB1E2AFAFCE0003851EE /* QuickAsyncImage.swift */; };
 		0205AB212AFB15E5003851EE /* IngredientListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB202AFB15E5003851EE /* IngredientListView.swift */; };
 		0205AB3C2AFEA840003851EE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0205AB3B2AFEA840003851EE /* Launch Screen.storyboard */; };
+		025D3B632B29453F009759C2 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025D3B622B29453F009759C2 /* CacheService.swift */; };
 		026E53972B266550000C5E0F /* DessertDetailsViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026E53962B266550000C5E0F /* DessertDetailsViewModel_Tests.swift */; };
 		029037912B04200900501F07 /* CakeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029037902B04200900501F07 /* CakeTests.swift */; };
 		0290379A2B06B43F00501F07 /* MockDessertsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029037992B06B43F00501F07 /* MockDessertsDataService.swift */; };
@@ -55,6 +56,7 @@
 		0205AB1E2AFAFCE0003851EE /* QuickAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAsyncImage.swift; sourceTree = "<group>"; };
 		0205AB202AFB15E5003851EE /* IngredientListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListView.swift; sourceTree = "<group>"; };
 		0205AB3B2AFEA840003851EE /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		025D3B622B29453F009759C2 /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
 		026E53952B264BFE000C5E0F /* Cake.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cake.xctestplan; sourceTree = "<group>"; };
 		026E53962B266550000C5E0F /* DessertDetailsViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertDetailsViewModel_Tests.swift; sourceTree = "<group>"; };
 		0290378E2B04200900501F07 /* CakeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CakeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				0205AB0E2AF9A63D003851EE /* DessertsDataService.swift */,
+				025D3B622B29453F009759C2 /* CacheService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				0205AB002AF9A55A003851EE /* AllDessertsView.swift in Sources */,
 				0205AAFE2AF9A55A003851EE /* CakeApp.swift in Sources */,
 				0205AB1A2AFAEA8E003851EE /* DessertDetailsView.swift in Sources */,
+				025D3B632B29453F009759C2 /* CacheService.swift in Sources */,
 				0205AB142AF9C2E0003851EE /* AllDessertsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
