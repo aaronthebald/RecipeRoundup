@@ -28,13 +28,11 @@ class CacheService: ObservableObject, CacheServiceProtocol {
     }()
     
     func addImage(imageData: NSData, thumbURL: String) {
-        print("saving data to cache")
         imageCache.setObject(imageData, forKey: thumbURL as NSString)
     }
     
     func getImage(thumbURL: String) -> NSData? {
         if let data = imageCache.object(forKey: thumbURL as NSString) {
-            print("getting image from cache")
             return data
         }
         return nil

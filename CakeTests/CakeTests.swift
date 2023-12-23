@@ -13,7 +13,7 @@ final class CakeTests: XCTestCase {
     var vm: AllDessertsViewModel?
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        vm = AllDessertsViewModel(dataService: MockDessertsDataService())
+        vm = AllDessertsViewModel(dataService: MockDessertsDataService(), cacheService: CacheService())
     }
 
     override func tearDownWithError() throws {
@@ -73,7 +73,7 @@ final class CakeTests: XCTestCase {
     func test_AllDessertsViewModel_showAlert_isTrue() async {
 //        given
         vm = nil
-        let viewModel = AllDessertsViewModel(dataService: MockDessertsDataServiceError())
+        let viewModel = AllDessertsViewModel(dataService: MockDessertsDataServiceError(), cacheService: CacheService())
 //        when
        await viewModel.fetchDesserts()
 //        then
@@ -84,7 +84,7 @@ final class CakeTests: XCTestCase {
     func test_AllDessertsViewModel_errorMessage_isNotNil() async {
 //        given
         vm = nil
-        let viewModel = AllDessertsViewModel(dataService: MockDessertsDataServiceError())
+        let viewModel = AllDessertsViewModel(dataService: MockDessertsDataServiceError(), cacheService: CacheService())
 //        when
         await viewModel.fetchDesserts()
 //        then
