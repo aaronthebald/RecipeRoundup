@@ -11,19 +11,30 @@ import SwiftUI
 struct AllDessertsView: View {
     
     
-    @StateObject var viewModel = AllDessertsViewModel(dataService: DessertsDataService())
+    @StateObject var viewModel = AllDessertsViewModel(dataService: DessertsDataService(), cacheService: CacheService())
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading) {
+                LazyVStack(alignment: .leading) {
                     ForEach(viewModel.desserts) { dessert in
-                        // creating Image here to be passed into dependent views
-                        let image = QuickAsyncImage(url: URL(string: dessert.mealThumb))
-                        NavigationLink {
-                            DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, image: image)
-                        } label: {
-                            DessertRowView(dessert: dessert, image: image)
+                        if let cacheData = viewModel.cacheService.getImage(thumbURL: dessert.mealThumb) {
+                            NavigationLink {
+                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data)
+                            } label: {
+                                DessertRowView(dessert: dessert, imageData: cacheData as Data)
+                            }
+                        }
+                        else {
+                            NavigationLink {
+                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.mealThumb] ?? nil)
+                            } label: {
+                                DessertRowView(dessert: dessert, imageData: viewModel.imageData[dessert.mealThumb] ?? nil )
+                                    .tint(.red)
+                            }
+                            .task {
+                                await viewModel.getImageData(thumbURL: dessert.mealThumb)
+                            }
                         }
                     }
                 }
@@ -49,4 +60,15 @@ struct AllDessertsView: View {
 
 #Preview {
     AllDessertsView()
+}
+
+extension AllDessertsView {
+    
+//    private func getImage(url: String) -> some View {
+//        guard let data = viewModel.imageData[url] else { return Image(systemName: "questionmark") }
+//        guard let image = UIImage(data: data) else { return Image(systemName: "questionmark") }
+//        viewModel.cacheService.addImage(image: image, thumbURL: url)
+//        let returnedImage = Image(uiImage: image)
+//        return returnedImage
+//    }
 }

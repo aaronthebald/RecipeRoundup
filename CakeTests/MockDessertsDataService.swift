@@ -6,8 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
 @testable import Cake
 class MockDessertsDataService: DessertsDataServiceProrocol, Mockable {
+    func getImageData(thumbnailURL: String) async throws -> Data {
+        let image = UIImage(named: "stockImage")
+        let data = image!.jpegData(compressionQuality: 1.0)
+        return data!
+    }
+    
     enum DataServiceError: Error {
         case badURL, badResponse, invalidURL, decodingError
     }
@@ -30,6 +37,11 @@ class MockDessertsDataService: DessertsDataServiceProrocol, Mockable {
 }
 
 class MockDessertsDataServiceError: DessertsDataServiceProrocol, Mockable {
+    func getImageData(thumbnailURL: String) async throws -> Data {
+        let error = DataServiceError.decodingError
+        throw error
+    }
+    
     enum DataServiceError: Error {
         case badURL, badResponse, invalidURL, decodingError
     }

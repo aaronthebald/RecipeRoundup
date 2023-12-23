@@ -13,46 +13,59 @@ struct DessertDetailsView: View {
     
     let dataService: DessertsDataServiceProrocol
     let mealId: String
-    let image: QuickAsyncImage
+    let imageData: Data?
     
-    init(dataService: DessertsDataServiceProrocol, mealId: String, image: QuickAsyncImage) {
+    init(dataService: DessertsDataServiceProrocol, mealId: String, imageData: Data?) {
         _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService))
         self.dataService = dataService
         self.mealId = mealId
-        self.image = image
+        self.imageData = imageData
     }
     
     var body: some View {
         ScrollView {
-                image
-            
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("Region:")
-                        Text(vm.dessertDetails.area ?? "")
-                    }
-                    .font(.title3)
-                    
-                    Divider()
-                    
-                    Text("Ingredients")
-                        .font(.headline)
-                    
-                    IngredientListView(dessert: vm.dessertDetails)
-                    
-                    Divider()
-                    
-                    Text("Instructions")
-                        .font(.headline)
-                    
-                    Text(vm.dessertDetails.instructions ?? "")
-                    
-                    Spacer()
-                    
-                    links
+            if imageData != nil {
+                if let image = UIImage(data: imageData!) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
                 }
-                .padding(.horizontal)
+            }
+             else {
+                Image(systemName: "questionmark")
+                    .resizable()
+                    .scaledToFit()
+            }
+            
+            
+            
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Region:")
+                    Text(vm.dessertDetails.area ?? "")
+                }
+                .font(.title3)
+                
+                Divider()
+                
+                Text("Ingredients")
+                    .font(.headline)
+                
+                IngredientListView(dessert: vm.dessertDetails)
+                
+                Divider()
+                
+                Text("Instructions")
+                    .font(.headline)
+                
+                Text(vm.dessertDetails.instructions ?? "")
+                
                 Spacer()
+                
+                links
+            }
+            .padding(.horizontal)
+            Spacer()
             
         }
         .navigationTitle(Text(vm.dessertDetails.meal))
