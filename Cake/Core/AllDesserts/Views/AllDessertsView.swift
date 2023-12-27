@@ -62,13 +62,3 @@ struct AllDessertsView: View {
     AllDessertsView()
 }
 
-extension AllDessertsView {
-    
-//    private func getImage(url: String) -> some View {
-//        guard let data = viewModel.imageData[url] else { return Image(systemName: "questionmark") }
-//        guard let image = UIImage(data: data) else { return Image(systemName: "questionmark") }
-//        viewModel.cacheService.addImage(image: image, thumbURL: url)
-//        let returnedImage = Image(uiImage: image)
-//        return returnedImage
-//    }
-}
