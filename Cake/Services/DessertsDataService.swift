@@ -64,7 +64,7 @@ class DessertsDataService: ObservableObject, DessertsDataServiceProrocol {
     }
     
     func getImageData(thumbnailURL: String) async throws -> Data {
-        guard let url = URL(string: thumbnailURL) else { throw DataServiceError.badURL}
+        guard let url = URL(string: thumbnailURL) else { throw DataServiceError.badURL }
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             return data

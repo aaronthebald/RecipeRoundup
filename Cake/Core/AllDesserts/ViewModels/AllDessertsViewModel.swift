@@ -48,8 +48,8 @@ class AllDessertsViewModel: ObservableObject {
     func getImageData(thumbURL: String) async {
         do {
             let returnedData = try await dataService.getImageData(thumbnailURL: thumbURL)
-            cacheService.addImage(imageData: returnedData as NSData, thumbURL: thumbURL)
             await MainActor.run {
+                cacheService.addImage(imageData: returnedData as NSData, thumbURL: thumbURL)
                 imageData.updateValue(returnedData, forKey: thumbURL)
             }
         } catch {
