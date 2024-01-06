@@ -15,8 +15,8 @@ struct DessertRowView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .bottom) {
-                if imageData != nil {
-                    if let image = UIImage(data: imageData!) {
+                if let data = imageData {
+                    if let image = UIImage(data: data) {
                         Image(uiImage: image)
                         .resizable()
                         .frame(width: 100, height: 100)
