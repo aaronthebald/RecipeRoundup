@@ -15,9 +15,8 @@ struct DessertRowView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .bottom) {
-//                if let image = image {
-                if imageData != nil {
-                    if let image = UIImage(data: imageData!) {
+                if let data = imageData {
+                    if let image = UIImage(data: data) {
                         Image(uiImage: image)
                         .resizable()
                         .frame(width: 100, height: 100)
@@ -29,18 +28,6 @@ struct DessertRowView: View {
                         .frame(width: 100, height: 100)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
-                        
-//                } else {
-//                    AsyncImage(url: URL(string: dessert.mealThumb), content: { image in
-//                        image
-//                            .resizable()
-//                    }, placeholder: {
-//                        ProgressView()
-//                    })
-//                    .frame(width: 100, height: 100)
-//                    .clipShape(RoundedRectangle(cornerRadius: 20))
-//                }
-                
                 
                 Text(dessert.meal)
                     .font(.title2)
