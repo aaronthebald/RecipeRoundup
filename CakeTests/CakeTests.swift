@@ -36,7 +36,6 @@ final class CakeTests: XCTestCase {
 //        when
         await vm?.fetchDesserts()
         vm?.desserts.append(dessert)
-        vm?.sortDesserts()
 //        then
         XCTAssertTrue(vm?.desserts.first == dessert)
     }
@@ -47,7 +46,6 @@ final class CakeTests: XCTestCase {
 //        when
         await vm?.fetchDesserts()
         vm?.desserts.append(dessert)
-        vm?.sortDesserts()
 //        then
         XCTAssertFalse(vm?.desserts.first == dessert)
     }
