@@ -16,8 +16,11 @@ struct AllDessertsView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
+                if viewModel.filteredDesserts.isEmpty {
+                    ContentUnavailableView("No Desserts Found", systemImage: "exclamationmark.magnifyingglass")
+                }
                 LazyVStack(alignment: .leading) {
-                    ForEach(viewModel.desserts) { dessert in
+                    ForEach(viewModel.filteredDesserts) { dessert in
                         if let cacheData = viewModel.cacheService.getImage(thumbURL: dessert.mealThumb) {
                             NavigationLink {
                                 DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data)
@@ -30,7 +33,6 @@ struct AllDessertsView: View {
                                 DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.mealThumb] ?? nil)
                             } label: {
                                 DessertRowView(dessert: dessert, imageData: viewModel.imageData[dessert.mealThumb] ?? nil )
-                                    .tint(.red)
                             }
                             .task {
                                 await viewModel.getImageData(thumbURL: dessert.mealThumb)
@@ -55,6 +57,7 @@ struct AllDessertsView: View {
             })
             .navigationTitle("All Desserts")
         }
+        .searchable(text: $viewModel.filterString)
     }
 }
 

@@ -36,9 +36,8 @@ final class CakeTests: XCTestCase {
 //        when
         await vm?.fetchDesserts()
         vm?.desserts.append(dessert)
-        vm?.sortDesserts()
 //        then
-        XCTAssertTrue(vm?.desserts.first == dessert)
+        XCTAssertTrue(vm?.filteredDesserts.first == dessert)
     }
     
     func test_AllDessertsViewModel_SortDesserts_isSortingCorrectly2() async {
@@ -47,9 +46,8 @@ final class CakeTests: XCTestCase {
 //        when
         await vm?.fetchDesserts()
         vm?.desserts.append(dessert)
-        vm?.sortDesserts()
 //        then
-        XCTAssertFalse(vm?.desserts.first == dessert)
+        XCTAssertFalse(vm?.filteredDesserts.first == dessert)
     }
     
     func test_AllDessertsViewModel_FetchDesserts_showAlertIsFalse() async {
