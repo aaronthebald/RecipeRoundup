@@ -42,8 +42,14 @@ struct AllDessertsView: View {
                 }
                 .padding(.horizontal, 4)
             }
+            .onChange(of: viewModel.selectedCategory, { oldValue, newValue in
+                Task {
+                    await viewModel.fetchDesserts(category: newValue)
+                }
+            })
             .task {
-                await viewModel.fetchDesserts()
+                await viewModel.fetchDesserts(category: viewModel.selectedCategory)
+                await viewModel.fetchCategories()
             }
             .alert("Error", isPresented: $viewModel.showAlert, actions: {
                 Button {
@@ -55,8 +61,29 @@ struct AllDessertsView: View {
             }, message: {
                 Text(viewModel.errorMessage ?? "")
             })
-            .navigationTitle("All Desserts")
+            .navigationTitle(viewModel.selectedCategory)
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarLeading) {
+                    Menu {
+                        Picker(selection: $viewModel.selectedCategory) {
+                            ForEach(viewModel.categories, id: \.idCategory) { category in
+                                Text(category.category)
+                                    .tag(category.category)
+                            }
+                        } label: {
+                            
+                        }
+
+                    }
+                label: {
+                    HStack {
+                        Text("Categories")
+                    }
+                }
+                }
+            })
         }
+        
         .searchable(text: $viewModel.filterString)
     }
 }

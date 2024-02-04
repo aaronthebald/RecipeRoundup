@@ -16,6 +16,8 @@ class AllDessertsViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var imageData: [String : Data] = [:]
     @Published var filterString: String = ""
+    @Published var categories: [Category] = []
+    @Published var selectedCategory: String = "Beef"
     
     init(dataService: DessertsDataServiceProrocol, cacheService: CacheServiceProtocol) {
         self.dataService = dataService
@@ -36,9 +38,23 @@ class AllDessertsViewModel: ObservableObject {
         }
     }
     
-    func fetchDesserts() async {
+    func fetchCategories() async {
         do {
-            let newDesserts = try await dataService.fetchAllDesserts()
+            let categories = try await dataService.fetchAllCatagories()
+            await MainActor.run {
+                self.categories = categories
+            }
+        } catch {
+            await MainActor.run {
+                self.showAlert = true
+                self.errorMessage = "There was an error \(error.localizedDescription)"
+            }
+        }
+    }
+    
+    func fetchDesserts(category: String) async {
+        do {
+            let newDesserts = try await dataService.fetchAllDesserts(category: category)
             await MainActor.run {
                 self.desserts = newDesserts
             }

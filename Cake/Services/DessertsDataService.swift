@@ -13,9 +13,10 @@ protocol DessertsDataServiceProrocol {
     var dessertDetails: DessertDetailsModel? { get set }
     var errorMessage: String? { get set }
     
-    func fetchAllDesserts() async throws -> [Dessert]
+    func fetchAllDesserts(category: String) async throws -> [Dessert]
     func fetchDessertDetails(mealID: String) async throws -> DessertDetailsModel
     func getImageData(thumbnailURL: String) async throws -> Data 
+    func fetchAllCatagories() async throws -> [Category]
 }
 
 class DessertsDataService: ObservableObject, DessertsDataServiceProrocol {
@@ -24,7 +25,8 @@ class DessertsDataService: ObservableObject, DessertsDataServiceProrocol {
     @Published var dessertDetails: DessertDetailsModel?
     @Published var errorMessage: String?
     
-    let allDessertsURLString = "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert"
+    let allMealCatagories = "https://themealdb.com/api/json/v1/1/categories.php"
+    let allDessertsURLString = "https://themealdb.com/api/json/v1/1/filter.php?c="
     let dessertDetailsString = "https://themealdb.com/api/json/v1/1/lookup.php?i="
     var cancellables = Set<AnyCancellable>()
     
@@ -32,8 +34,24 @@ class DessertsDataService: ObservableObject, DessertsDataServiceProrocol {
         case badURL, badResponse, invalidURL, decodingError
     }
     
-    func fetchAllDesserts() async throws -> [Dessert] {
-        guard let url = URL(string: allDessertsURLString) else {  throw DataServiceError.invalidURL }
+    func fetchAllCatagories() async throws -> [Category] {
+        guard let url = URL(string: allMealCatagories) else {  throw DataServiceError.invalidURL }
+        var categories: [Category] = []
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+                throw DataServiceError.badResponse
+            }
+            let decodedData = try JSONDecoder().decode(CategoryResponse.self, from: data)
+            categories = decodedData.categories
+        } catch {
+            throw error
+        }
+        return categories
+    }
+    
+    func fetchAllDesserts(category: String) async throws -> [Dessert] {
+        guard let url = URL(string: allDessertsURLString + category) else {  throw DataServiceError.invalidURL }
         var dessetsArray: [Dessert] = []
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
