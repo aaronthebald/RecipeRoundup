@@ -15,6 +15,7 @@ class AllDessertsViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var errorMessage: String?
     @Published var imageData: [String : Data] = [:]
+    @Published var filterString: String = ""
     
     init(dataService: DessertsDataServiceProrocol, cacheService: CacheServiceProtocol) {
         self.dataService = dataService
@@ -24,6 +25,16 @@ class AllDessertsViewModel: ObservableObject {
     let dataService: DessertsDataServiceProrocol
     let cacheService: CacheServiceProtocol
     var cancellables = Set<AnyCancellable>()
+    
+    var filteredDesserts: [Dessert] {
+        if filterString == "" {
+           let sortedDesserts = desserts.sorted(by: {$0.meal < $1.meal})
+            return sortedDesserts
+        } else {
+            let sortedDesserts = desserts.sorted(by: {$0.meal < $1.meal})
+            return sortedDesserts.filter({$0.meal.contains(filterString)})
+        }
+    }
     
     func fetchDesserts() async {
         do {
@@ -39,12 +50,6 @@ class AllDessertsViewModel: ObservableObject {
         }
     }
     
-    /// This function sorts the array in alphabetical order. The API Currently delivers the array in alphabetical order but if that should change the UX is preserved via this function.
-    func sortDesserts() {
-        let sortedDesserts = desserts.sorted(by: {$0.meal < $1.meal })
-        desserts = sortedDesserts
-    }
-    
     func getImageData(thumbURL: String) async {
         do {
             let returnedData = try await dataService.getImageData(thumbnailURL: thumbURL)
@@ -54,10 +59,13 @@ class AllDessertsViewModel: ObservableObject {
             }
         } catch {
             await MainActor.run {
-                self.showAlert = true
-                self.errorMessage = error.localizedDescription
+                if error.localizedDescription == "cancelled" {
+                    return
+                } else {
+                    self.showAlert = true
+                    self.errorMessage = error.localizedDescription
+                }
             }
         }
-        
     }
 }
