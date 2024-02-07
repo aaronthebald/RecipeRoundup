@@ -28,6 +28,12 @@
 		0290379C2B06B85E00501F07 /* AllDessertsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0290379B2B06B85E00501F07 /* AllDessertsResponse.json */; };
 		0290379E2B06BAA900501F07 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0290379D2B06BAA900501F07 /* Mockable.swift */; };
 		02A134E82B6FE4250009DF09 /* CategoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A134E72B6FE4250009DF09 /* CategoryResponse.swift */; };
+		02A134EB2B7024D40009DF09 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A134EA2B7024D40009DF09 /* HomeView.swift */; };
+		02A134ED2B703B480009DF09 /* AllCocktailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A134EC2B703B480009DF09 /* AllCocktailsResponse.swift */; };
+		02A134F02B703DC40009DF09 /* AllDrinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A134EF2B703DC40009DF09 /* AllDrinksView.swift */; };
+		02A134F22B703E1D0009DF09 /* AllDrinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A134F12B703E1D0009DF09 /* AllDrinksViewModel.swift */; };
+		02A134F42B7307A70009DF09 /* AllDrinksResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 02A134F32B7307A70009DF09 /* AllDrinksResponse.json */; };
+		02A134F62B73082E0009DF09 /* CocktailDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 02A134F52B73082E0009DF09 /* CocktailDetails.json */; };
 		02D8FF5C2B12B18300E8DDE0 /* DessertDetailsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +72,12 @@
 		0290379B2B06B85E00501F07 /* AllDessertsResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AllDessertsResponse.json; sourceTree = "<group>"; };
 		0290379D2B06BAA900501F07 /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
 		02A134E72B6FE4250009DF09 /* CategoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryResponse.swift; sourceTree = "<group>"; };
+		02A134EA2B7024D40009DF09 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		02A134EC2B703B480009DF09 /* AllCocktailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCocktailsResponse.swift; sourceTree = "<group>"; };
+		02A134EF2B703DC40009DF09 /* AllDrinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDrinksView.swift; sourceTree = "<group>"; };
+		02A134F12B703E1D0009DF09 /* AllDrinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDrinksViewModel.swift; sourceTree = "<group>"; };
+		02A134F32B7307A70009DF09 /* AllDrinksResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AllDrinksResponse.json; sourceTree = "<group>"; };
+		02A134F52B73082E0009DF09 /* CocktailDetails.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CocktailDetails.json; sourceTree = "<group>"; };
 		02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DessertDetailsResponse.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,6 +173,7 @@
 				0205AB112AF9A677003851EE /* AllDessertsResponse.swift */,
 				0205AB172AFAE5F8003851EE /* DessertDetailsModel.swift */,
 				02A134E72B6FE4250009DF09 /* CategoryResponse.swift */,
+				02A134EC2B703B480009DF09 /* AllCocktailsResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -177,6 +190,8 @@
 		0205AB2F2AFE9971003851EE /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				02A134EE2B703DAE0009DF09 /* Drinks */,
+				02A134E92B7024BB0009DF09 /* Home */,
 				0205AB382AFEA76E003851EE /* LaunchScreen */,
 				0205AB0B2AF9A5D4003851EE /* AllDesserts */,
 				0205AB0C2AF9A5F2003851EE /* DessertDetail */,
@@ -237,11 +252,30 @@
 			path = CakeTests;
 			sourceTree = "<group>";
 		};
+		02A134E92B7024BB0009DF09 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				02A134EA2B7024D40009DF09 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		02A134EE2B703DAE0009DF09 /* Drinks */ = {
+			isa = PBXGroup;
+			children = (
+				02A134EF2B703DC40009DF09 /* AllDrinksView.swift */,
+				02A134F12B703E1D0009DF09 /* AllDrinksViewModel.swift */,
+			);
+			path = Drinks;
+			sourceTree = "<group>";
+		};
 		02D8FF5D2B12B19000E8DDE0 /* MockJSONData */ = {
 			isa = PBXGroup;
 			children = (
 				0290379B2B06B85E00501F07 /* AllDessertsResponse.json */,
 				02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */,
+				02A134F32B7307A70009DF09 /* AllDrinksResponse.json */,
+				02A134F52B73082E0009DF09 /* CocktailDetails.json */,
 			);
 			path = MockJSONData;
 			sourceTree = "<group>";
@@ -337,7 +371,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02A134F62B73082E0009DF09 /* CocktailDetails.json in Resources */,
 				02D8FF5C2B12B18300E8DDE0 /* DessertDetailsResponse.json in Resources */,
+				02A134F42B7307A70009DF09 /* AllDrinksResponse.json in Resources */,
 				0290379C2B06B85E00501F07 /* AllDessertsResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +386,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0205AB212AFB15E5003851EE /* IngredientListView.swift in Sources */,
+				02A134EB2B7024D40009DF09 /* HomeView.swift in Sources */,
+				02A134F22B703E1D0009DF09 /* AllDrinksViewModel.swift in Sources */,
 				0205AB0F2AF9A63D003851EE /* DessertsDataService.swift in Sources */,
 				0205AB122AF9A677003851EE /* AllDessertsResponse.swift in Sources */,
 				0205AB1C2AFAEAE9003851EE /* DessertDetailsViewModel.swift in Sources */,
@@ -359,7 +397,9 @@
 				0205AB002AF9A55A003851EE /* AllDessertsView.swift in Sources */,
 				02A134E82B6FE4250009DF09 /* CategoryResponse.swift in Sources */,
 				0205AAFE2AF9A55A003851EE /* CakeApp.swift in Sources */,
+				02A134ED2B703B480009DF09 /* AllCocktailsResponse.swift in Sources */,
 				0205AB1A2AFAEA8E003851EE /* DessertDetailsView.swift in Sources */,
+				02A134F02B703DC40009DF09 /* AllDrinksView.swift in Sources */,
 				025D3B632B29453F009759C2 /* CacheService.swift in Sources */,
 				0205AB142AF9C2E0003851EE /* AllDessertsViewModel.swift in Sources */,
 			);

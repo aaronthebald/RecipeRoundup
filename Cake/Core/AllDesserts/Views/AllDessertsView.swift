@@ -25,14 +25,14 @@ struct AllDessertsView: View {
                             NavigationLink {
                                 DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data)
                             } label: {
-                                DessertRowView(dessert: dessert, imageData: cacheData as Data)
+                                DessertRowView(dessert: dessert.meal, imageData: cacheData as Data)
                             }
                         }
                         else {
                             NavigationLink {
                                 DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.mealThumb] ?? nil)
                             } label: {
-                                DessertRowView(dessert: dessert, imageData: viewModel.imageData[dessert.mealThumb] ?? nil )
+                                DessertRowView(dessert: dessert.meal, imageData: viewModel.imageData[dessert.mealThumb] ?? nil )
                             }
                             .task {
                                 await viewModel.getImageData(thumbURL: dessert.mealThumb)

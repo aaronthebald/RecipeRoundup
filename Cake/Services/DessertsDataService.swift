@@ -17,6 +17,7 @@ protocol DessertsDataServiceProrocol {
     func fetchDessertDetails(mealID: String) async throws -> DessertDetailsModel
     func getImageData(thumbnailURL: String) async throws -> Data 
     func fetchAllCatagories() async throws -> [Category]
+    func fetchAllCocktails() async throws -> [Drink]
 }
 
 class DessertsDataService: ObservableObject, DessertsDataServiceProrocol {
@@ -28,10 +29,29 @@ class DessertsDataService: ObservableObject, DessertsDataServiceProrocol {
     let allMealCatagories = "https://themealdb.com/api/json/v1/1/categories.php"
     let allDessertsURLString = "https://themealdb.com/api/json/v1/1/filter.php?c="
     let dessertDetailsString = "https://themealdb.com/api/json/v1/1/lookup.php?i="
+    
+    let allCocktailsString = "https://thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"
+    
     var cancellables = Set<AnyCancellable>()
     
     enum DataServiceError: Error {
         case badURL, badResponse, invalidURL, decodingError
+    }
+    
+    func fetchAllCocktails() async throws -> [Drink] {
+        guard let url = URL(string: allCocktailsString) else {  throw DataServiceError.invalidURL }
+        var cocktails: [Drink] = []
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+                throw DataServiceError.badResponse
+            }
+            let decodedData = try JSONDecoder().decode(AllCocktailsResponse.self, from: data)
+            cocktails = decodedData.drinks
+        } catch {
+            throw error
+        }
+        return cocktails
     }
     
     func fetchAllCatagories() async throws -> [Category] {
