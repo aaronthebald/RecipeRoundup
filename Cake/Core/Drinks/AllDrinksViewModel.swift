@@ -9,7 +9,7 @@ import Foundation
 
 class AllDrinksViewModel: ObservableObject {
     
-    @Published var AllDrinks: [Drink] = []
+    @Published var AllDrinks: [FoodDrink] = []
     @Published var imageData: [String : Data] = [:]
     @Published var showAlert: Bool = false
     @Published var errorMessage: String?

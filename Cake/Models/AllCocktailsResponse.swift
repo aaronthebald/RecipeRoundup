@@ -6,18 +6,25 @@
 //
 
 import Foundation
+
+protocol FoodDrink {
+    var name: String { get set }
+    var thumb: String { get set }
+    var id: String { get set }
+}
+
 struct AllCocktailsResponse: Codable {
     let drinks: [Drink]
 }
 
-struct Drink: Codable {
-    let drink: String
-    let drinkThumb: String
-    let idDrink: String
+struct Drink: Codable, FoodDrink, Identifiable {
+    var name: String
+    var thumb: String
+    var id: String
     
     enum CodingKeys: String, CodingKey {
-        case drink = "strDrink"
-        case drinkThumb = "strDrinkThumb"
-        case idDrink = "idDrink"
+        case name = "strDrink"
+        case thumb = "strDrinkThumb"
+        case id = "idDrink"
     }
 }

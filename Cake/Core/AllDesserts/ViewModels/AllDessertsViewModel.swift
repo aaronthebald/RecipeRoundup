@@ -11,13 +11,14 @@ import SwiftUI
 
 class AllDessertsViewModel: ObservableObject {
     
-    @Published var desserts: [Dessert] = []
+    @Published var items: [FoodDrink] = []
     @Published var showAlert: Bool = false
     @Published var errorMessage: String?
     @Published var imageData: [String : Data] = [:]
     @Published var filterString: String = ""
     @Published var categories: [Category] = []
     @Published var selectedCategory: String = "Beef"
+    @Published var showFood: Bool = false
     
     init(dataService: DessertsDataServiceProrocol, cacheService: CacheServiceProtocol) {
         self.dataService = dataService
@@ -28,13 +29,13 @@ class AllDessertsViewModel: ObservableObject {
     let cacheService: CacheServiceProtocol
     var cancellables = Set<AnyCancellable>()
     
-    var filteredDesserts: [Dessert] {
+    var filteredDesserts: [FoodDrink] {
         if filterString == "" {
-           let sortedDesserts = desserts.sorted(by: {$0.meal < $1.meal})
+           let sortedDesserts = items.sorted(by: {$0.name < $1.name})
             return sortedDesserts
         } else {
-            let sortedDesserts = desserts.sorted(by: {$0.meal < $1.meal})
-            return sortedDesserts.filter({$0.meal.contains(filterString)})
+            let sortedDesserts = items.sorted(by: {$0.name < $1.name})
+            return sortedDesserts.filter({$0.name.contains(filterString)})
         }
     }
     
@@ -52,11 +53,22 @@ class AllDessertsViewModel: ObservableObject {
         }
     }
     
+    func fetchAllCocktails() async {
+        do {
+            let drinks = try await dataService.fetchAllCocktails()
+            await MainActor.run {
+                self.items = drinks
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func fetchDesserts(category: String) async {
         do {
             let newDesserts = try await dataService.fetchAllDesserts(category: category)
             await MainActor.run {
-                self.desserts = newDesserts
+                self.items = newDesserts
             }
         } catch {
             await MainActor.run {

@@ -13,8 +13,8 @@ struct AllDrinksView: View {
     
     var body: some View {
         ScrollView {
-            ForEach(vm.AllDrinks, id: \.idDrink) { drink in
-                DessertRowView(dessert: drink.drink, imageData: nil)
+            ForEach(vm.AllDrinks, id: \.id) { drink in
+                DessertRowView(dessert: drink.name, imageData: nil)
             }
         }
         .task {

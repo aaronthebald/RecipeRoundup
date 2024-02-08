@@ -20,22 +20,22 @@ struct AllDessertsView: View {
                     ContentUnavailableView("No Desserts Found", systemImage: "exclamationmark.magnifyingglass")
                 }
                 LazyVStack(alignment: .leading) {
-                    ForEach(viewModel.filteredDesserts) { dessert in
-                        if let cacheData = viewModel.cacheService.getImage(thumbURL: dessert.mealThumb) {
+                    ForEach(viewModel.filteredDesserts, id: \.id) { dessert in
+                        if let cacheData = viewModel.cacheService.getImage(thumbURL: dessert.thumb) {
                             NavigationLink {
                                 DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data)
                             } label: {
-                                DessertRowView(dessert: dessert.meal, imageData: cacheData as Data)
+                                DessertRowView(dessert: dessert.name, imageData: cacheData as Data)
                             }
                         }
                         else {
                             NavigationLink {
-                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.mealThumb] ?? nil)
+                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.thumb] ?? nil)
                             } label: {
-                                DessertRowView(dessert: dessert.meal, imageData: viewModel.imageData[dessert.mealThumb] ?? nil )
+                                DessertRowView(dessert: dessert.name, imageData: viewModel.imageData[dessert.thumb] ?? nil )
                             }
                             .task {
-                                await viewModel.getImageData(thumbURL: dessert.mealThumb)
+                                await viewModel.getImageData(thumbURL: dessert.thumb)
                             }
                         }
                     }
@@ -80,6 +80,28 @@ struct AllDessertsView: View {
                         Text("Categories")
                     }
                 }
+                }
+                
+                ToolbarItem {
+                    Button {
+                        viewModel.showFood.toggle()
+                        if viewModel.showFood {
+                            Task {
+                                await viewModel.fetchAllCocktails()
+                            }
+                        } else {
+                            Task {
+                                await viewModel.fetchDesserts(category: viewModel.selectedCategory)
+                            }
+                        }
+                    } label: {
+                        if viewModel.showFood {
+                            Text("Food")
+                        } else {
+                            Text("Cocktails")
+                        }
+                    }
+
                 }
             })
         }
