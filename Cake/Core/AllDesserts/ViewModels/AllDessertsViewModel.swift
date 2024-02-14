@@ -18,11 +18,15 @@ class AllDessertsViewModel: ObservableObject {
     @Published var filterString: String = ""
     @Published var categories: [Category] = []
     @Published var selectedCategory: String = "Beef"
-    @Published var showFood: Bool = false
+    @Published var isCocktail: Bool = false
     
     init(dataService: DessertsDataServiceProrocol, cacheService: CacheServiceProtocol) {
         self.dataService = dataService
         self.cacheService = cacheService
+        Task {
+            await fetchCategories()
+            await fetchDesserts(category: selectedCategory)
+        }
     }
     
     let dataService: DessertsDataServiceProrocol
@@ -96,4 +100,7 @@ class AllDessertsViewModel: ObservableObject {
             }
         }
     }
+    
+    
+    
 }

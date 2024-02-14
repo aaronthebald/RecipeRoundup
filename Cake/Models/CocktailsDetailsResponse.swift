@@ -1,89 +1,25 @@
 //
-//  DessertDetailsModel.swift
+//  CocktailsDetailsResponse.swift
 //  Cake
 //
-//  Created by Aaron Wilson on 11/7/23.
+//  Created by Aaron Wilson on 2/9/24.
 //
 
 import Foundation
 
-protocol Details: Codable {
-    
-    var id: String { get }
-    var meal: String { get }
-    var drinkAlternate: String? { get }
-    var category: String? { get }
-    var area: String? { get }
-    var instructions: String? { get }
-    var mealThumb: String { get }
-    var youtube: String? { get }
-    var tags: String? { get }
-    var ingredient1: String? { get }
-    var ingredient2: String? { get }
-    var ingredient3: String? { get }
-    var ingredient4: String? { get }
-    var ingredient5: String? { get }
-    var ingredient6: String? { get }
-    var ingredient7: String? { get }
-    var ingredient8: String? { get }
-    var ingredient9: String? { get }
-    var ingredient10: String? { get }
-    var ingredient11: String? { get }
-    var ingredient12: String? { get }
-    var ingredient13: String? { get }
-    var ingredient14: String? { get }
-    var ingredient15: String? { get }
-    var ingredient16: String? { get }
-    var ingredient17: String? { get }
-    var ingredient18: String? { get }
-    var ingredient19: String? { get }
-    var ingredient20: String? { get }
-    var measure1: String? { get }
-    var measure2: String? { get }
-    var measure3: String? { get }
-    var measure4: String? { get }
-    var measure5: String? { get }
-    var measure6: String? { get }
-    var measure7: String? { get }
-    var measure8: String? { get }
-    var measure9: String? { get }
-    var measure10: String? { get }
-    var measure11: String? { get }
-    var measure12: String? { get }
-    var measure13: String? { get }
-    var measure14: String? { get }
-    var measure15: String? { get }
-    var measure16: String? { get }
-    var measure17: String? { get }
-    var measure18: String? { get }
-    var measure19: String? { get }
-    var measure20: String? { get }
-    var source: String? { get }
-    var imageSource: String? { get }
-    var creativeCommonsConfirmed: String? { get }
-    var dateModified: String? { get }
-    var sectionOne: [IngredientMeasurement] { get }
-    var sectionTwo: [IngredientMeasurement] { get }
-    var sectionThree: [IngredientMeasurement] { get }
-    var sectionFour: [IngredientMeasurement] { get }
-}
-
-
-
-struct DessertDetailsResponseModel: Codable {
-    
-    var items: [DessertDetailsModel]
+struct CocktailsDetailsResponse: Codable {
+    var items: [CocktailDetailsModel]
     enum CodingKeys: String, CodingKey {
-    case items = "meals"
+    case items = "drinks"
     }
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.items, forKey: .items)
     }
-    
 }
 
-struct DessertDetailsModel: Codable, Equatable, Details {
+struct CocktailDetailsModel: Codable, Equatable, Details {
+    
     
     let id: String
     let meal: String
@@ -140,14 +76,14 @@ struct DessertDetailsModel: Codable, Equatable, Details {
     let dateModified: String?
     
     enum CodingKeys: String, CodingKey {
-        case id = "idMeal"
-        case meal = "strMeal"
+        case id = "idDrink"
+        case meal = "strDrink"
         case drinkAlternate = "strDrinkAlternate"
         case category = "strCategory"
         case area = "strArea"
         case instructions = "strInstructions"
-        case mealThumb = "strMealThumb"
-        case youtube = "strYoutube"
+        case mealThumb = "strDrinkThumb"
+        case youtube = "strVideo"
         case tags = "strTags"
         case ingredient1 = "strIngredient1"
         case ingredient2 = "strIngredient2"
@@ -194,7 +130,7 @@ struct DessertDetailsModel: Codable, Equatable, Details {
         case creativeCommonsConfirmed = "strCreativeCommonsConfirmed"
         case dateModified = "dateModified"
     }
-
+    
     var sectionOne: [IngredientMeasurement] {
         [
             IngredientMeasurement(ingredient: ingredient1, measurement: measure1),
@@ -238,23 +174,4 @@ struct DessertDetailsModel: Codable, Equatable, Details {
             .compactMap { $0 }
     }
     
-    static let placeholderDetails = DessertDetailsModel(id: "", meal: "", drinkAlternate: "", category: "", area: "", instructions: "", mealThumb: "", youtube: "", tags: "", ingredient1: "", ingredient2: "", ingredient3: "", ingredient4: "", ingredient5: "", ingredient6: "", ingredient7: "", ingredient8: "", ingredient9: "", ingredient10: "", ingredient11: "", ingredient12: "", ingredient13: "", ingredient14: "", ingredient15: "", ingredient16: "", ingredient17: "", ingredient18: "", ingredient19: "", ingredient20: "", measure1: "", measure2: "", measure3: "", measure4: "", measure5: "", measure6: "", measure7: "", measure8: "", measure9: "", measure10: "", measure11: "", measure12: "", measure13: "", measure14: "", measure15: "", measure16: "", measure17: "", measure18: "", measure19: "", measure20: "", source: "", imageSource: "", creativeCommonsConfirmed: "", dateModified: "")
-}
-
-struct IngredientMeasurement: Hashable, Identifiable {
-    let id = UUID()
-    let ingredient: String
-    let measurement: String
-    
-    init?(ingredient: String?, measurement: String?) {
-        if let ingredient,
-           let measurement,
-           !ingredient.isEmpty,
-           !measurement.isEmpty {
-            self.ingredient = ingredient
-            self.measurement = measurement
-        } else {
-            return nil
-        }
-    }
 }

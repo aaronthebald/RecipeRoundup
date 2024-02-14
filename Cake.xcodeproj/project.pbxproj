@@ -34,6 +34,7 @@
 		02A134F22B703E1D0009DF09 /* AllDrinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A134F12B703E1D0009DF09 /* AllDrinksViewModel.swift */; };
 		02A134F42B7307A70009DF09 /* AllDrinksResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 02A134F32B7307A70009DF09 /* AllDrinksResponse.json */; };
 		02A134F62B73082E0009DF09 /* CocktailDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 02A134F52B73082E0009DF09 /* CocktailDetails.json */; };
+		02B862002B767E7D001F91D0 /* CocktailsDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B861FF2B767E7D001F91D0 /* CocktailsDetailsResponse.swift */; };
 		02D8FF5C2B12B18300E8DDE0 /* DessertDetailsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		02A134F12B703E1D0009DF09 /* AllDrinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDrinksViewModel.swift; sourceTree = "<group>"; };
 		02A134F32B7307A70009DF09 /* AllDrinksResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AllDrinksResponse.json; sourceTree = "<group>"; };
 		02A134F52B73082E0009DF09 /* CocktailDetails.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CocktailDetails.json; sourceTree = "<group>"; };
+		02B861FF2B767E7D001F91D0 /* CocktailsDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailsDetailsResponse.swift; sourceTree = "<group>"; };
 		02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DessertDetailsResponse.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +176,7 @@
 				0205AB172AFAE5F8003851EE /* DessertDetailsModel.swift */,
 				02A134E72B6FE4250009DF09 /* CategoryResponse.swift */,
 				02A134EC2B703B480009DF09 /* AllCocktailsResponse.swift */,
+				02B861FF2B767E7D001F91D0 /* CocktailsDetailsResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				0205AB122AF9A677003851EE /* AllDessertsResponse.swift in Sources */,
 				0205AB1C2AFAEAE9003851EE /* DessertDetailsViewModel.swift in Sources */,
 				0205AB182AFAE5F8003851EE /* DessertDetailsModel.swift in Sources */,
+				02B862002B767E7D001F91D0 /* CocktailsDetailsResponse.swift in Sources */,
 				0205AB162AF9CB47003851EE /* DessertRowView.swift in Sources */,
 				0205AB1F2AFAFCE0003851EE /* QuickAsyncImage.swift in Sources */,
 				0205AB002AF9A55A003851EE /* AllDessertsView.swift in Sources */,

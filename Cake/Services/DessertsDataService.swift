@@ -14,7 +14,7 @@ protocol DessertsDataServiceProrocol {
     var errorMessage: String? { get set }
     
     func fetchAllDesserts(category: String) async throws -> [Dessert]
-    func fetchDessertDetails(mealID: String) async throws -> DessertDetailsModel
+    func fetchDessertDetails(mealID: String, isCocktail: Bool) async throws -> Details
     func getImageData(thumbnailURL: String) async throws -> Data 
     func fetchAllCatagories() async throws -> [Category]
     func fetchAllCocktails() async throws -> [Drink]
@@ -31,6 +31,7 @@ class DessertsDataService: ObservableObject, DessertsDataServiceProrocol {
     let dessertDetailsString = "https://themealdb.com/api/json/v1/1/lookup.php?i="
     
     let allCocktailsString = "https://thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"
+    let cocktailDetailsString = "https://thecocktaildb.com/api/json/v1/1/lookup.php?i="
     
     var cancellables = Set<AnyCancellable>()
     
@@ -86,16 +87,23 @@ class DessertsDataService: ObservableObject, DessertsDataServiceProrocol {
         return dessetsArray
     }
     
-    func fetchDessertDetails(mealID: String) async throws -> DessertDetailsModel {
-        guard let url = URL(string: dessertDetailsString + mealID) else { throw DataServiceError.badURL}
+    func fetchDessertDetails(mealID: String, isCocktail: Bool) async throws -> Details {
+        guard let url = URL(string: isCocktail ? cocktailDetailsString + mealID : dessertDetailsString + mealID) else { throw DataServiceError.badURL}
         do {
             let (data, response) = try await  URLSession.shared.data(from: url)
             guard (response as? HTTPURLResponse)?.statusCode == 200 else {
                 throw DataServiceError.badResponse
             }
-            let details = try JSONDecoder().decode(DessertDetailsResponseModel.self, from: data)
-            guard let dessertDetails = details.meals.first else { throw DataServiceError.decodingError }
-            return dessertDetails
+            switch isCocktail {
+            case true:
+                let details = try JSONDecoder().decode(CocktailsDetailsResponse.self, from: data)
+                guard let dessertDetails = details.items.first else { throw DataServiceError.decodingError }
+                return dessertDetails
+            case false:
+                let details = try JSONDecoder().decode(DessertDetailsResponseModel.self, from: data)
+                guard let dessertDetails = details.items.first else { throw DataServiceError.decodingError }
+                return dessertDetails
+            }
         } catch {
             throw error
         }

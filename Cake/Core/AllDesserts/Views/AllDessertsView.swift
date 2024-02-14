@@ -10,7 +10,6 @@ import SwiftUI
 
 struct AllDessertsView: View {
     
-    
     @StateObject var viewModel = AllDessertsViewModel(dataService: DessertsDataService(), cacheService: CacheService())
     
     var body: some View {
@@ -23,14 +22,14 @@ struct AllDessertsView: View {
                     ForEach(viewModel.filteredDesserts, id: \.id) { dessert in
                         if let cacheData = viewModel.cacheService.getImage(thumbURL: dessert.thumb) {
                             NavigationLink {
-                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data)
+                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data, isCocktail: viewModel.isCocktail)
                             } label: {
                                 DessertRowView(dessert: dessert.name, imageData: cacheData as Data)
                             }
                         }
                         else {
                             NavigationLink {
-                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.thumb] ?? nil)
+                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.thumb] ?? nil, isCocktail: viewModel.isCocktail)
                             } label: {
                                 DessertRowView(dessert: dessert.name, imageData: viewModel.imageData[dessert.thumb] ?? nil )
                             }
@@ -47,10 +46,6 @@ struct AllDessertsView: View {
                     await viewModel.fetchDesserts(category: newValue)
                 }
             })
-            .task {
-                await viewModel.fetchDesserts(category: viewModel.selectedCategory)
-                await viewModel.fetchCategories()
-            }
             .alert("Error", isPresented: $viewModel.showAlert, actions: {
                 Button {
                     viewModel.showAlert = false
@@ -61,41 +56,45 @@ struct AllDessertsView: View {
             }, message: {
                 Text(viewModel.errorMessage ?? "")
             })
-            .navigationTitle(viewModel.selectedCategory)
+            .navigationTitle(viewModel.isCocktail ? "Cocktails" : viewModel.selectedCategory)
             .toolbar(content: {
-                ToolbarItem(placement: .topBarLeading) {
-                    Menu {
-                        Picker(selection: $viewModel.selectedCategory) {
-                            ForEach(viewModel.categories, id: \.idCategory) { category in
-                                Text(category.category)
-                                    .tag(category.category)
+                if !viewModel.isCocktail {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Menu {
+                            Picker(selection: $viewModel.selectedCategory) {
+                                ForEach(viewModel.categories, id: \.idCategory) { category in
+                                    Text(category.category)
+                                        .tag(category.category)
+                                }
+                            } label: {
+                                
                             }
-                        } label: {
-                            
-                        }
 
+                        }
+                    label: {
+                        HStack {
+                            Text("Categories")
+                        }
                     }
-                label: {
-                    HStack {
-                        Text("Categories")
                     }
                 }
-                }
+                
                 
                 ToolbarItem {
                     Button {
-                        viewModel.showFood.toggle()
-                        if viewModel.showFood {
-                            Task {
-                                await viewModel.fetchAllCocktails()
-                            }
-                        } else {
+                        if viewModel.isCocktail {
+                            viewModel.isCocktail = false
                             Task {
                                 await viewModel.fetchDesserts(category: viewModel.selectedCategory)
                             }
+                        } else {
+                            viewModel.isCocktail = true
+                            Task {
+                                await viewModel.fetchAllCocktails()
+                            }
                         }
                     } label: {
-                        if viewModel.showFood {
+                        if viewModel.isCocktail {
                             Text("Food")
                         } else {
                             Text("Cocktails")

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class DessertDetailsViewModel: ObservableObject {
-    @Published var dessertDetails: DessertDetailsModel = .placeholderDetails
+    @Published var dessertDetails: Details = DessertDetailsModel.placeholderDetails
     @Published var showAlert: Bool = false
     @Published var errorMessage: String?
     
@@ -20,15 +20,17 @@ class DessertDetailsViewModel: ObservableObject {
     let dataService: DessertsDataServiceProrocol
     var cancellables = Set<AnyCancellable>()
 
-    func fetchDetails(id: String) async {
+    func fetchDetails(id: String, isCocktail: Bool) async {
         do {
-            let newDetails = try await dataService.fetchDessertDetails(mealID: id)
+            let newDetails = try await dataService.fetchDessertDetails(mealID: id, isCocktail: isCocktail)
            await MainActor.run {
                 dessertDetails = newDetails
             }
         } catch  {
-            showAlert = true
-            errorMessage = error.localizedDescription
+            await MainActor.run {
+                showAlert = true
+                errorMessage = error.localizedDescription
+            }
         }
     }
 }
