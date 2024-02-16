@@ -8,9 +8,10 @@
 import Foundation
 
 protocol FoodDrink {
-    var name: String { get set }
-    var thumb: String { get set }
-    var id: String { get set }
+    var name: String { get }
+    var thumb: String { get }
+    var id: String { get }
+    var isCocktail: Bool { get }
 }
 
 struct AllCocktailsResponse: Codable {
@@ -18,9 +19,10 @@ struct AllCocktailsResponse: Codable {
 }
 
 struct Drink: Codable, FoodDrink, Identifiable {
-    var name: String
-    var thumb: String
-    var id: String
+    let name: String
+    let thumb: String
+    let id: String
+    let isCocktail: Bool = true
     
     enum CodingKeys: String, CodingKey {
         case name = "strDrink"
