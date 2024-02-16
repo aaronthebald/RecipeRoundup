@@ -19,6 +19,7 @@ class AllDessertsViewModel: ObservableObject {
     @Published var categories: [Category] = []
     @Published var selectedCategory: String = "Beef"
     @Published var isCocktail: Bool = false
+    @Published var showFavorites: Bool = false
     
     init(dataService: DessertsDataServiceProrocol, cacheService: CacheServiceProtocol) {
         self.dataService = dataService
@@ -29,11 +30,15 @@ class AllDessertsViewModel: ObservableObject {
         }
     }
     
+    private let favoriteService = FavoriteService()
     let dataService: DessertsDataServiceProrocol
     let cacheService: CacheServiceProtocol
     var cancellables = Set<AnyCancellable>()
     
     var filteredDesserts: [FoodDrink] {
+        /*
+         Tomorrow i need to set up the array of favorite entities. Creating FoodDrink items for each entity. I cant filter on the items array because they may not be in there so i need to init each object and then append them to an array. then the items array can reflect that array. then the view can have a for each loop because both food and drink adhere to the FoodDrink protocol.
+         */
         if filterString == "" {
            let sortedDesserts = items.sorted(by: {$0.name < $1.name})
             return sortedDesserts

@@ -62,6 +62,8 @@ class FavoriteService {
         let entity = FavoriteEntity(context: container.viewContext)
         entity.id = item.id
         entity.isCocktail = item.isCocktail
+        entity.name = item.name
+        entity.thumb = item.thumb
         applyChanges()
     }
     
