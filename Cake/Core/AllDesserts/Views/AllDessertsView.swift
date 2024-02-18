@@ -19,17 +19,17 @@ struct AllDessertsView: View {
                     ContentUnavailableView("No Desserts Found", systemImage: "exclamationmark.magnifyingglass")
                 }
                 LazyVStack(alignment: .leading) {
-                    ForEach(viewModel.filteredDesserts, id: \.id) { dessert in
+                    ForEach(viewModel.showFavorites ? viewModel.favoriteItems : viewModel.filteredDesserts, id: \.id) { dessert in
                         if let cacheData = viewModel.cacheService.getImage(thumbURL: dessert.thumb) {
                             NavigationLink {
-                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data, isCocktail: viewModel.isCocktail)
+                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data, isCocktail: viewModel.isCocktail, favoriteService: viewModel.favoriteService)
                             } label: {
                                 DessertRowView(dessert: dessert.name, imageData: cacheData as Data)
                             }
                         }
                         else {
                             NavigationLink {
-                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.thumb] ?? nil, isCocktail: viewModel.isCocktail)
+                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.thumb] ?? nil, isCocktail: viewModel.isCocktail, favoriteService: viewModel.favoriteService)
                             } label: {
                                 DessertRowView(dessert: dessert.name, imageData: viewModel.imageData[dessert.thumb] ?? nil )
                             }
@@ -56,7 +56,7 @@ struct AllDessertsView: View {
             }, message: {
                 Text(viewModel.errorMessage ?? "")
             })
-            .navigationTitle(viewModel.isCocktail ? "Cocktails" : viewModel.selectedCategory)
+            .navigationTitle(viewModel.showFavorites ? "Favorites" : viewModel.isCocktail ? "Cocktails" : viewModel.selectedCategory)
             .toolbar(content: {
                 if !viewModel.isCocktail {
                     ToolbarItem(placement: .topBarLeading) {
@@ -79,6 +79,18 @@ struct AllDessertsView: View {
                     }
                 }
                 
+                ToolbarItem {
+                    Button {
+                        viewModel.showFavorites.toggle()
+                    } label: {
+                        if viewModel.showFavorites {
+                            Text("Show all items")
+                        } else {
+                            Text("Show favorites")
+                        }
+                    }
+
+                }
                 
                 ToolbarItem {
                     Button {

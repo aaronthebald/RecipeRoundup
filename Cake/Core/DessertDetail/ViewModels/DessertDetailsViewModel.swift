@@ -13,10 +13,12 @@ class DessertDetailsViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var errorMessage: String?
     
-    init(dataService: DessertsDataServiceProrocol) {
+    init(dataService: DessertsDataServiceProrocol, favoriteService: FavoriteService) {
         self.dataService = dataService
+        self.favoriteService = favoriteService
     }
     
+    let favoriteService: FavoriteService
     let dataService: DessertsDataServiceProrocol
     var cancellables = Set<AnyCancellable>()
 
@@ -31,6 +33,17 @@ class DessertDetailsViewModel: ObservableObject {
                 showAlert = true
                 errorMessage = error.localizedDescription
             }
+        }
+    }
+    
+    func addToFavorites(isCocktail: Bool) {
+        if isCocktail {
+            let item = Drink(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
+            favoriteService.updateFavorites(item: item, isCocktail: isCocktail, deleteItem: false)
+
+        } else {
+            let item = Dessert(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
+            favoriteService.updateFavorites(item: item, isCocktail: isCocktail, deleteItem: false)
         }
     }
 }

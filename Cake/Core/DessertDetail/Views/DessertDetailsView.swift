@@ -16,8 +16,8 @@ struct DessertDetailsView: View {
     let imageData: Data?
     let isCocktail: Bool
     
-    init(dataService: DessertsDataServiceProrocol, mealId: String, imageData: Data?, isCocktail: Bool) {
-        _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService))
+    init(dataService: DessertsDataServiceProrocol, mealId: String, imageData: Data?, isCocktail: Bool, favoriteService: FavoriteService) {
+        _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService, favoriteService: favoriteService))
         self.dataService = dataService
         self.mealId = mealId
         self.imageData = imageData
@@ -85,6 +85,16 @@ struct DessertDetailsView: View {
         }, message: {
             Text(vm.errorMessage ?? "")
         })
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    vm.addToFavorites(isCocktail: isCocktail)
+                } label: {
+                    Image(systemName: "plus")
+                }
+
+            }
+        }
     }
 }
 

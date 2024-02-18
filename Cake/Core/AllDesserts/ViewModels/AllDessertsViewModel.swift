@@ -30,7 +30,7 @@ class AllDessertsViewModel: ObservableObject {
         }
     }
     
-    private let favoriteService = FavoriteService()
+    let favoriteService = FavoriteService()
     let dataService: DessertsDataServiceProrocol
     let cacheService: CacheServiceProtocol
     var cancellables = Set<AnyCancellable>()
