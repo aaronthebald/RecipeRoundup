@@ -36,9 +36,6 @@ class AllDessertsViewModel: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     
     var filteredDesserts: [FoodDrink] {
-        /*
-         Tomorrow i need to set up the array of favorite entities. Creating FoodDrink items for each entity. I cant filter on the items array because they may not be in there so i need to init each object and then append them to an array. then the items array can reflect that array. then the view can have a for each loop because both food and drink adhere to the FoodDrink protocol.
-         */
         if filterString == "" {
            let sortedDesserts = items.sorted(by: {$0.name < $1.name})
             return sortedDesserts
@@ -46,6 +43,31 @@ class AllDessertsViewModel: ObservableObject {
             let sortedDesserts = items.sorted(by: {$0.name < $1.name})
             return sortedDesserts.filter({$0.name.contains(filterString)})
         }
+    }
+    
+    var favoriteItems: [FoodDrink] {
+        let favoriteEntities = favoriteService.savedEntities
+        var itemsArray: [FoodDrink] = []
+        for entity in favoriteEntities {
+            if entity.isCocktail {
+                if
+                    let name = entity.name,
+                    let thumb = entity.thumb,
+                    let id = entity.id {
+                    let newItem = Drink(name: name, thumb: thumb, id: id)
+                    itemsArray.append(newItem)
+                }
+            } else {
+                if
+                    let name = entity.name,
+                    let thumb = entity.thumb,
+                    let id = entity.id {
+                    let newItem = Dessert(name: name, thumb: thumb, id: id)
+                    itemsArray.append(newItem)
+                }
+            }
+        }
+        return itemsArray
     }
     
     func fetchCategories() async {
