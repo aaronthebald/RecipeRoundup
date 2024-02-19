@@ -28,18 +28,18 @@ class FavoriteService {
     
     // MARK: PUBLIC
     
-    func updateFavorites(item: FoodDrink, isCocktail: Bool, deleteItem: Bool) {
+    
+    
+    
+    func updateFavorites(item: FoodDrink, isCocktail: Bool, deleteItem: Bool) throws {
         
         if let entity = savedEntities.first(where: { $0.id == item.id && $0.isCocktail == item.isCocktail }) {
             
             if deleteItem {
                 delete(entity: entity)
             } else {
-//                TODO: Add an alert here to let the user know they already saved this one
-                print("Item already in favorites")
-                return
+                throw favoriteError.alreadyInFavorites
             }
-            
         } else {
             add(item: item)
         }
@@ -86,4 +86,20 @@ class FavoriteService {
         getFavorites()
     }
     
+}
+
+enum favoriteError: String, Error {
+    case alreadyInFavorites = "This Item is already in your Favorites"
+}
+
+extension favoriteError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .alreadyInFavorites:
+            return NSLocalizedString(
+                "This Item is already in your favorites",
+                comment: ""
+            )
+        }
+    }
 }

@@ -20,7 +20,7 @@ class DessertDetailsViewModel: ObservableObject {
     
     let favoriteService: FavoriteService
     let dataService: DessertsDataServiceProrocol
-    var cancellables = Set<AnyCancellable>()
+//    var cancellables = Set<AnyCancellable>()
 
     func fetchDetails(id: String, isCocktail: Bool) async {
         do {
@@ -39,11 +39,21 @@ class DessertDetailsViewModel: ObservableObject {
     func addToFavorites(isCocktail: Bool) {
         if isCocktail {
             let item = Drink(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
-            favoriteService.updateFavorites(item: item, isCocktail: isCocktail, deleteItem: false)
-
+            do {
+                try favoriteService.updateFavorites(item: item, isCocktail: isCocktail, deleteItem: false)
+            } catch  {
+                showAlert = true
+                errorMessage = error.localizedDescription
+            }
+            
         } else {
             let item = Dessert(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
-            favoriteService.updateFavorites(item: item, isCocktail: isCocktail, deleteItem: false)
+            do {
+                try favoriteService.updateFavorites(item: item, isCocktail: isCocktail, deleteItem: false)
+            } catch  {
+                showAlert = true
+                errorMessage = error.localizedDescription
+            }
         }
     }
 }
