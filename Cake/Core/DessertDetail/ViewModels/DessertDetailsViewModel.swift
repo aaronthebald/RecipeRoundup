@@ -22,7 +22,6 @@ class DessertDetailsViewModel: ObservableObject {
     let dataService: DessertsDataServiceProrocol
 
     func itemIsInFavorites(isCocktail: Bool) -> Bool {
-        print("The function ran")
         if isCocktail {
             let item = Drink(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
             return favoriteService.itemIsInFavorites(item: item)
