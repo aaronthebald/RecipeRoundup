@@ -43,8 +43,10 @@ struct DessertDetailsView: View {
             
             VStack(alignment: .leading) {
                 HStack {
-                    Text("Region:")
-                    Text(vm.dessertDetails.area ?? "")
+                    if vm.dessertDetails.area != nil && vm.dessertDetails.area != "" {
+                        Text("Region:")
+                        Text(vm.dessertDetails.area ?? "")
+                    }
                 }
                 .font(.title3)
                 
