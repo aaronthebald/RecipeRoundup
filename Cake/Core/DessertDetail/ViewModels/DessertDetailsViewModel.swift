@@ -20,8 +20,18 @@ class DessertDetailsViewModel: ObservableObject {
     
     let favoriteService: FavoriteService
     let dataService: DessertsDataServiceProrocol
-//    var cancellables = Set<AnyCancellable>()
 
+    func itemIsInFavorites(isCocktail: Bool) -> Bool {
+        print("The function ran")
+        if isCocktail {
+            let item = Drink(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
+            return favoriteService.itemIsInFavorites(item: item)
+        } else {
+            let item = Dessert(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
+            return favoriteService.itemIsInFavorites(item: item)
+        }
+    }
+    
     func fetchDetails(id: String, isCocktail: Bool) async {
         do {
             let newDetails = try await dataService.fetchDessertDetails(mealID: id, isCocktail: isCocktail)
@@ -36,11 +46,13 @@ class DessertDetailsViewModel: ObservableObject {
         }
     }
     
-    func addToFavorites(isCocktail: Bool) {
+    func addToFavorites(isCocktail: Bool, deleteItem: Bool) {
         if isCocktail {
             let item = Drink(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
             do {
-                try favoriteService.updateFavorites(item: item, isCocktail: isCocktail, deleteItem: false)
+                try favoriteService.updateFavorites(item: item, isCocktail: isCocktail, deleteItem: deleteItem)
+                showAlert = true
+                errorMessage = deleteItem ? "Item removed from Favorites" : "Item Added to Favorites"
             } catch  {
                 showAlert = true
                 errorMessage = error.localizedDescription
@@ -49,7 +61,9 @@ class DessertDetailsViewModel: ObservableObject {
         } else {
             let item = Dessert(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
             do {
-                try favoriteService.updateFavorites(item: item, isCocktail: isCocktail, deleteItem: false)
+                try favoriteService.updateFavorites(item: item, isCocktail: isCocktail, deleteItem: deleteItem)
+                showAlert = true
+                errorMessage = deleteItem ? "Item removed from Favorites" : "Item Added to Favorites"
             } catch  {
                 showAlert = true
                 errorMessage = error.localizedDescription

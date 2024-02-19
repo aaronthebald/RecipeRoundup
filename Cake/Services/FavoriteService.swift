@@ -29,7 +29,11 @@ class FavoriteService {
     // MARK: PUBLIC
     
     
-    
+    func itemIsInFavorites(item: FoodDrink) -> Bool {
+        
+        return  (savedEntities.first(where: { $0.id == item.id && $0.isCocktail == item.isCocktail }) != nil)
+        
+    }
     
     func updateFavorites(item: FoodDrink, isCocktail: Bool, deleteItem: Bool) throws {
         

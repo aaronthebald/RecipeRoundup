@@ -75,7 +75,7 @@ struct DessertDetailsView: View {
         .task {
             await vm.fetchDetails(id: mealId, isCocktail: isCocktail)
         }
-        .alert("Error", isPresented: $vm.showAlert, actions: {
+        .alert("", isPresented: $vm.showAlert, actions: {
             Button {
                 vm.showAlert = false
             } label: {
@@ -88,9 +88,15 @@ struct DessertDetailsView: View {
         .toolbar {
             ToolbarItem {
                 Button {
-                    vm.addToFavorites(isCocktail: isCocktail)
+                    vm.addToFavorites(isCocktail: isCocktail, deleteItem: vm.itemIsInFavorites(isCocktail: isCocktail))
                 } label: {
-                    Image(systemName: "plus")
+                    if vm.itemIsInFavorites(isCocktail: isCocktail) {
+                        Label("Remove from Favorites", systemImage: "minus")
+                            .labelStyle(TitleAndIconLabelStyle())
+                    } else {
+                     Label("Add to Favorites", systemImage: "plus")
+                            .labelStyle(TitleAndIconLabelStyle())
+                    }
                 }
 
             }

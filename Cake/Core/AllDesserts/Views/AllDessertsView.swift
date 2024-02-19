@@ -17,19 +17,21 @@ struct AllDessertsView: View {
             ScrollView {
                 if viewModel.filteredDesserts.isEmpty {
                     ContentUnavailableView("No Items Found", systemImage: "exclamationmark.magnifyingglass")
+                } else if viewModel.showFavorites && viewModel.favoriteItems.isEmpty {
+                    ContentUnavailableView("No Items Found", systemImage: "exclamationmark.magnifyingglass")
                 }
                 LazyVStack(alignment: .leading) {
                     ForEach(viewModel.showFavorites ? viewModel.favoriteItems : viewModel.filteredDesserts, id: \.id) { dessert in
                         if let cacheData = viewModel.cacheService.getImage(thumbURL: dessert.thumb) {
                             NavigationLink {
-                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data, isCocktail: viewModel.isCocktail, favoriteService: viewModel.favoriteService)
+                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data, isCocktail: dessert.isCocktail, favoriteService: viewModel.favoriteService)
                             } label: {
                                 DessertRowView(dessert: dessert.name, imageData: cacheData as Data)
                             }
                         }
                         else {
                             NavigationLink {
-                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.thumb] ?? nil, isCocktail: viewModel.isCocktail, favoriteService: viewModel.favoriteService)
+                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.thumb] ?? nil, isCocktail: dessert.isCocktail, favoriteService: viewModel.favoriteService)
                             } label: {
                                 DessertRowView(dessert: dessert.name, imageData: viewModel.imageData[dessert.thumb] ?? nil )
                             }
@@ -44,8 +46,13 @@ struct AllDessertsView: View {
             .onChange(of: viewModel.selectedCategory, { oldValue, newValue in
                 Task {
                     if newValue != "" {
+                        viewModel.showFavorites = false
                         viewModel.isCocktail = false
                         await viewModel.fetchDesserts(category: newValue)
+                    } else {
+                        viewModel.showFavorites = false
+                        viewModel.isCocktail = true
+                        await viewModel.fetchAllCocktails()
                     }
                 }
             })
