@@ -35,6 +35,8 @@
 		02A134F42B7307A70009DF09 /* AllDrinksResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 02A134F32B7307A70009DF09 /* AllDrinksResponse.json */; };
 		02A134F62B73082E0009DF09 /* CocktailDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 02A134F52B73082E0009DF09 /* CocktailDetails.json */; };
 		02B862002B767E7D001F91D0 /* CocktailsDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B861FF2B767E7D001F91D0 /* CocktailsDetailsResponse.swift */; };
+		02B9A63F2B7EE1CA00990563 /* FavoriteContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A63D2B7EE1CA00990563 /* FavoriteContainer.xcdatamodeld */; };
+		02B9A6412B7EE23C00990563 /* FavoriteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A6402B7EE23C00990563 /* FavoriteService.swift */; };
 		02D8FF5C2B12B18300E8DDE0 /* DessertDetailsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +82,8 @@
 		02A134F32B7307A70009DF09 /* AllDrinksResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AllDrinksResponse.json; sourceTree = "<group>"; };
 		02A134F52B73082E0009DF09 /* CocktailDetails.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CocktailDetails.json; sourceTree = "<group>"; };
 		02B861FF2B767E7D001F91D0 /* CocktailsDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailsDetailsResponse.swift; sourceTree = "<group>"; };
+		02B9A63E2B7EE1CA00990563 /* FavoriteContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteContainer.xcdatamodel; sourceTree = "<group>"; };
+		02B9A6402B7EE23C00990563 /* FavoriteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteService.swift; sourceTree = "<group>"; };
 		02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DessertDetailsResponse.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +169,7 @@
 			children = (
 				0205AB0E2AF9A63D003851EE /* DessertsDataService.swift */,
 				025D3B622B29453F009759C2 /* CacheService.swift */,
+				02B9A6402B7EE23C00990563 /* FavoriteService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -177,6 +182,7 @@
 				02A134E72B6FE4250009DF09 /* CategoryResponse.swift */,
 				02A134EC2B703B480009DF09 /* AllCocktailsResponse.swift */,
 				02B861FF2B767E7D001F91D0 /* CocktailsDetailsResponse.swift */,
+				02B9A63D2B7EE1CA00990563 /* FavoriteContainer.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -397,12 +403,14 @@
 				0205AB182AFAE5F8003851EE /* DessertDetailsModel.swift in Sources */,
 				02B862002B767E7D001F91D0 /* CocktailsDetailsResponse.swift in Sources */,
 				0205AB162AF9CB47003851EE /* DessertRowView.swift in Sources */,
+				02B9A6412B7EE23C00990563 /* FavoriteService.swift in Sources */,
 				0205AB1F2AFAFCE0003851EE /* QuickAsyncImage.swift in Sources */,
 				0205AB002AF9A55A003851EE /* AllDessertsView.swift in Sources */,
 				02A134E82B6FE4250009DF09 /* CategoryResponse.swift in Sources */,
 				0205AAFE2AF9A55A003851EE /* CakeApp.swift in Sources */,
 				02A134ED2B703B480009DF09 /* AllCocktailsResponse.swift in Sources */,
 				0205AB1A2AFAEA8E003851EE /* DessertDetailsView.swift in Sources */,
+				02B9A63F2B7EE1CA00990563 /* FavoriteContainer.xcdatamodeld in Sources */,
 				02A134F02B703DC40009DF09 /* AllDrinksView.swift in Sources */,
 				025D3B632B29453F009759C2 /* CacheService.swift in Sources */,
 				0205AB142AF9C2E0003851EE /* AllDessertsViewModel.swift in Sources */,
@@ -683,6 +691,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		02B9A63D2B7EE1CA00990563 /* FavoriteContainer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				02B9A63E2B7EE1CA00990563 /* FavoriteContainer.xcdatamodel */,
+			);
+			currentVersion = 02B9A63E2B7EE1CA00990563 /* FavoriteContainer.xcdatamodel */;
+			path = FavoriteContainer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0205AAF22AF9A55A003851EE /* Project object */;
 }

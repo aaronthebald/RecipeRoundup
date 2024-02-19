@@ -16,20 +16,22 @@ struct AllDessertsView: View {
         NavigationStack {
             ScrollView {
                 if viewModel.filteredDesserts.isEmpty {
-                    ContentUnavailableView("No Desserts Found", systemImage: "exclamationmark.magnifyingglass")
+                    ContentUnavailableView("No Items Found", systemImage: "exclamationmark.magnifyingglass")
+                } else if viewModel.showFavorites && viewModel.favoriteItems.isEmpty {
+                    ContentUnavailableView("No Items Found", systemImage: "exclamationmark.magnifyingglass")
                 }
                 LazyVStack(alignment: .leading) {
-                    ForEach(viewModel.filteredDesserts, id: \.id) { dessert in
+                    ForEach(viewModel.showFavorites ? viewModel.favoriteItems : viewModel.filteredDesserts, id: \.id) { dessert in
                         if let cacheData = viewModel.cacheService.getImage(thumbURL: dessert.thumb) {
                             NavigationLink {
-                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data, isCocktail: viewModel.isCocktail)
+                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data, isCocktail: dessert.isCocktail, favoriteService: viewModel.favoriteService)
                             } label: {
                                 DessertRowView(dessert: dessert.name, imageData: cacheData as Data)
                             }
                         }
                         else {
                             NavigationLink {
-                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.thumb] ?? nil, isCocktail: viewModel.isCocktail)
+                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.thumb] ?? nil, isCocktail: dessert.isCocktail, favoriteService: viewModel.favoriteService)
                             } label: {
                                 DessertRowView(dessert: dessert.name, imageData: viewModel.imageData[dessert.thumb] ?? nil )
                             }
@@ -43,7 +45,15 @@ struct AllDessertsView: View {
             }
             .onChange(of: viewModel.selectedCategory, { oldValue, newValue in
                 Task {
-                    await viewModel.fetchDesserts(category: newValue)
+                    if newValue != "" {
+                        viewModel.showFavorites = false
+                        viewModel.isCocktail = false
+                        await viewModel.fetchDesserts(category: newValue)
+                    } else {
+                        viewModel.showFavorites = false
+                        viewModel.isCocktail = true
+                        await viewModel.fetchAllCocktails()
+                    }
                 }
             })
             .alert("Error", isPresented: $viewModel.showAlert, actions: {
@@ -52,55 +62,52 @@ struct AllDessertsView: View {
                 } label: {
                     Text("Dismiss")
                 }
-
+                
             }, message: {
                 Text(viewModel.errorMessage ?? "")
             })
-            .navigationTitle(viewModel.isCocktail ? "Cocktails" : viewModel.selectedCategory)
+            .navigationTitle(viewModel.showFavorites ? "Favorites" : viewModel.isCocktail ? "Cocktails" : viewModel.selectedCategory)
             .toolbar(content: {
-                if !viewModel.isCocktail {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Menu {
-                            Picker(selection: $viewModel.selectedCategory) {
-                                ForEach(viewModel.categories, id: \.idCategory) { category in
-                                    Text(category.category)
-                                        .tag(category.category)
-                                }
-                            } label: {
-                                
+                ToolbarItem(placement: .topBarLeading) {
+                    Menu {
+                        Button {
+                            viewModel.isCocktail = true
+                            Task {
+                                await viewModel.fetchAllCocktails()
+                                viewModel.selectedCategory = ""
                             }
-
+                        } label: {
+                            Text("Cocktails")
                         }
-                    label: {
-                        HStack {
-                            Text("Categories")
+                        Picker(selection: $viewModel.selectedCategory) {
+                            ForEach(viewModel.categories, id: \.idCategory) { category in
+                                Text(category.category)
+                                    .tag(category.category)
+                            }
+                        } label: {
+                            
                         }
+                        
                     }
+                label: {
+                    HStack {
+                        Text("Categories")
                     }
+                }
                 }
                 
                 
                 ToolbarItem {
                     Button {
-                        if viewModel.isCocktail {
-                            viewModel.isCocktail = false
-                            Task {
-                                await viewModel.fetchDesserts(category: viewModel.selectedCategory)
-                            }
-                        } else {
-                            viewModel.isCocktail = true
-                            Task {
-                                await viewModel.fetchAllCocktails()
-                            }
-                        }
+                        viewModel.showFavorites.toggle()
                     } label: {
-                        if viewModel.isCocktail {
-                            Text("Food")
+                        if viewModel.showFavorites {
+                            Text("Show all items")
                         } else {
-                            Text("Cocktails")
+                            Text("Show favorites")
                         }
                     }
-
+                    
                 }
             })
         }

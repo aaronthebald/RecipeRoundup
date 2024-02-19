@@ -19,6 +19,7 @@ class AllDessertsViewModel: ObservableObject {
     @Published var categories: [Category] = []
     @Published var selectedCategory: String = "Beef"
     @Published var isCocktail: Bool = false
+    @Published var showFavorites: Bool = false
     
     init(dataService: DessertsDataServiceProrocol, cacheService: CacheServiceProtocol) {
         self.dataService = dataService
@@ -29,6 +30,7 @@ class AllDessertsViewModel: ObservableObject {
         }
     }
     
+    let favoriteService = FavoriteService()
     let dataService: DessertsDataServiceProrocol
     let cacheService: CacheServiceProtocol
     var cancellables = Set<AnyCancellable>()
@@ -41,6 +43,31 @@ class AllDessertsViewModel: ObservableObject {
             let sortedDesserts = items.sorted(by: {$0.name < $1.name})
             return sortedDesserts.filter({$0.name.contains(filterString)})
         }
+    }
+    
+    var favoriteItems: [FoodDrink] {
+        let favoriteEntities = favoriteService.savedEntities
+        var itemsArray: [FoodDrink] = []
+        for entity in favoriteEntities {
+            if entity.isCocktail {
+                if
+                    let name = entity.name,
+                    let thumb = entity.thumb,
+                    let id = entity.id {
+                    let newItem = Drink(name: name, thumb: thumb, id: id)
+                    itemsArray.append(newItem)
+                }
+            } else {
+                if
+                    let name = entity.name,
+                    let thumb = entity.thumb,
+                    let id = entity.id {
+                    let newItem = Dessert(name: name, thumb: thumb, id: id)
+                    itemsArray.append(newItem)
+                }
+            }
+        }
+        return itemsArray
     }
     
     func fetchCategories() async {
