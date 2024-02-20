@@ -88,6 +88,17 @@ struct DessertDetailsView: View {
             Text(vm.errorMessage ?? "")
         })
         .toolbar {
+            if vm.isProAccess == false {
+                ToolbarItem {
+                    Button {
+                        vm.makeSubscriptionPurchase()
+                    } label: {
+                        Text("Upgrade")
+                    }
+
+                }
+            }
+
             ToolbarItem {
                 Button {
                     vm.addToFavorites(isCocktail: isCocktail, deleteItem: vm.itemIsInFavorites(isCocktail: isCocktail))
