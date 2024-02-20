@@ -38,6 +38,10 @@
 		02B9A63F2B7EE1CA00990563 /* FavoriteContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A63D2B7EE1CA00990563 /* FavoriteContainer.xcdatamodeld */; };
 		02B9A6412B7EE23C00990563 /* FavoriteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A6402B7EE23C00990563 /* FavoriteService.swift */; };
 		02B9A6432B84178A00990563 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A6422B84178A00990563 /* Secrets.swift */; };
+		02B9A6462B84DE2400990563 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B9A6452B84DE2400990563 /* StoreKit.framework */; };
+		02B9A6492B84F16200990563 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 02B9A6482B84F16200990563 /* RevenueCat */; };
+		02B9A64B2B84F16200990563 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = 02B9A64A2B84F16200990563 /* RevenueCatUI */; };
+		02B9A64D2B84FE9300990563 /* SubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A64C2B84FE9300990563 /* SubscriptionService.swift */; };
 		02D8FF5C2B12B18300E8DDE0 /* DessertDetailsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +90,8 @@
 		02B9A63E2B7EE1CA00990563 /* FavoriteContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteContainer.xcdatamodel; sourceTree = "<group>"; };
 		02B9A6402B7EE23C00990563 /* FavoriteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteService.swift; sourceTree = "<group>"; };
 		02B9A6422B84178A00990563 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		02B9A6452B84DE2400990563 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		02B9A64C2B84FE9300990563 /* SubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionService.swift; sourceTree = "<group>"; };
 		02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DessertDetailsResponse.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +100,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B9A6492B84F16200990563 /* RevenueCat in Frameworks */,
+				02B9A6462B84DE2400990563 /* StoreKit.framework in Frameworks */,
+				02B9A64B2B84F16200990563 /* RevenueCatUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +123,7 @@
 				0205AAFC2AF9A55A003851EE /* Cake */,
 				0290378F2B04200900501F07 /* CakeTests */,
 				0205AAFB2AF9A55A003851EE /* Products */,
+				02B9A6442B84DE2400990563 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -173,6 +183,7 @@
 				025D3B622B29453F009759C2 /* CacheService.swift */,
 				02B9A6402B7EE23C00990563 /* FavoriteService.swift */,
 				02B9A6422B84178A00990563 /* Secrets.swift */,
+				02B9A64C2B84FE9300990563 /* SubscriptionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -281,6 +292,14 @@
 			path = Drinks;
 			sourceTree = "<group>";
 		};
+		02B9A6442B84DE2400990563 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				02B9A6452B84DE2400990563 /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		02D8FF5D2B12B19000E8DDE0 /* MockJSONData */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +327,10 @@
 			dependencies = (
 			);
 			name = Cake;
+			packageProductDependencies = (
+				02B9A6482B84F16200990563 /* RevenueCat */,
+				02B9A64A2B84F16200990563 /* RevenueCatUI */,
+			);
 			productName = Cake;
 			productReference = 0205AAFA2AF9A55A003851EE /* Cake.app */;
 			productType = "com.apple.product-type.application";
@@ -358,6 +381,9 @@
 				Base,
 			);
 			mainGroup = 0205AAF12AF9A55A003851EE;
+			packageReferences = (
+				02B9A6472B84F16200990563 /* XCRemoteSwiftPackageReference "purchases-ios" */,
+			);
 			productRefGroup = 0205AAFB2AF9A55A003851EE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -411,6 +437,7 @@
 				0205AB002AF9A55A003851EE /* AllDessertsView.swift in Sources */,
 				02A134E82B6FE4250009DF09 /* CategoryResponse.swift in Sources */,
 				0205AAFE2AF9A55A003851EE /* CakeApp.swift in Sources */,
+				02B9A64D2B84FE9300990563 /* SubscriptionService.swift in Sources */,
 				02A134ED2B703B480009DF09 /* AllCocktailsResponse.swift in Sources */,
 				0205AB1A2AFAEA8E003851EE /* DessertDetailsView.swift in Sources */,
 				02B9A6432B84178A00990563 /* Secrets.swift in Sources */,
@@ -573,6 +600,7 @@
 				DEVELOPMENT_TEAM = MW75NQ7TG5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = RecipeRoundup;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -584,11 +612,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.AaronWilson.Cake;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AaronWilson.RecipeRoundup;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -606,6 +635,7 @@
 				DEVELOPMENT_TEAM = MW75NQ7TG5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = RecipeRoundup;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -617,11 +647,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.AaronWilson.Cake;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AaronWilson.RecipeRoundup;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -695,6 +726,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		02B9A6472B84F16200990563 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.36.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		02B9A6482B84F16200990563 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02B9A6472B84F16200990563 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
+		};
+		02B9A64A2B84F16200990563 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02B9A6472B84F16200990563 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCatUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		02B9A63D2B7EE1CA00990563 /* FavoriteContainer.xcdatamodeld */ = {

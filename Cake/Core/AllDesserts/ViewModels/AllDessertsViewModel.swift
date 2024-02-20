@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import SwiftUI
+import RevenueCat
 
 class AllDessertsViewModel: ObservableObject {
     
@@ -27,6 +28,11 @@ class AllDessertsViewModel: ObservableObject {
         Task {
             await fetchCategories()
             await fetchDesserts(category: selectedCategory)
+        }
+        Purchases.shared.getCustomerInfo { info, error in
+            if info?.entitlements["proaccess"]?.isActive == true {
+                
+            }
         }
     }
     
