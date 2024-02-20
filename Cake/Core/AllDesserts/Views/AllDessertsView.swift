@@ -71,6 +71,15 @@ struct AllDessertsView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Menu {
                         Button {
+                            viewModel.showFavorites.toggle()
+                        } label: {
+                            if viewModel.showFavorites {
+                                Text("Show all items")
+                            } else {
+                                Text("Show favorites")
+                            }
+                        }
+                        Button {
                             viewModel.isCocktail = true
                             Task {
                                 await viewModel.fetchAllCocktails()
@@ -79,14 +88,20 @@ struct AllDessertsView: View {
                         } label: {
                             Text("Cocktails")
                         }
-                        Picker(selection: $viewModel.selectedCategory) {
-                            ForEach(viewModel.categories, id: \.idCategory) { category in
-                                Text(category.category)
-                                    .tag(category.category)
+                        Menu {
+                            Picker(selection: $viewModel.selectedCategory) {
+                                ForEach(viewModel.categories, id: \.idCategory) { category in
+                                    Text(category.category)
+                                        .tag(category.category)
+                                }
+                            } label: {
+                                
                             }
                         } label: {
-                            
+                            Text("Food Categories")
                         }
+
+                        
                         
                     }
                 label: {
@@ -94,20 +109,6 @@ struct AllDessertsView: View {
                         Text("Categories")
                     }
                 }
-                }
-                
-                
-                ToolbarItem {
-                    Button {
-                        viewModel.showFavorites.toggle()
-                    } label: {
-                        if viewModel.showFavorites {
-                            Text("Show all items")
-                        } else {
-                            Text("Show favorites")
-                        }
-                    }
-                    
                 }
             })
         }
