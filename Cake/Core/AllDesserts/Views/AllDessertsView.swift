@@ -110,6 +110,17 @@ struct AllDessertsView: View {
                     }
                 }
                 }
+                ToolbarItem {
+                    Button {
+                        viewModel.showSettingSheet = true
+                    } label: {
+                        Image(systemName: "gear")
+                    }
+
+                }
+            })
+            .sheet(isPresented: $viewModel.showSettingSheet, content: {
+                SettingsView()
             })
         }
         

@@ -55,7 +55,7 @@ class DessertDetailsViewModel: ObservableObject {
     func addToFavorites(isCocktail: Bool, deleteItem: Bool) {
         if favoriteService.savedEntities.count >= 3 && deleteItem == false && isProAccess == false {
             showAlert = true
-            errorMessage = "To save more than 5 items to your Favorites please upgrade to the pro plan"
+            errorMessage = "Upgrade to the pro plan to save additional items to your Favorites!"
             return
         }
         if isCocktail {

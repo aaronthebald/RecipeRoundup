@@ -20,6 +20,7 @@ class AllDessertsViewModel: ObservableObject {
     @Published var selectedCategory: String = "Beef"
     @Published var isCocktail: Bool = false
     @Published var showFavorites: Bool = false
+    @Published var showSettingSheet: Bool = false
     
     init(dataService: DessertsDataServiceProrocol, cacheService: CacheServiceProtocol) {
         self.dataService = dataService
