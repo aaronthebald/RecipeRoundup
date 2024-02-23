@@ -83,22 +83,18 @@ struct DessertDetailsView: View {
             } label: {
                 Text("Dismiss")
             }
+            if vm.errorMessage == "Upgrade to the pro plan to save additional items to your Favorites!" {
+                Button {
+                    vm.makeSubscriptionPurchase()
+                } label: {
+                    Text("Upgrade")
+                }
+            }
 
         }, message: {
             Text(vm.errorMessage ?? "")
         })
         .toolbar {
-            if vm.isProAccess == false {
-                ToolbarItem {
-                    Button {
-                        vm.makeSubscriptionPurchase()
-                    } label: {
-                        Text("Upgrade")
-                    }
-
-                }
-            }
-
             ToolbarItem {
                 Button {
                     vm.addToFavorites(isCocktail: isCocktail, deleteItem: vm.itemIsInFavorites(isCocktail: isCocktail))

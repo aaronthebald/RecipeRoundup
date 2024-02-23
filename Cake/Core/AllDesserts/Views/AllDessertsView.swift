@@ -73,11 +73,7 @@ struct AllDessertsView: View {
                         Button {
                             viewModel.showFavorites.toggle()
                         } label: {
-                            if viewModel.showFavorites {
-                                Text("Show all items")
-                            } else {
-                                Text("Show favorites")
-                            }
+                            Text("Favorites")
                         }
                         Button {
                             viewModel.isCocktail = true
