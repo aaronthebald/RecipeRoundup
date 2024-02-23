@@ -20,11 +20,6 @@ class DessertDetailsViewModel: ObservableObject {
         self.dataService = dataService
         self.favoriteService = favoriteService
         self.proAccessManager = proAccessManager
-        Purchases.shared.getCustomerInfo { info, error in
-            if info?.entitlements["proaccess"]?.isActive == true {
-                self.proAccessManager.isProAccess = true
-            }
-        }
     }
     let proAccessManager: ProAccessManager
     let favoriteService: FavoriteService

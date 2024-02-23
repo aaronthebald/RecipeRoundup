@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import RevenueCat
 
 struct AllDessertsView: View {
     
@@ -117,10 +117,17 @@ struct AllDessertsView: View {
                 }
             })
             .sheet(isPresented: $viewModel.showSettingSheet, content: {
-                SettingsView()
+                SettingsView(proAccessManager: proAccessManager)
             })
         }
-        
+        .onAppear(perform: {
+            Purchases.shared.getCustomerInfo { info, error in
+                if info?.entitlements["proaccess"]?.isActive == true {
+                    print("pro access checked")
+                    self.proAccessManager.isProAccess = true
+                }
+            }
+        })
         .searchable(text: $viewModel.filterString)
     }
 }

@@ -11,7 +11,11 @@ import SwiftUI
 
 class SettingsViewModel: ObservableObject {
     
-    @EnvironmentObject private var proAccessManager: ProAccessManager
+    let proAccessManager: ProAccessManager
+    
+    init(proAccessManager: ProAccessManager) {
+        self.proAccessManager = proAccessManager
+    }
     
     func makeSubscriptionPurchase() {
         SubscriptionService.purchase(productId: "rr_499_yearly") {
