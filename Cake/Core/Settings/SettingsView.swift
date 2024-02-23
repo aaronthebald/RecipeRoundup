@@ -21,21 +21,47 @@ struct SettingsView: View {
         VStack(alignment: .leading) {
             
             List {
-                HStack {
-                    Text("Current Status:")
-                    Text(proAccessManager.isProAccess ? "Pro" : "Free")
-                } 
-                if proAccessManager.isProAccess == false {
-                    Button {
-                        vm.makeSubscriptionPurchase()
+                Section("Pro Status") {
+                    HStack {
+                        Text("Current Status:")
+                        Text(proAccessManager.isProAccess ? "Pro" : "Free")
                     }
-                    label: {
-                        Text("Upgrade to pro")
+                    if proAccessManager.isProAccess == false {
+                        Text("Upgrade to Pro today to save unlimted recipies to your Favorites!")
+                        Button {
+                            vm.makeSubscriptionPurchase()
+                        }
+                        label: {
+                            Text("Upgrade to pro")
+                        }
                     }
                 }
-                Link(destination: URL(string: "https://github.com/aaronthebald/Cake/blob/main/PrivacyPolicy")!, label: {
-                    Text("Privacy Policy")
-                })
+                
+                Section("Information") {
+                    HStack {
+                        Image("AaronWilson")
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .clipShape(.rect(cornerRadius: 15))
+                        Text("Hello, I am Aaron.")
+                    }
+                    Text("I am the developer of this App. I hope you enjoy using it and make something delicious!")
+                    
+                    Link(destination: URL(string: "https://github.com/aaronthebald/")!) {
+                        Text("Developer GitHub")
+                    }
+                    Link(destination: URL(string: "https://www.linkedin.com/in/aaronwilsondev/")!) {
+                        Text("Developer LinkedIn")
+                    }
+                    Link(destination: URL(string: "https://www.themealdb.com")!) {
+                        Text("themealdb.com")
+                    }
+                    
+                    
+                    Link(destination: URL(string: "https://github.com/aaronthebald/Cake/blob/main/PrivacyPolicy")!, label: {
+                        Text("Privacy Policy")
+                    })
+                }
             }
         }
     }
