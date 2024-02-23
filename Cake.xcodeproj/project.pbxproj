@@ -41,6 +41,7 @@
 		02B9A64D2B84FE9300990563 /* SubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A64C2B84FE9300990563 /* SubscriptionService.swift */; };
 		02B9A6502B855EB900990563 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A64F2B855EB900990563 /* SettingsView.swift */; };
 		02B9A6522B85613900990563 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A6512B85613900990563 /* SettingsViewModel.swift */; };
+		02B9A6542B88FD4000990563 /* ProAccessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A6532B88FD4000990563 /* ProAccessManager.swift */; };
 		02D8FF5C2B12B18300E8DDE0 /* DessertDetailsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +91,7 @@
 		02B9A64C2B84FE9300990563 /* SubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionService.swift; sourceTree = "<group>"; };
 		02B9A64F2B855EB900990563 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		02B9A6512B85613900990563 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		02B9A6532B88FD4000990563 /* ProAccessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProAccessManager.swift; sourceTree = "<group>"; };
 		02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DessertDetailsResponse.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,6 +184,7 @@
 				02B9A6402B7EE23C00990563 /* FavoriteService.swift */,
 				02B9A6422B84178A00990563 /* Secrets.swift */,
 				02B9A64C2B84FE9300990563 /* SubscriptionService.swift */,
+				02B9A6532B88FD4000990563 /* ProAccessManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				02A134ED2B703B480009DF09 /* AllCocktailsResponse.swift in Sources */,
 				0205AB1A2AFAEA8E003851EE /* DessertDetailsView.swift in Sources */,
 				02B9A6432B84178A00990563 /* Secrets.swift in Sources */,
+				02B9A6542B88FD4000990563 /* ProAccessManager.swift in Sources */,
 				02B9A63F2B7EE1CA00990563 /* FavoriteContainer.xcdatamodeld in Sources */,
 				025D3B632B29453F009759C2 /* CacheService.swift in Sources */,
 				0205AB142AF9C2E0003851EE /* AllDessertsViewModel.swift in Sources */,

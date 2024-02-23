@@ -8,25 +8,28 @@
 import Foundation
 import Combine
 import RevenueCat
+import SwiftUI
 
 class DessertDetailsViewModel: ObservableObject {
     @Published var dessertDetails: Details = DessertDetailsModel.placeholderDetails
     @Published var showAlert: Bool = false
     @Published var errorMessage: String?
     
-    init(dataService: DessertsDataServiceProrocol, favoriteService: FavoriteService) {
+    
+    init(dataService: DessertsDataServiceProrocol, favoriteService: FavoriteService, proAccessManager: ProAccessManager) {
         self.dataService = dataService
         self.favoriteService = favoriteService
+        self.proAccessManager = proAccessManager
         Purchases.shared.getCustomerInfo { info, error in
             if info?.entitlements["proaccess"]?.isActive == true {
-                self.isProAccess = true
+                self.proAccessManager.isProAccess = true
             }
         }
     }
-    
+    let proAccessManager: ProAccessManager
     let favoriteService: FavoriteService
     let dataService: DessertsDataServiceProrocol
-    var isProAccess: Bool = false
+    
     
     func itemIsInFavorites(isCocktail: Bool) -> Bool {
         if isCocktail {
@@ -53,7 +56,7 @@ class DessertDetailsViewModel: ObservableObject {
     }
     
     func addToFavorites(isCocktail: Bool, deleteItem: Bool) {
-        if favoriteService.savedEntities.count >= 3 && deleteItem == false && isProAccess == false {
+        if favoriteService.savedEntities.count >= 3 && deleteItem == false && self.proAccessManager.isProAccess == false {
             showAlert = true
             errorMessage = "Upgrade to the pro plan to save additional items to your Favorites!"
             return
@@ -84,7 +87,7 @@ class DessertDetailsViewModel: ObservableObject {
     
     func makeSubscriptionPurchase() {
         SubscriptionService.purchase(productId: "rr_499_yearly") {
-            self.isProAccess = true
+            self.proAccessManager.isProAccess = true
         }
     }
 }

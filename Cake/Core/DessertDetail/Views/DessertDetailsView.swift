@@ -15,13 +15,15 @@ struct DessertDetailsView: View {
     let mealId: String
     let imageData: Data?
     let isCocktail: Bool
+    let proAccessManager: ProAccessManager
     
-    init(dataService: DessertsDataServiceProrocol, mealId: String, imageData: Data?, isCocktail: Bool, favoriteService: FavoriteService) {
-        _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService, favoriteService: favoriteService))
+    init(dataService: DessertsDataServiceProrocol, mealId: String, imageData: Data?, isCocktail: Bool, favoriteService: FavoriteService, proAccessManager: ProAccessManager) {
+        _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService, favoriteService: favoriteService, proAccessManager: proAccessManager))
         self.dataService = dataService
         self.mealId = mealId
         self.imageData = imageData
         self.isCocktail = isCocktail
+        self.proAccessManager = proAccessManager
     }
     
     var body: some View {

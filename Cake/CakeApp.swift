@@ -11,6 +11,8 @@ import RevenueCat
 @main
 struct CakeApp: App {
     
+    @StateObject var proAccessManager = ProAccessManager()
+    
     init() {
         setupRevenueCat()
     }
@@ -18,7 +20,9 @@ struct CakeApp: App {
     var body: some Scene {
         WindowGroup {
             AllDessertsView()
+                .environmentObject(proAccessManager)
         }
+        
     }
     
     func setupRevenueCat() {
