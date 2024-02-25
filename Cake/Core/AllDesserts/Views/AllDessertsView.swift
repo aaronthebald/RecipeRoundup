@@ -74,7 +74,11 @@ struct AllDessertsView: View {
                         Button {
                             viewModel.showFavorites.toggle()
                         } label: {
-                            Text("Favorites")
+                            HStack {
+                                Text("Favorites")
+                                Image(systemName: "star.fill")
+                            }
+                            
                         }
                         Button {
                             viewModel.isCocktail = true

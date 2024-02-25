@@ -102,14 +102,14 @@ struct DessertDetailsView: View {
                     vm.addToFavorites(isCocktail: isCocktail, deleteItem: vm.itemIsInFavorites(isCocktail: isCocktail))
                 } label: {
                     if vm.itemIsInFavorites(isCocktail: isCocktail) {
-                        Label("Remove from Favorites", systemImage: "minus")
-                            .labelStyle(TitleAndIconLabelStyle())
+                        Label("Remove from Favorites", systemImage: "star.fill")
+                            .tint(Color.orange)
                     } else {
-                     Label("Add to Favorites", systemImage: "plus")
-                            .labelStyle(TitleAndIconLabelStyle())
+                        Label("Add to Favorites", systemImage: "star")
+                            
                     }
                 }
-
+                .tint(Color.orange)
             }
         }
     }
