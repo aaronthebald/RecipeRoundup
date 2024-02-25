@@ -128,7 +128,7 @@ struct AllDessertsView: View {
                 }
             }
         })
-        .searchable(text: $viewModel.filterString)
+        .searchable(text: $viewModel.filterString, prompt: "Search within category")
     }
 }
 

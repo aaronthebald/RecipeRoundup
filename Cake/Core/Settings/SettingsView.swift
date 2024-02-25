@@ -32,7 +32,7 @@ struct SettingsView: View {
                             vm.makeSubscriptionPurchase()
                         }
                         label: {
-                            Text("Upgrade to pro")
+                            Text("Upgrade to Pro")
                         }
                     }
                 }
