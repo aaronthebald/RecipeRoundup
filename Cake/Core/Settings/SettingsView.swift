@@ -27,7 +27,7 @@ struct SettingsView: View {
                         Text(proAccessManager.isProAccess ? "Pro" : "Free")
                     }
                     if proAccessManager.isProAccess == false {
-                        Text("Upgrade to Pro today to save unlimted recipies to your Favorites!")
+                        Text("Purchase one year of Pro Access today to save unlimted recipies to your Favorites!")
                         Button {
                             vm.makeSubscriptionPurchase()
                         }
@@ -35,6 +35,13 @@ struct SettingsView: View {
                             Text("Upgrade to Pro")
                         }
                     }
+                    
+                    Button {
+                        vm.restorePurchase()
+                    } label: {
+                        Text("Restore Purchase")
+                    }
+
                 }
                 
                 Section("Information") {
@@ -56,11 +63,16 @@ struct SettingsView: View {
                     Link(destination: URL(string: "https://www.themealdb.com")!) {
                         Text("themealdb.com")
                     }
-                    
+                    Link(destination: URL(string: "https://www.revenuecat.com")!) {
+                        Text("RevenuCat.com")
+                    }
                     
                     Link(destination: URL(string: "https://github.com/aaronthebald/Cake/blob/main/PrivacyPolicy")!, label: {
                         Text("Privacy Policy")
                     })
+                    Link(destination: URL(string: "https://github.com/aaronthebald/Cake/blob/main/TermsOfUse")!) {
+                        Text("Terms of Use")
+                    }
                 }
             }
         }

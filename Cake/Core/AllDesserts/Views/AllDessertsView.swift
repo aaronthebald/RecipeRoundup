@@ -16,9 +16,9 @@ struct AllDessertsView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                if viewModel.filteredDesserts.isEmpty {
+                if viewModel.filteredDesserts.isEmpty && viewModel.viewIsLoading == false {
                     ContentUnavailableView("No Items Found", systemImage: "exclamationmark.magnifyingglass")
-                } else if viewModel.showFavorites && viewModel.favoriteItems.isEmpty {
+                } else if viewModel.showFavorites && viewModel.favoriteItems.isEmpty && viewModel.viewIsLoading == false {
                     ContentUnavailableView("No Items Found", systemImage: "exclamationmark.magnifyingglass")
                 }
                 LazyVStack(alignment: .leading) {
@@ -44,6 +44,15 @@ struct AllDessertsView: View {
                 }
                 .padding(.horizontal, 4)
             }
+            .overlay(content: {
+                if viewModel.viewIsLoading {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .ignoresSafeArea()
+                        .background(.ultraThinMaterial)
+                        
+                }
+            })
             .onChange(of: viewModel.selectedCategory, { oldValue, newValue in
                 Task {
                     if newValue != "" {

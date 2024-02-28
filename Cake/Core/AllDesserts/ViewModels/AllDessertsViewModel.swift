@@ -21,6 +21,7 @@ class AllDessertsViewModel: ObservableObject {
     @Published var isCocktail: Bool = false
     @Published var showFavorites: Bool = false
     @Published var showSettingSheet: Bool = false
+    @Published var viewIsLoading: Bool = true
     
     init(dataService: DessertsDataServiceProrocol, cacheService: CacheServiceProtocol) {
         self.dataService = dataService
@@ -87,23 +88,33 @@ class AllDessertsViewModel: ObservableObject {
     
     func fetchAllCocktails() async {
         do {
+            await MainActor.run {
+                self.viewIsLoading = true
+            }
             let drinks = try await dataService.fetchAllCocktails()
             await MainActor.run {
                 self.items = drinks
+                viewIsLoading = false
             }
         } catch {
+            viewIsLoading = false
             print(error.localizedDescription)
         }
     }
     
     func fetchDesserts(category: String) async {
         do {
+            await MainActor.run {
+                self.viewIsLoading = true
+            }
             let newDesserts = try await dataService.fetchAllDesserts(category: category)
             await MainActor.run {
                 self.items = newDesserts
+                self.viewIsLoading = false
             }
         } catch {
             await MainActor.run {
+                self.viewIsLoading = false
                 self.showAlert = true
                 self.errorMessage = "There was an error \(error.localizedDescription)"
             }

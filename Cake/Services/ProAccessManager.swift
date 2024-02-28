@@ -10,7 +10,6 @@ import Foundation
 class ProAccessManager: ObservableObject {
     @Published var isProAccess = false
     init(isProAccess: Bool = false) {
-        print("Observable Object created")
         self.isProAccess = isProAccess
     }
 }

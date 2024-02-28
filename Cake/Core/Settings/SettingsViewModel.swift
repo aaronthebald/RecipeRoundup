@@ -22,4 +22,13 @@ class SettingsViewModel: ObservableObject {
             self.proAccessManager.isProAccess = true
         }
     }
+    
+    func restorePurchase() {
+        Purchases.shared.restorePurchases { customer, error in
+            if customer?.entitlements["proaccess"]?.isActive == true {
+                print("pro access checked")
+                self.proAccessManager.isProAccess = true
+            }
+        }
+    }
 }
