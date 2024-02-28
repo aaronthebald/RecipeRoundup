@@ -70,7 +70,7 @@ struct SettingsView: View {
                     Link(destination: URL(string: "https://github.com/aaronthebald/Cake/blob/main/PrivacyPolicy")!, label: {
                         Text("Privacy Policy")
                     })
-                    Link(destination: URL(string: "https://github.com/aaronthebald/Cake/blob/main/TermsOfUse")!) {
+                    Link(destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!) {
                         Text("Terms of Use")
                     }
                 }
