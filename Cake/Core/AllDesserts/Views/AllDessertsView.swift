@@ -19,7 +19,14 @@ struct AllDessertsView: View {
                 if viewModel.filteredDesserts.isEmpty && viewModel.viewIsLoading == false {
                     ContentUnavailableView("No Items Found", systemImage: "exclamationmark.magnifyingglass")
                 } else if viewModel.showFavorites && viewModel.favoriteItems.isEmpty && viewModel.viewIsLoading == false {
-                    ContentUnavailableView("No Items Found", systemImage: "exclamationmark.magnifyingglass")
+                    ContentUnavailableView("No Favorites Saved", systemImage: "exclamationmark.magnifyingglass")
+                    Button {
+                        viewModel.showFavorites = false
+                    } label: {
+                        Text("Browse Recipes")
+                    }
+                    .buttonStyle(.bordered)
+
                 }
                 LazyVStack(alignment: .leading) {
                     ForEach(viewModel.showFavorites ? viewModel.favoriteItems : viewModel.filteredDesserts, id: \.id) { dessert in
