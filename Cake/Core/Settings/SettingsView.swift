@@ -11,7 +11,6 @@ struct SettingsView: View {
     
     @StateObject private var vm: SettingsViewModel
     let proAccessManager: ProAccessManager
-//    _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService, favoriteService: favoriteService, proAccessManager: proAccessManager))
     init(proAccessManager: ProAccessManager) {
         _vm = StateObject(wrappedValue: SettingsViewModel(proAccessManager: proAccessManager))
         self.proAccessManager = proAccessManager
@@ -76,5 +75,14 @@ struct SettingsView: View {
                 }
             }
         }
+        .overlay(content: {
+            if vm.checkingStatus {
+                ProgressView()
+                    .frame(maxWidth: 100, maxHeight: 100)
+                    .background(.ultraThinMaterial)
+                    .clipShape(.rect(cornerRadius: 10))
+                    
+            }
+        })
     }
 }
