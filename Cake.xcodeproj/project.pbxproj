@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0205AAFE2AF9A55A003851EE /* CakeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AAFD2AF9A55A003851EE /* CakeApp.swift */; };
 		0205AB002AF9A55A003851EE /* AllDessertsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AAFF2AF9A55A003851EE /* AllDessertsView.swift */; };
-		0205AB022AF9A55B003851EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0205AB012AF9A55B003851EE /* Assets.xcassets */; };
 		0205AB052AF9A55B003851EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0205AB042AF9A55B003851EE /* Preview Assets.xcassets */; };
 		0205AB0F2AF9A63D003851EE /* DessertsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB0E2AF9A63D003851EE /* DessertsDataService.swift */; };
 		0205AB122AF9A677003851EE /* AllDessertsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0205AB112AF9A677003851EE /* AllDessertsResponse.swift */; };
@@ -42,6 +41,7 @@
 		02B9A6502B855EB900990563 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A64F2B855EB900990563 /* SettingsView.swift */; };
 		02B9A6522B85613900990563 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A6512B85613900990563 /* SettingsViewModel.swift */; };
 		02B9A6542B88FD4000990563 /* ProAccessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A6532B88FD4000990563 /* ProAccessManager.swift */; };
+		02B9A6562B92670000990563 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02B9A6552B92670000990563 /* Assets.xcassets */; };
 		02D8FF5C2B12B18300E8DDE0 /* DessertDetailsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +59,6 @@
 		0205AAFA2AF9A55A003851EE /* Cake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0205AAFD2AF9A55A003851EE /* CakeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CakeApp.swift; sourceTree = "<group>"; };
 		0205AAFF2AF9A55A003851EE /* AllDessertsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDessertsView.swift; sourceTree = "<group>"; };
-		0205AB012AF9A55B003851EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0205AB042AF9A55B003851EE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0205AB0E2AF9A63D003851EE /* DessertsDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertsDataService.swift; sourceTree = "<group>"; };
 		0205AB112AF9A677003851EE /* AllDessertsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDessertsResponse.swift; sourceTree = "<group>"; };
@@ -92,6 +91,7 @@
 		02B9A64F2B855EB900990563 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		02B9A6512B85613900990563 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		02B9A6532B88FD4000990563 /* ProAccessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProAccessManager.swift; sourceTree = "<group>"; };
+		02B9A6552B92670000990563 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Cake/Assets.xcassets; sourceTree = "<group>"; };
 		02D8FF5B2B12B18300E8DDE0 /* DessertDetailsResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DessertDetailsResponse.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,7 +144,6 @@
 				0205AB102AF9A64A003851EE /* Models */,
 				0205AB0D2AF9A618003851EE /* Services */,
 				0205AAFD2AF9A55A003851EE /* CakeApp.swift */,
-				0205AB012AF9A55B003851EE /* Assets.xcassets */,
 				0205AB032AF9A55B003851EE /* Preview Content */,
 			);
 			path = Cake;
@@ -278,6 +277,7 @@
 		02B9A6442B84DE2400990563 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				02B9A6552B92670000990563 /* Assets.xcassets */,
 				02B9A6452B84DE2400990563 /* StoreKit.framework */,
 			);
 			name = Frameworks;
@@ -392,8 +392,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0205AB3C2AFEA840003851EE /* Launch Screen.storyboard in Resources */,
+				02B9A6562B92670000990563 /* Assets.xcassets in Resources */,
 				0205AB052AF9A55B003851EE /* Preview Assets.xcassets in Resources */,
-				0205AB022AF9A55B003851EE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,7 +584,7 @@
 		0205AB092AF9A55B003851EE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon1;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconV3;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -619,7 +619,7 @@
 		0205AB0A2AF9A55B003851EE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon1;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconV3;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
