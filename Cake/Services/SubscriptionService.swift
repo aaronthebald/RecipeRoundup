@@ -11,9 +11,10 @@ import StoreKit
 
 class SubscriptionService {
     
+    @Published var subscriptionError: PublicError? = nil
+    @Published var userCanceled: Bool = false
     
-    static func purchase(productId:String?, successfulPurchase:@escaping () -> Void) {
-    
+     func purchase(productId:String?, successfulPurchase:@escaping () -> Void) {
         guard productId != nil else {
             return
         }
@@ -30,6 +31,10 @@ class SubscriptionService {
                 Purchases.shared.purchase(product: skProduct!) { transation, info, error, userCancelled in
                     if error == nil && !userCancelled {
                         successfulPurchase()
+                    } else if error != nil {
+                        self.subscriptionError = error
+                    } else if userCancelled {
+                        self.userCanceled = true
                     }
                 }
             }

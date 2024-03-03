@@ -20,11 +20,12 @@ class DessertDetailsViewModel: ObservableObject {
         self.dataService = dataService
         self.favoriteService = favoriteService
         self.proAccessManager = proAccessManager
+        subscribeToError()
     }
     let proAccessManager: ProAccessManager
     let favoriteService: FavoriteService
     let dataService: DessertsDataServiceProrocol
-    
+    let subscriptionManager = SubscriptionService()
     
     func itemIsInFavorites(isCocktail: Bool) -> Bool {
         if isCocktail {
@@ -39,7 +40,7 @@ class DessertDetailsViewModel: ObservableObject {
     func fetchDetails(id: String, isCocktail: Bool) async {
         do {
             let newDetails = try await dataService.fetchDessertDetails(mealID: id, isCocktail: isCocktail)
-           await MainActor.run {
+            await MainActor.run {
                 dessertDetails = newDetails
             }
         } catch  {
@@ -81,8 +82,17 @@ class DessertDetailsViewModel: ObservableObject {
     }
     
     func makeSubscriptionPurchase() {
-        SubscriptionService.purchase(productId: "rr_499_yearly") {
+        subscriptionManager.purchase(productId: "rr_499_yearly") {
             self.proAccessManager.isProAccess = true
         }
+    }
+    func subscribeToError() {
+        subscriptionManager.$subscriptionError
+            .sink { error in
+                if error != nil {
+                    self.showAlert = true
+                    self.errorMessage = error!.localizedDescription
+                }
+            }
     }
 }

@@ -75,6 +75,16 @@ struct SettingsView: View {
                 }
             }
         }
+        .alert("Error", isPresented: $vm.showAlert, actions: {
+            Button {
+                vm.showAlert = false
+            } label: {
+                Text("Dismiss")
+            }
+            
+        }, message: {
+            Text(vm.errorMessage)
+        })
         .overlay(content: {
             if vm.checkingStatus {
                 ProgressView()
