@@ -26,7 +26,7 @@ struct SettingsView: View {
                         Text(proAccessManager.isProAccess ? "Pro" : "Free")
                     }
                     if proAccessManager.isProAccess == false {
-                        Text("Purchase one year of Pro Access today to save unlimted recipies to your Favorites!")
+                        Text("Purchase one year of Pro Access today to save unlimted recipies to your Favorites! One year of Pro Access for $4.99 per year")
                         Button {
                             vm.makeSubscriptionPurchase()
                         }
