@@ -8,6 +8,7 @@
 import XCTest
 @testable import Cake
 
+// Tests were written for older version of the app. Will return to rewrite test suite.
 final class CakeTests: XCTestCase {
     
     var vm: AllDessertsViewModel?
