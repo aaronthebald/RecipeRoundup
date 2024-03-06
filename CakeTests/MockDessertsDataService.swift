@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+// Tests were written for older version of the app. Will return to rewrite test suite.
 @testable import Cake
 class MockDessertsDataService: DessertsDataServiceProrocol, Mockable {
     func getImageData(thumbnailURL: String) async throws -> Data {

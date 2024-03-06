@@ -14,12 +14,16 @@ struct DessertDetailsView: View {
     let dataService: DessertsDataServiceProrocol
     let mealId: String
     let imageData: Data?
+    let isCocktail: Bool
+    let proAccessManager: ProAccessManager
     
-    init(dataService: DessertsDataServiceProrocol, mealId: String, imageData: Data?) {
-        _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService))
+    init(dataService: DessertsDataServiceProrocol, mealId: String, imageData: Data?, isCocktail: Bool, favoriteService: FavoriteService, proAccessManager: ProAccessManager) {
+        _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService, favoriteService: favoriteService, proAccessManager: proAccessManager))
         self.dataService = dataService
         self.mealId = mealId
         self.imageData = imageData
+        self.isCocktail = isCocktail
+        self.proAccessManager = proAccessManager
     }
     
     var body: some View {
@@ -41,8 +45,10 @@ struct DessertDetailsView: View {
             
             VStack(alignment: .leading) {
                 HStack {
-                    Text("Region:")
-                    Text(vm.dessertDetails.area ?? "")
+                    if vm.dessertDetails.area != nil && vm.dessertDetails.area != "" {
+                        Text("Region:")
+                        Text(vm.dessertDetails.area ?? "")
+                    }
                 }
                 .font(.title3)
                 
@@ -71,18 +77,41 @@ struct DessertDetailsView: View {
         .navigationTitle(Text(vm.dessertDetails.meal))
         .navigationBarTitleDisplayMode(.inline)
         .task {
-            await vm.fetchDetails(id: mealId)
+            await vm.fetchDetails(id: mealId, isCocktail: isCocktail)
         }
-        .alert("Error", isPresented: $vm.showAlert, actions: {
+        .alert("", isPresented: $vm.showAlert, actions: {
             Button {
                 vm.showAlert = false
             } label: {
                 Text("Dismiss")
             }
+            if vm.errorMessage == "Upgrade to the pro plan to save additional items to your Favorites!" {
+                Button {
+                    vm.makeSubscriptionPurchase()
+                } label: {
+                    Text("Upgrade")
+                }
+            }
 
         }, message: {
             Text(vm.errorMessage ?? "")
         })
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    vm.addToFavorites(isCocktail: isCocktail, deleteItem: vm.itemIsInFavorites(isCocktail: isCocktail))
+                } label: {
+                    if vm.itemIsInFavorites(isCocktail: isCocktail) {
+                        Label("Remove from Favorites", systemImage: "star.fill")
+                            .tint(Color.orange)
+                    } else {
+                        Label("Add to Favorites", systemImage: "star")
+                            
+                    }
+                }
+                .tint(Color.orange)
+            }
+        }
     }
 }
 

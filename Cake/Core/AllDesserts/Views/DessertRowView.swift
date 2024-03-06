@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DessertRowView: View {
     
-    let dessert: Dessert
+    let dessert: String
     let imageData: Data?
     
     var body: some View {
@@ -29,7 +29,7 @@ struct DessertRowView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
                 
-                Text(dessert.meal)
+                Text(dessert)
                     .font(.title2)
                     .tint(.primary)
                 

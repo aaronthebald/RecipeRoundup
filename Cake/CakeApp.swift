@@ -6,12 +6,28 @@
 //
 
 import SwiftUI
+import RevenueCat
 
 @main
 struct CakeApp: App {
+    
+    @StateObject var proAccessManager = ProAccessManager()
+    
+    init() {
+        setupRevenueCat()
+    }
+    
     var body: some Scene {
         WindowGroup {
             AllDessertsView()
+                .environmentObject(proAccessManager)
         }
+        
     }
+    
+    func setupRevenueCat() {
+           
+        Purchases.logLevel = .info
+           Purchases.configure(withAPIKey: "appl_iKGCsoUbLGhgTZIPaflBimJcLgB")
+       }
 }
