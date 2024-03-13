@@ -85,7 +85,7 @@ struct DessertDetailsView: View {
             } label: {
                 Text("Dismiss")
             }
-            if vm.errorMessage == "Upgrade to the pro plan to save additional items to your Favorites!" {
+            if vm.errorMessage == vm.needToUpgradeErrorMessage {
                 Button {
                     vm.makeSubscriptionPurchase()
                 } label: {
