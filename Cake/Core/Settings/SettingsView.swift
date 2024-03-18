@@ -63,7 +63,7 @@ struct SettingsView: View {
                         Text("themealdb.com")
                     }
                     Link(destination: URL(string: "https://www.revenuecat.com")!) {
-                        Text("RevenuCat.com")
+                        Text("RevenueCat.com")
                     }
                     
                     Link(destination: URL(string: "https://github.com/aaronthebald/Cake/blob/main/PrivacyPolicy")!, label: {

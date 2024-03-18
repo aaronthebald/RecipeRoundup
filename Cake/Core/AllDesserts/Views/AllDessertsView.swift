@@ -10,7 +10,7 @@ import RevenueCat
 
 struct AllDessertsView: View {
     
-    @StateObject var viewModel = AllDessertsViewModel(dataService: DessertsDataService(), cacheService: CacheService())
+    @StateObject private var viewModel = AllDessertsViewModel(dataService: DessertsDataService(), cacheService: CacheService())
     @EnvironmentObject var proAccessManager: ProAccessManager
     
     var body: some View {
