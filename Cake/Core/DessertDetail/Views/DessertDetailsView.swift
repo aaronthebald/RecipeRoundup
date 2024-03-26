@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DessertDetailsView: View {
     
-    @StateObject var vm: DessertDetailsViewModel
+    @StateObject private var vm: DessertDetailsViewModel
     
     let dataService: DessertsDataServiceProrocol
     let mealId: String
@@ -85,7 +85,7 @@ struct DessertDetailsView: View {
             } label: {
                 Text("Dismiss")
             }
-            if vm.errorMessage == "Upgrade to the pro plan to save additional items to your Favorites!" {
+            if vm.errorMessage == vm.needToUpgradeErrorMessage {
                 Button {
                     vm.makeSubscriptionPurchase()
                 } label: {
@@ -103,13 +103,11 @@ struct DessertDetailsView: View {
                 } label: {
                     if vm.itemIsInFavorites(isCocktail: isCocktail) {
                         Label("Remove from Favorites", systemImage: "star.fill")
-                            .tint(Color.orange)
                     } else {
                         Label("Add to Favorites", systemImage: "star")
-                            
                     }
                 }
-                .tint(Color.orange)
+                .tint(Color("CustomOrange", bundle: .none))
             }
         }
     }

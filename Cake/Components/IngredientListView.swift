@@ -18,7 +18,7 @@ struct IngredientListView: View {
             }
             .padding(.horizontal, 2)
             
-            Spacer()
+            Divider()
             
             VStack(alignment: .leading) {
                 itemSectionTwo

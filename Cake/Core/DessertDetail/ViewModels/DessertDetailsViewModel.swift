@@ -26,6 +26,8 @@ class DessertDetailsViewModel: ObservableObject {
     let favoriteService: FavoriteService
     let dataService: DessertsDataServiceProrocol
     let subscriptionManager = SubscriptionService()
+    let needToUpgradeErrorMessage = "Upgrade to the pro plan to save additional items to your Favorites!"
+    private var cancallables = Set<AnyCancellable>()
     
     func itemIsInFavorites(isCocktail: Bool) -> Bool {
         if isCocktail {
@@ -54,7 +56,7 @@ class DessertDetailsViewModel: ObservableObject {
     func addToFavorites(isCocktail: Bool, deleteItem: Bool) {
         if favoriteService.savedEntities.count >= 3 && deleteItem == false && self.proAccessManager.isProAccess == false {
             showAlert = true
-            errorMessage = "Upgrade to the pro plan to save additional items to your Favorites!"
+            errorMessage = needToUpgradeErrorMessage
             return
         }
         if isCocktail {
@@ -94,5 +96,6 @@ class DessertDetailsViewModel: ObservableObject {
                     self.errorMessage = error!.localizedDescription
                 }
             }
+            .store(in: &cancallables)
     }
 }
