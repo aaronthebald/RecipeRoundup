@@ -1,5 +1,5 @@
 //
-//  QuickImage.swift
+//  QuickAsyncImage.swift
 //  Cake
 //
 //  Created by Aaron Wilson on 11/7/23.
