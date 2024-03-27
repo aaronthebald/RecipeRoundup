@@ -1,6 +1,6 @@
 # RecipeRoundup
 
-RecipeRound is an iOS app that allows users to discover and explore recipes for meals and cocktails. RecipeRoundup leverages TheMealDB and TheCocktailDB APIs to provide a delightful experience for users looking to make something delicious.
+RecipeRoundup is an iOS app that allows users to discover and explore recipes for meals and cocktails. RecipeRoundup leverages TheMealDB and TheCocktailDB APIs to provide a delightful experience for users looking to make something delicious.
 
 Features
 
