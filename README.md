@@ -1,16 +1,13 @@
-# Cake
+# RecipeRoundup
 
-Cake is an open-source iOS app that allows users to discover and explore delicious dessert recipes. Built with Swift, SwiftUI, and Combine, Cake! leverages TheMealDB API to provide a delightful experience for users with a sweet tooth.
-
-UPDATE! Networking is now being handled with async/await. Also, Unit tests have been added!
+RecipeRpuind is an open-source iOS app that allows users to discover and explore recipes for meals and cocktails. Built with Swift, SwiftUI, and Core Data, RecipeRoundup leverages TheMealDB and TheCocktailDB APIs to provide a delightful experience for users looking to make something delicious.
 
 Features
 
-Browse Dessert Recipes: Explore a wide variety of dessert recipes, from classic cakes to modern treats.
-Detailed Recipe Information: Get detailed information about each recipe, including ingredients, and instructions.
+Browse Recipes: Explore a wide variety of recipes, from classic cocktails to modern treats.
+Detailed Recipe Information: Get detailed information about each recipe, including ingredients, instructions, and links to helpful videos.
+Save your favorite Recipes: Quickly access your favorites.
 
-Road map (Things i would have done if i had more time)
+Languages and frameworks
 
-Async Await networking calls. 
-Unit Testing.
-Lazy loading and caching. 
+Swift, SwiftUI, CoreData, XCTest, RevenueCat  
