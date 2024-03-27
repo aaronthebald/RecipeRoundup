@@ -1,6 +1,6 @@
 # RecipeRoundup
 
-RecipeRpuind is an open-source iOS app that allows users to discover and explore recipes for meals and cocktails. Built with Swift, SwiftUI, and Core Data, RecipeRoundup leverages TheMealDB and TheCocktailDB APIs to provide a delightful experience for users looking to make something delicious.
+RecipeRpuind is an open-source iOS app that allows users to discover and explore recipes for meals and cocktails. RecipeRoundup leverages TheMealDB and TheCocktailDB APIs to provide a delightful experience for users looking to make something delicious.
 
 Features
 
