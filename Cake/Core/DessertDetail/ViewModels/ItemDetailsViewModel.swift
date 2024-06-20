@@ -10,7 +10,7 @@ import Combine
 import RevenueCat
 import SwiftUI
 
-class DessertDetailsViewModel: ObservableObject {
+class ItemDetailsViewModel: ObservableObject {
     @Published var itemDetails: Details = ItemDetailsModel.placeholderDetails
     @Published var showAlert: Bool = false
     @Published var errorMessage: String?

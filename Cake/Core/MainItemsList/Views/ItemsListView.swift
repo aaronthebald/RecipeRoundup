@@ -22,23 +22,23 @@ struct ItemsListView: View {
                     emptyFavoritesView
                 }
                 LazyVStack(alignment: .leading) {
-                    ForEach(viewModel.showFavorites ? viewModel.favoriteItems : viewModel.filteredItems, id: \.id) { dessert in
+                    ForEach(viewModel.showFavorites ? viewModel.favoriteItems : viewModel.filteredItems, id: \.id) { item in
 //                    This if statement checks to see if the needed data for the image of the item is currently in the cache. If it is not then a function is called to download the data and store it in the cache.
-                        if let cacheData = viewModel.cacheService.getImage(thumbURL: dessert.thumb) {
+                        if let cacheData = viewModel.cacheService.getImage(thumbURL: item.thumb) {
                             NavigationLink {
-                                ItemDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data, isCocktail: dessert.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
+                                ItemDetailsView(dataService: viewModel.dataService, mealId: item.id, imageData: cacheData as Data, isCocktail: item.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
                             } label: {
-                                ItemRowView(dessert: dessert.name, imageData: cacheData as Data)
+                                ItemRowView(dessert: item.name, imageData: cacheData as Data)
                             }
                         }
                         else {
                             NavigationLink {
-                                ItemDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.thumb] ?? nil, isCocktail: dessert.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
+                                ItemDetailsView(dataService: viewModel.dataService, mealId: item.id, imageData: viewModel.imageData[item.thumb] ?? nil, isCocktail: item.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
                             } label: {
-                                ItemRowView(dessert: dessert.name, imageData: viewModel.imageData[dessert.thumb] ?? nil )
+                                ItemRowView(dessert: item.name, imageData: viewModel.imageData[item.thumb] ?? nil )
                             }
                             .task {
-                                await viewModel.getImageData(thumbURL: dessert.thumb)
+                                await viewModel.getImageData(thumbURL: item.thumb)
                             }
                         }
                     }

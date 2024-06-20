@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ItemDetailsView: View {
     
-    @StateObject private var vm: DessertDetailsViewModel
+    @StateObject private var vm: ItemDetailsViewModel
     
     let dataService: DataServiceProtocol
     let mealId: String
@@ -18,7 +18,7 @@ struct ItemDetailsView: View {
     let proAccessManager: ProAccessManager
     
     init(dataService: DataServiceProtocol, mealId: String, imageData: Data?, isCocktail: Bool, favoriteService: FavoriteService, proAccessManager: ProAccessManager) {
-        _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService, favoriteService: favoriteService, proAccessManager: proAccessManager))
+        _vm = StateObject(wrappedValue: ItemDetailsViewModel(dataService: dataService, favoriteService: favoriteService, proAccessManager: proAccessManager))
         self.dataService = dataService
         self.mealId = mealId
         self.imageData = imageData
