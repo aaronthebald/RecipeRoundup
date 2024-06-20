@@ -11,13 +11,13 @@ struct DessertDetailsView: View {
     
     @StateObject private var vm: DessertDetailsViewModel
     
-    let dataService: DessertsDataServiceProrocol
+    let dataService: DataServiceProtocol
     let mealId: String
     let imageData: Data?
     let isCocktail: Bool
     let proAccessManager: ProAccessManager
     
-    init(dataService: DessertsDataServiceProrocol, mealId: String, imageData: Data?, isCocktail: Bool, favoriteService: FavoriteService, proAccessManager: ProAccessManager) {
+    init(dataService: DataServiceProtocol, mealId: String, imageData: Data?, isCocktail: Bool, favoriteService: FavoriteService, proAccessManager: ProAccessManager) {
         _vm = StateObject(wrappedValue: DessertDetailsViewModel(dataService: dataService, favoriteService: favoriteService, proAccessManager: proAccessManager))
         self.dataService = dataService
         self.mealId = mealId

@@ -10,26 +10,20 @@ import RevenueCat
 
 struct AllDessertsView: View {
     
-    @StateObject private var viewModel = AllDessertsViewModel(dataService: DessertsDataService(), cacheService: CacheService())
+    @StateObject private var viewModel = AllDessertsViewModel(dataService: DataService(), cacheService: CacheService())
     @EnvironmentObject var proAccessManager: ProAccessManager
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                if viewModel.filteredDesserts.isEmpty && viewModel.viewIsLoading == false {
+                if viewModel.filteredItems.isEmpty && viewModel.viewIsLoading == false {
                     ContentUnavailableView("No Items Found", systemImage: "exclamationmark.magnifyingglass")
                 } else if viewModel.showFavorites && viewModel.favoriteItems.isEmpty && viewModel.viewIsLoading == false {
-                    ContentUnavailableView("No Favorites Saved", systemImage: "exclamationmark.magnifyingglass")
-                    Button {
-                        viewModel.showFavorites = false
-                    } label: {
-                        Text("Browse Recipes")
-                    }
-                    .buttonStyle(.bordered)
-
+                    emptyFavoritesView
                 }
                 LazyVStack(alignment: .leading) {
-                    ForEach(viewModel.showFavorites ? viewModel.favoriteItems : viewModel.filteredDesserts, id: \.id) { dessert in
+                    ForEach(viewModel.showFavorites ? viewModel.favoriteItems : viewModel.filteredItems, id: \.id) { dessert in
+//                    This if statement checks to see if the needed data for the image of the item is currently in the cache. If it is not then a function is called to download the data and store it in the cache.
                         if let cacheData = viewModel.cacheService.getImage(thumbURL: dessert.thumb) {
                             NavigationLink {
                                 DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data, isCocktail: dessert.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
@@ -152,3 +146,17 @@ struct AllDessertsView: View {
     AllDessertsView()
 }
 
+extension AllDessertsView {
+    
+    private var emptyFavoritesView: some View {
+        VStack {
+            ContentUnavailableView("No Favorites Saved", systemImage: "exclamationmark.magnifyingglass")
+            Button {
+                viewModel.showFavorites = false
+            } label: {
+                Text("Browse Recipes")
+            }
+            .buttonStyle(.bordered)
+        }
+    }
+}

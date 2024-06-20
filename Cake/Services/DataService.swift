@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-protocol DessertsDataServiceProrocol {
+protocol DataServiceProtocol {
     var desserts: [Dessert] { get set }
     var dessertDetails: DessertDetailsModel? { get set }
     var errorMessage: String? { get set }
@@ -16,17 +16,17 @@ protocol DessertsDataServiceProrocol {
     func fetchAllDesserts(category: String) async throws -> [Dessert]
     func fetchDessertDetails(mealID: String, isCocktail: Bool) async throws -> Details
     func getImageData(thumbnailURL: String) async throws -> Data 
-    func fetchAllCatagories() async throws -> [Category]
+    func fetchAllCategories() async throws -> [Category]
     func fetchAllCocktails() async throws -> [Drink]
 }
 
-class DessertsDataService: ObservableObject, DessertsDataServiceProrocol {
+class DataService: ObservableObject, DataServiceProtocol {
    
     @Published var desserts: [Dessert] = []
     @Published var dessertDetails: DessertDetailsModel?
     @Published var errorMessage: String?
     
-    let allMealCatagories = "https://themealdb.com/api/json/v1/1/categories.php"
+    let allMealCategories = "https://themealdb.com/api/json/v1/1/categories.php"
     let allDessertsURLString = "https://themealdb.com/api/json/v1/1/filter.php?c="
     let dessertDetailsString = "https://themealdb.com/api/json/v1/1/lookup.php?i="
     
@@ -55,8 +55,8 @@ class DessertsDataService: ObservableObject, DessertsDataServiceProrocol {
         return cocktails
     }
     
-    func fetchAllCatagories() async throws -> [Category] {
-        guard let url = URL(string: allMealCatagories) else {  throw DataServiceError.invalidURL }
+    func fetchAllCategories() async throws -> [Category] {
+        guard let url = URL(string: allMealCategories) else {  throw DataServiceError.invalidURL }
         var categories: [Category] = []
         do {
             let (data, response) = try await URLSession.shared.data(from: url)

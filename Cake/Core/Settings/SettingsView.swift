@@ -26,7 +26,7 @@ struct SettingsView: View {
                         Text(proAccessManager.isProAccess ? "Pro" : "Free")
                     }
                     if proAccessManager.isProAccess == false {
-                        Text("Purchase one year of Pro Access today to save unlimted recipies to your Favorites! One year of Pro Access for $4.99 per year")
+                        Text("Purchase one year of Pro Access today to save unlimited recipes to your Favorites! One year of Pro Access for $4.99 per year")
                         Button {
                             vm.makeSubscriptionPurchase()
                         }
@@ -49,7 +49,7 @@ struct SettingsView: View {
                             .resizable()
                             .frame(width: 100, height: 100)
                             .clipShape(.rect(cornerRadius: 15))
-                        Text("Hello, I am Aaron.")
+                        Text("Hello, I'm Aaron.")
                     }
                     Text("I am the developer of this App. I hope you enjoy using it and make something delicious!")
                     

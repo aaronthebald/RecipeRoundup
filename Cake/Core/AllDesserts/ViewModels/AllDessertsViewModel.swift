@@ -23,7 +23,7 @@ class AllDessertsViewModel: ObservableObject {
     @Published var showSettingSheet: Bool = false
     @Published var viewIsLoading: Bool = true
     
-    init(dataService: DessertsDataServiceProrocol, cacheService: CacheServiceProtocol) {
+    init(dataService: DataServiceProtocol, cacheService: CacheServiceProtocol) {
         self.dataService = dataService
         self.cacheService = cacheService
         Task {
@@ -33,11 +33,11 @@ class AllDessertsViewModel: ObservableObject {
     }
     
     let favoriteService = FavoriteService()
-    let dataService: DessertsDataServiceProrocol
+    let dataService: DataServiceProtocol
     let cacheService: CacheServiceProtocol
     var cancellables = Set<AnyCancellable>()
     
-    var filteredDesserts: [FoodDrink] {
+    var filteredItems: [FoodDrink] {
         if filterString == "" {
            let sortedDesserts = items.sorted(by: {$0.name < $1.name})
             return sortedDesserts
@@ -74,7 +74,7 @@ class AllDessertsViewModel: ObservableObject {
     
     func fetchCategories() async {
         do {
-            let categories = try await dataService.fetchAllCatagories()
+            let categories = try await dataService.fetchAllCategories()
             await MainActor.run {
                 self.categories = categories
             }

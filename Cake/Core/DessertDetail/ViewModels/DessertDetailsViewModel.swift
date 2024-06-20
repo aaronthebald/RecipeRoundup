@@ -16,7 +16,7 @@ class DessertDetailsViewModel: ObservableObject {
     @Published var errorMessage: String?
     
     
-    init(dataService: DessertsDataServiceProrocol, favoriteService: FavoriteService, proAccessManager: ProAccessManager) {
+    init(dataService: DataServiceProtocol, favoriteService: FavoriteService, proAccessManager: ProAccessManager) {
         self.dataService = dataService
         self.favoriteService = favoriteService
         self.proAccessManager = proAccessManager
@@ -24,7 +24,7 @@ class DessertDetailsViewModel: ObservableObject {
     }
     let proAccessManager: ProAccessManager
     let favoriteService: FavoriteService
-    let dataService: DessertsDataServiceProrocol
+    let dataService: DataServiceProtocol
     let subscriptionManager = SubscriptionService()
     let needToUpgradeErrorMessage = "Upgrade to the pro plan to save additional items to your Favorites!"
     private var cancallables = Set<AnyCancellable>()
