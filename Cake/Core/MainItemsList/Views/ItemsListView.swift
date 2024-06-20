@@ -25,19 +25,15 @@ struct ItemsListView: View {
             }
             .overlay(content: {
                 if viewModel.viewIsLoading {
-                    ProgressView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .ignoresSafeArea()
-                        .background(.ultraThinMaterial)
-                        
+                    loadingIndicator
                 }
             })
-            .onChange(of: viewModel.selectedCategory, { oldValue, newValue in
+            .onChange(of: viewModel.selectedCategory, { _, newCategory in
                 Task {
-                    if newValue != "" {
+                    if newCategory != "" {
                         viewModel.showFavorites = false
                         viewModel.isCocktail = false
-                        await viewModel.fetchItems(category: newValue)
+                        await viewModel.fetchItems(category: newCategory)
                     } else {
                         viewModel.showFavorites = false
                         viewModel.isCocktail = true
@@ -168,5 +164,12 @@ extension ItemsListView {
         } label: {
             Image(systemName: "gear")
         }
+    }
+    
+    private var loadingIndicator: some View {
+        ProgressView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+            .background(.ultraThinMaterial)
     }
 }
