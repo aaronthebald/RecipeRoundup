@@ -33,7 +33,6 @@
 		02B862002B767E7D001F91D0 /* CocktailsDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B861FF2B767E7D001F91D0 /* CocktailsDetailsResponse.swift */; };
 		02B9A63F2B7EE1CA00990563 /* FavoriteContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A63D2B7EE1CA00990563 /* FavoriteContainer.xcdatamodeld */; };
 		02B9A6412B7EE23C00990563 /* FavoriteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A6402B7EE23C00990563 /* FavoriteService.swift */; };
-		02B9A6432B84178A00990563 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9A6422B84178A00990563 /* Secrets.swift */; };
 		02B9A6462B84DE2400990563 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B9A6452B84DE2400990563 /* StoreKit.framework */; };
 		02B9A6492B84F16200990563 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 02B9A6482B84F16200990563 /* RevenueCat */; };
 		02B9A64B2B84F16200990563 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = 02B9A64A2B84F16200990563 /* RevenueCatUI */; };
@@ -85,7 +84,6 @@
 		02B861FF2B767E7D001F91D0 /* CocktailsDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailsDetailsResponse.swift; sourceTree = "<group>"; };
 		02B9A63E2B7EE1CA00990563 /* FavoriteContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteContainer.xcdatamodel; sourceTree = "<group>"; };
 		02B9A6402B7EE23C00990563 /* FavoriteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteService.swift; sourceTree = "<group>"; };
-		02B9A6422B84178A00990563 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		02B9A6452B84DE2400990563 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		02B9A64C2B84FE9300990563 /* SubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionService.swift; sourceTree = "<group>"; };
 		02B9A64F2B855EB900990563 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -181,7 +179,6 @@
 				0205AB0E2AF9A63D003851EE /* DessertsDataService.swift */,
 				025D3B622B29453F009759C2 /* CacheService.swift */,
 				02B9A6402B7EE23C00990563 /* FavoriteService.swift */,
-				02B9A6422B84178A00990563 /* Secrets.swift */,
 				02B9A64C2B84FE9300990563 /* SubscriptionService.swift */,
 				02B9A6532B88FD4000990563 /* ProAccessManager.swift */,
 			);
@@ -431,7 +428,6 @@
 				02B9A64D2B84FE9300990563 /* SubscriptionService.swift in Sources */,
 				02A134ED2B703B480009DF09 /* AllCocktailsResponse.swift in Sources */,
 				0205AB1A2AFAEA8E003851EE /* DessertDetailsView.swift in Sources */,
-				02B9A6432B84178A00990563 /* Secrets.swift in Sources */,
 				02B9A6542B88FD4000990563 /* ProAccessManager.swift in Sources */,
 				02B9A63F2B7EE1CA00990563 /* FavoriteContainer.xcdatamodeld in Sources */,
 				025D3B632B29453F009759C2 /* CacheService.swift in Sources */,

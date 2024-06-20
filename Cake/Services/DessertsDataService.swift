@@ -26,12 +26,12 @@ class DessertsDataService: ObservableObject, DessertsDataServiceProrocol {
     @Published var dessertDetails: DessertDetailsModel?
     @Published var errorMessage: String?
     
-    let allMealCatagories = "https://themealdb.com/api/json/v2/\(mealAPIKey)/categories.php"
-    let allDessertsURLString = "https://themealdb.com/api/json/v2/\(mealAPIKey)/filter.php?c="
-    let dessertDetailsString = "https://themealdb.com/api/json/v2/\(mealAPIKey)/lookup.php?i="
+    let allMealCatagories = "https://themealdb.com/api/json/v1/1/categories.php"
+    let allDessertsURLString = "https://themealdb.com/api/json/v1/1/filter.php?c="
+    let dessertDetailsString = "https://themealdb.com/api/json/v1/1/lookup.php?i="
     
-    let allCocktailsString = "https://thecocktaildb.com/api/json/v2/\(cocktailAPIKey)/filter.php?c=Cocktail"
-    let cocktailDetailsString = "https://thecocktaildb.com/api/json/v2/\(cocktailAPIKey)/lookup.php?i="
+    let allCocktailsString = "https://thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"
+    let cocktailDetailsString = "https://thecocktaildb.com/api/json/v1/1/lookup.php?i="
     
     var cancellables = Set<AnyCancellable>()
     
