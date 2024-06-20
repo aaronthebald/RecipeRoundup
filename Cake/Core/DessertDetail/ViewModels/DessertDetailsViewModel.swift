@@ -11,7 +11,7 @@ import RevenueCat
 import SwiftUI
 
 class DessertDetailsViewModel: ObservableObject {
-    @Published var dessertDetails: Details = DessertDetailsModel.placeholderDetails
+    @Published var itemDetails: Details = ItemDetailsModel.placeholderDetails
     @Published var showAlert: Bool = false
     @Published var errorMessage: String?
     
@@ -31,19 +31,19 @@ class DessertDetailsViewModel: ObservableObject {
     
     func itemIsInFavorites(isCocktail: Bool) -> Bool {
         if isCocktail {
-            let item = Drink(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
+            let item = Drink(name: itemDetails.meal, thumb: itemDetails.mealThumb, id: itemDetails.id)
             return favoriteService.itemIsInFavorites(item: item)
         } else {
-            let item = Dessert(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
+            let item = FoodDrinkItem(name: itemDetails.meal, thumb: itemDetails.mealThumb, id: itemDetails.id)
             return favoriteService.itemIsInFavorites(item: item)
         }
     }
     
     func fetchDetails(id: String, isCocktail: Bool) async {
         do {
-            let newDetails = try await dataService.fetchDessertDetails(mealID: id, isCocktail: isCocktail)
+            let newDetails = try await dataService.fetchItemDetails(mealID: id, isCocktail: isCocktail)
             await MainActor.run {
-                dessertDetails = newDetails
+                itemDetails = newDetails
             }
         } catch  {
             await MainActor.run {
@@ -60,7 +60,7 @@ class DessertDetailsViewModel: ObservableObject {
             return
         }
         if isCocktail {
-            let item = Drink(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
+            let item = Drink(name: itemDetails.meal, thumb: itemDetails.mealThumb, id: itemDetails.id)
             do {
                 try favoriteService.updateFavorites(item: item, isCocktail: isCocktail, deleteItem: deleteItem)
                 showAlert = true
@@ -71,7 +71,7 @@ class DessertDetailsViewModel: ObservableObject {
             }
             
         } else {
-            let item = Dessert(name: dessertDetails.meal, thumb: dessertDetails.mealThumb, id: dessertDetails.id)
+            let item = FoodDrinkItem(name: itemDetails.meal, thumb: itemDetails.mealThumb, id: itemDetails.id)
             do {
                 try favoriteService.updateFavorites(item: item, isCocktail: isCocktail, deleteItem: deleteItem)
                 showAlert = true

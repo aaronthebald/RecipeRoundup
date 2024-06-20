@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DessertRowView: View {
+struct ItemRowView: View {
     
     let dessert: String
     let imageData: Data?

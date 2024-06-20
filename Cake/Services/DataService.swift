@@ -9,12 +9,12 @@ import Foundation
 import Combine
 
 protocol DataServiceProtocol {
-    var desserts: [Dessert] { get set }
-    var dessertDetails: DessertDetailsModel? { get set }
+    var items: [FoodDrinkItem] { get set }
+    var itemDetails: ItemDetailsModel? { get set }
     var errorMessage: String? { get set }
     
-    func fetchAllDesserts(category: String) async throws -> [Dessert]
-    func fetchDessertDetails(mealID: String, isCocktail: Bool) async throws -> Details
+    func fetchItems(category: String) async throws -> [FoodDrinkItem]
+    func fetchItemDetails(mealID: String, isCocktail: Bool) async throws -> Details
     func getImageData(thumbnailURL: String) async throws -> Data 
     func fetchAllCategories() async throws -> [Category]
     func fetchAllCocktails() async throws -> [Drink]
@@ -22,13 +22,13 @@ protocol DataServiceProtocol {
 
 class DataService: ObservableObject, DataServiceProtocol {
    
-    @Published var desserts: [Dessert] = []
-    @Published var dessertDetails: DessertDetailsModel?
+    @Published var items: [FoodDrinkItem] = []
+    @Published var itemDetails: ItemDetailsModel?
     @Published var errorMessage: String?
     
     let allMealCategories = "https://themealdb.com/api/json/v1/1/categories.php"
-    let allDessertsURLString = "https://themealdb.com/api/json/v1/1/filter.php?c="
-    let dessertDetailsString = "https://themealdb.com/api/json/v1/1/lookup.php?i="
+    let listOfItemsURLString = "https://themealdb.com/api/json/v1/1/filter.php?c="
+    let itemDetailsString = "https://themealdb.com/api/json/v1/1/lookup.php?i="
     
     let allCocktailsString = "https://thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"
     let cocktailDetailsString = "https://thecocktaildb.com/api/json/v1/1/lookup.php?i="
@@ -71,24 +71,22 @@ class DataService: ObservableObject, DataServiceProtocol {
         return categories
     }
     
-    func fetchAllDesserts(category: String) async throws -> [Dessert] {
-        guard let url = URL(string: allDessertsURLString + category) else {  throw DataServiceError.invalidURL }
-        var dessetsArray: [Dessert] = []
+    func fetchItems(category: String) async throws -> [FoodDrinkItem] {
+        guard let url = URL(string: listOfItemsURLString + category) else {  throw DataServiceError.invalidURL }
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             guard (response as? HTTPURLResponse)?.statusCode == 200 else {
                 throw DataServiceError.badResponse
             }
             let decodedData = try JSONDecoder().decode(AllDessertsResponse.self, from: data)
-            dessetsArray = decodedData.meals
+            return decodedData.meals
         } catch {
             throw error
         }
-        return dessetsArray
     }
     
-    func fetchDessertDetails(mealID: String, isCocktail: Bool) async throws -> Details {
-        guard let url = URL(string: isCocktail ? cocktailDetailsString + mealID : dessertDetailsString + mealID) else { throw DataServiceError.badURL}
+    func fetchItemDetails(mealID: String, isCocktail: Bool) async throws -> Details {
+        guard let url = URL(string: isCocktail ? cocktailDetailsString + mealID : itemDetailsString + mealID) else { throw DataServiceError.badURL}
         do {
             let (data, response) = try await  URLSession.shared.data(from: url)
             guard (response as? HTTPURLResponse)?.statusCode == 200 else {

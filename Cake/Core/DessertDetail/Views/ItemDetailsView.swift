@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DessertDetailsView: View {
+struct ItemDetailsView: View {
     
     @StateObject private var vm: DessertDetailsViewModel
     
@@ -45,9 +45,9 @@ struct DessertDetailsView: View {
             
             VStack(alignment: .leading) {
                 HStack {
-                    if vm.dessertDetails.area != nil && vm.dessertDetails.area != "" {
+                    if vm.itemDetails.area != nil && vm.itemDetails.area != "" {
                         Text("Region:")
-                        Text(vm.dessertDetails.area ?? "")
+                        Text(vm.itemDetails.area ?? "")
                     }
                 }
                 .font(.title3)
@@ -57,14 +57,14 @@ struct DessertDetailsView: View {
                 Text("Ingredients")
                     .font(.headline)
                 
-                IngredientListView(dessert: vm.dessertDetails)
+                IngredientListView(dessert: vm.itemDetails)
                 
                 Divider()
                 
                 Text("Instructions")
                     .font(.headline)
                 
-                Text(vm.dessertDetails.instructions ?? "")
+                Text(vm.itemDetails.instructions ?? "")
                 
                 Spacer()
                 
@@ -74,7 +74,7 @@ struct DessertDetailsView: View {
             Spacer()
             
         }
-        .navigationTitle(Text(vm.dessertDetails.meal))
+        .navigationTitle(Text(vm.itemDetails.meal))
         .navigationBarTitleDisplayMode(.inline)
         .task {
             await vm.fetchDetails(id: mealId, isCocktail: isCocktail)
@@ -113,17 +113,17 @@ struct DessertDetailsView: View {
     }
 }
 
-extension DessertDetailsView {
+extension ItemDetailsView {
     private var links: some View {
         VStack(alignment: .leading) {
             
-            if let strSource = vm.dessertDetails.source, !strSource.isEmpty, let url = URL(string: strSource) {
+            if let strSource = vm.itemDetails.source, !strSource.isEmpty, let url = URL(string: strSource) {
                 Link(destination: url, label: {
                     Text("Recipe Link")
                 })
             }
             
-            if let youTubeString = vm.dessertDetails.youtube, !youTubeString.isEmpty, let url = URL(string: youTubeString) {
+            if let youTubeString = vm.itemDetails.youtube, !youTubeString.isEmpty, let url = URL(string: youTubeString) {
                 Link(destination: url, label: {
                     Text("YouTube")
                 })

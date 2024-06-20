@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import SwiftUI
 
-class AllDessertsViewModel: ObservableObject {
+class ItemsListViewModel: ObservableObject {
     
     @Published var items: [FoodDrink] = []
     @Published var showAlert: Bool = false
@@ -28,7 +28,7 @@ class AllDessertsViewModel: ObservableObject {
         self.cacheService = cacheService
         Task {
             await fetchCategories()
-            await fetchDesserts(category: selectedCategory)
+            await fetchItems(category: selectedCategory)
         }
     }
     
@@ -64,7 +64,7 @@ class AllDessertsViewModel: ObservableObject {
                     let name = entity.name,
                     let thumb = entity.thumb,
                     let id = entity.id {
-                    let newItem = Dessert(name: name, thumb: thumb, id: id)
+                    let newItem = FoodDrinkItem(name: name, thumb: thumb, id: id)
                     itemsArray.append(newItem)
                 }
             }
@@ -102,14 +102,14 @@ class AllDessertsViewModel: ObservableObject {
         }
     }
     
-    func fetchDesserts(category: String) async {
+    func fetchItems(category: String) async {
         do {
             await MainActor.run {
                 self.viewIsLoading = true
             }
-            let newDesserts = try await dataService.fetchAllDesserts(category: category)
+            let newItems = try await dataService.fetchItems(category: category)
             await MainActor.run {
-                self.items = newDesserts
+                self.items = newItems
                 self.viewIsLoading = false
             }
         } catch {

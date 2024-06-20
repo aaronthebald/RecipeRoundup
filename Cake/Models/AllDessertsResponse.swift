@@ -8,10 +8,10 @@
 import Foundation
 
 struct AllDessertsResponse: Codable {
-    let meals: [Dessert]
+    let meals: [FoodDrinkItem]
 }
 
-struct Dessert: Codable, Identifiable, Equatable, FoodDrink {
+struct FoodDrinkItem: Codable, Identifiable, Equatable, FoodDrink {
     
     let name: String
     let thumb: String

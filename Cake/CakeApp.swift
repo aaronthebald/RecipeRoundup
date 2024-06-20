@@ -19,7 +19,7 @@ struct CakeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            AllDessertsView()
+            ItemsListView()
                 .environmentObject(proAccessManager)
         }
         

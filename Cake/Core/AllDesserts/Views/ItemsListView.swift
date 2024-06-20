@@ -8,9 +8,9 @@
 import SwiftUI
 import RevenueCat
 
-struct AllDessertsView: View {
+struct ItemsListView: View {
     
-    @StateObject private var viewModel = AllDessertsViewModel(dataService: DataService(), cacheService: CacheService())
+    @StateObject private var viewModel = ItemsListViewModel(dataService: DataService(), cacheService: CacheService())
     @EnvironmentObject var proAccessManager: ProAccessManager
     
     var body: some View {
@@ -26,16 +26,16 @@ struct AllDessertsView: View {
 //                    This if statement checks to see if the needed data for the image of the item is currently in the cache. If it is not then a function is called to download the data and store it in the cache.
                         if let cacheData = viewModel.cacheService.getImage(thumbURL: dessert.thumb) {
                             NavigationLink {
-                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data, isCocktail: dessert.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
+                                ItemDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: cacheData as Data, isCocktail: dessert.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
                             } label: {
-                                DessertRowView(dessert: dessert.name, imageData: cacheData as Data)
+                                ItemRowView(dessert: dessert.name, imageData: cacheData as Data)
                             }
                         }
                         else {
                             NavigationLink {
-                                DessertDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.thumb] ?? nil, isCocktail: dessert.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
+                                ItemDetailsView(dataService: viewModel.dataService, mealId: dessert.id, imageData: viewModel.imageData[dessert.thumb] ?? nil, isCocktail: dessert.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
                             } label: {
-                                DessertRowView(dessert: dessert.name, imageData: viewModel.imageData[dessert.thumb] ?? nil )
+                                ItemRowView(dessert: dessert.name, imageData: viewModel.imageData[dessert.thumb] ?? nil )
                             }
                             .task {
                                 await viewModel.getImageData(thumbURL: dessert.thumb)
@@ -59,7 +59,7 @@ struct AllDessertsView: View {
                     if newValue != "" {
                         viewModel.showFavorites = false
                         viewModel.isCocktail = false
-                        await viewModel.fetchDesserts(category: newValue)
+                        await viewModel.fetchItems(category: newValue)
                     } else {
                         viewModel.showFavorites = false
                         viewModel.isCocktail = true
@@ -143,10 +143,10 @@ struct AllDessertsView: View {
 }
 
 #Preview {
-    AllDessertsView()
+    ItemsListView()
 }
 
-extension AllDessertsView {
+extension ItemsListView {
     
     private var emptyFavoritesView: some View {
         VStack {
