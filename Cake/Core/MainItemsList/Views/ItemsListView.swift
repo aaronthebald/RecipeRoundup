@@ -21,29 +21,7 @@ struct ItemsListView: View {
                 } else if viewModel.showFavorites && viewModel.favoriteItems.isEmpty && viewModel.viewIsLoading == false {
                     emptyFavoritesView
                 }
-                LazyVStack(alignment: .leading) {
-                    ForEach(viewModel.showFavorites ? viewModel.favoriteItems : viewModel.filteredItems, id: \.id) { item in
-//                    This if statement checks to see if the needed data for the image of the item is currently in the cache. If it is not then a function is called to download the data and store it in the cache.
-                        if let cacheData = viewModel.cacheService.getImage(thumbURL: item.thumb) {
-                            NavigationLink {
-                                ItemDetailsView(dataService: viewModel.dataService, mealId: item.id, imageData: cacheData as Data, isCocktail: item.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
-                            } label: {
-                                ItemRowView(dessert: item.name, imageData: cacheData as Data)
-                            }
-                        }
-                        else {
-                            NavigationLink {
-                                ItemDetailsView(dataService: viewModel.dataService, mealId: item.id, imageData: viewModel.imageData[item.thumb] ?? nil, isCocktail: item.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
-                            } label: {
-                                ItemRowView(dessert: item.name, imageData: viewModel.imageData[item.thumb] ?? nil )
-                            }
-                            .task {
-                                await viewModel.getImageData(thumbURL: item.thumb)
-                            }
-                        }
-                    }
-                }
-                .padding(.horizontal, 4)
+                lazyListOfItems
             }
             .overlay(content: {
                 if viewModel.viewIsLoading {
@@ -77,67 +55,29 @@ struct ItemsListView: View {
             }, message: {
                 Text(viewModel.errorMessage ?? "")
             })
+            
             .navigationTitle(viewModel.showFavorites ? "Favorites" : viewModel.isCocktail ? "Cocktails" : viewModel.selectedCategory)
-            .toolbar(content: {
+            
+            .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Menu {
-                        Button {
-                            viewModel.showFavorites.toggle()
-                        } label: {
-                            Text("Favorites")
-                        }
-                        Button {
-                            viewModel.isCocktail = true
-                            Task {
-                                await viewModel.fetchAllCocktails()
-                                viewModel.selectedCategory = ""
-                            }
-                        } label: {
-                            Text("Cocktails")
-                        }
-                        Menu {
-                            Picker(selection: $viewModel.selectedCategory) {
-                                ForEach(viewModel.categories, id: \.idCategory) { category in
-                                    Text(category.category)
-                                        .tag(category.category)
-                                }
-                            } label: {
-                                
-                            }
-                        } label: {
-                            Text("Food Categories")
-                        }
-
-                        
-                        
-                    }
-                label: {
-                    HStack {
-                        Text("Categories")
-                    }
-                }
+                    categoriesMenu
                 }
                 ToolbarItem {
-                    Button {
-                        viewModel.showSettingSheet = true
-                    } label: {
-                        Image(systemName: "gear")
-                    }
-
+                    settingsMenuButton
                 }
-            })
+            }
             .sheet(isPresented: $viewModel.showSettingSheet, content: {
                 SettingsView(proAccessManager: proAccessManager)
             })
         }
-        .onAppear(perform: {
+        .onAppear {
             Purchases.shared.getCustomerInfo { info, error in
                 if info?.entitlements["proaccess"]?.isActive == true {
                     print("pro access checked")
                     self.proAccessManager.isProAccess = true
                 }
             }
-        })
+        }
         .searchable(text: $viewModel.filterString, prompt: "Search within category")
     }
 }
@@ -157,6 +97,76 @@ extension ItemsListView {
                 Text("Browse Recipes")
             }
             .buttonStyle(.bordered)
+        }
+    }
+    
+    private var lazyListOfItems: some View {
+        LazyVStack(alignment: .leading) {
+            ForEach(viewModel.showFavorites ? viewModel.favoriteItems : viewModel.filteredItems, id: \.id) { item in
+//                    This if statement checks to see if the needed data for the image of the item is currently in the cache.
+                if let cacheData = viewModel.cacheService.getImage(thumbURL: item.thumb) {
+                    NavigationLink {
+                        ItemDetailsView(dataService: viewModel.dataService, mealId: item.id, imageData: cacheData as Data, isCocktail: item.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
+                    } label: {
+                        ItemRowView(dessert: item.name, imageData: cacheData as Data)
+                    }
+                }
+                else {
+                    NavigationLink {
+                        ItemDetailsView(dataService: viewModel.dataService, mealId: item.id, imageData: viewModel.imageData[item.thumb] ?? nil, isCocktail: item.isCocktail, favoriteService: viewModel.favoriteService, proAccessManager: proAccessManager)
+                    } label: {
+                        ItemRowView(dessert: item.name, imageData: viewModel.imageData[item.thumb] ?? nil )
+                    }
+                    .task {
+                        await viewModel.getImageData(thumbURL: item.thumb)
+                    }
+                }
+            }
+        }
+        .padding(.horizontal, 4)
+    }
+    
+    private var categoriesMenu: some View {
+        Menu {
+            Button {
+                viewModel.showFavorites.toggle()
+            } label: {
+                Text("Favorites")
+            }
+            Button {
+                viewModel.isCocktail = true
+                Task {
+                    await viewModel.fetchAllCocktails()
+                    viewModel.selectedCategory = ""
+                }
+            } label: {
+                Text("Cocktails")
+            }
+            Menu {
+                Picker(selection: $viewModel.selectedCategory) {
+                    ForEach(viewModel.categories, id: \.idCategory) { category in
+                        Text(category.category)
+                            .tag(category.category)
+                    }
+                } label: {
+                    
+                }
+            } label: {
+                Text("Food Categories")
+            }
+        }
+    label: {
+        HStack {
+            Text("Categories")
+        }
+    }
+    }
+    
+    private var settingsMenuButton: some View {
+        Button {
+            viewModel.showSettingSheet = true
+        } label: {
+            Image(systemName: "gear")
         }
     }
 }
