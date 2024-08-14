@@ -28,11 +28,13 @@ struct ItemDetailsView: View {
     
     var body: some View {
         ScrollView {
-            if imageData != nil {
-                if let image = UIImage(data: imageData!) {
+            if let imageData {
+                if let image = UIImage(data: imageData) {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        .padding()
                 }
             }
              else {
@@ -41,13 +43,11 @@ struct ItemDetailsView: View {
                     .scaledToFit()
             }
             
-            
-            
             VStack(alignment: .leading) {
                 HStack {
-                    if vm.itemDetails.area != nil && vm.itemDetails.area != "" {
+                    if let area = vm.itemDetails.area, !area.isEmpty {
                         Text("Region:")
-                        Text(vm.itemDetails.area ?? "")
+                        Text(area)
                     }
                 }
                 .font(.title3)
@@ -117,7 +117,7 @@ extension ItemDetailsView {
     private var links: some View {
         VStack(alignment: .leading) {
             
-            if let strSource = vm.itemDetails.source, !strSource.isEmpty, let url = URL(string: strSource) {
+            if let sourceString = vm.itemDetails.source, !sourceString.isEmpty, let url = URL(string: sourceString) {
                 Link(destination: url, label: {
                     Text("Recipe Link")
                 })

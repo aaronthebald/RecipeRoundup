@@ -16,18 +16,25 @@ struct ItemsListView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
+                categoryScrollView
                 if viewModel.filteredItems.isEmpty && viewModel.viewIsLoading == false {
-                    ContentUnavailableView("No Items Found", systemImage: "exclamationmark.magnifyingglass")
+                    ContentUnavailableView(
+                        "No Results in \(viewModel.selectedCategory) Found",
+                        systemImage: "exclamationmark.magnifyingglass",
+                        description: Text("Try Another Category!")
+                    )
+                    
                 } else if viewModel.showFavorites && viewModel.favoriteItems.isEmpty && viewModel.viewIsLoading == false {
                     emptyFavoritesView
                 }
                 lazyListOfItems
+                    .overlay(content: {
+                        if viewModel.viewIsLoading {
+                            loadingIndicator
+                        }
+                    })
             }
-            .overlay(content: {
-                if viewModel.viewIsLoading {
-                    loadingIndicator
-                }
-            })
+            
             .onChange(of: viewModel.selectedCategory, { _, newCategory in
                 Task {
                     if newCategory != "" {
@@ -56,9 +63,6 @@ struct ItemsListView: View {
             
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    categoriesMenu
-                }
-                ToolbarItem {
                     settingsMenuButton
                 }
             }
@@ -74,7 +78,7 @@ struct ItemsListView: View {
                 }
             }
         }
-        .searchable(text: $viewModel.filterString, prompt: "Search within category")
+        .searchable(text: $viewModel.filterString, prompt: viewModel.isCocktail ? "Search within Cocktails" : "Search within \(viewModel.selectedCategory)")
     }
 }
 
@@ -122,40 +126,39 @@ extension ItemsListView {
         .padding(.horizontal, 4)
     }
     
-    private var categoriesMenu: some View {
-        Menu {
-            Button {
-                viewModel.showFavorites.toggle()
-            } label: {
-                Text("Favorites")
-            }
-            Button {
-                viewModel.isCocktail = true
-                Task {
-                    await viewModel.fetchAllCocktails()
-                    viewModel.selectedCategory = ""
+    private var categoryScrollView: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                Button {
+                    viewModel.showFavorites = true
+                    viewModel.isCocktail = false
+                } label: {
+                    CategoryIcon(image: getCategoryIcon(categoryString: "favorite"), category: "Favorites")
+                        .underline(viewModel.showFavorites, color: Color.black)
                 }
-            } label: {
-                Text("Cocktails")
-            }
-            Menu {
-                Picker(selection: $viewModel.selectedCategory) {
-                    ForEach(viewModel.categories, id: \.idCategory) { category in
-                        Text(category.category)
-                            .tag(category.category)
+                Button {
+                    viewModel.isCocktail = true
+                    Task {
+                        await viewModel.fetchAllCocktails()
+                        viewModel.selectedCategory = ""
                     }
                 } label: {
-                    
+                    CategoryIcon(image: getCategoryIcon(categoryString: "cocktails"), category: "Cocktails")
+                        .underline(viewModel.isCocktail && viewModel.showFavorites == false && viewModel.selectedCategory == "", color: Color.black)
                 }
-            } label: {
-                Text("Food Categories")
+                ForEach(viewModel.categories, id: \.idCategory) { category in
+                    Button {
+                        viewModel.selectedCategory = category.category
+                    } label: {
+                        CategoryIcon(image: getCategoryIcon(categoryString: category.category), category: category.category)
+                            .underline(viewModel.selectedCategory == category.category && viewModel.showFavorites == false, color: Color.black)
+                    }
+                }
             }
+            .padding(.vertical)
+            .padding(.horizontal, 3)
+            .tint(.black)
         }
-    label: {
-        HStack {
-            Text("Categories")
-        }
-    }
     }
     
     private var settingsMenuButton: some View {
@@ -170,6 +173,46 @@ extension ItemsListView {
         ProgressView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
-            .background(.ultraThinMaterial)
+            .background(.ultraThinMaterial.opacity(0.33))
+    }
+    
+    private func getCategoryIcon(categoryString: String) -> Image {
+        let lowercasedString = categoryString.lowercased()
+        switch lowercasedString {
+        case "beef":
+            return Image(.cow)
+        case "chicken":
+            return Image(.chicken)
+        case "pork":
+            return Image(.pig)
+        case "vegan":
+            return Image(.vegan)
+        case "breakfast":
+            return Image(.waffle)
+        case "goat":
+            return Image(.goat)
+        case "side":
+            return Image(.frenchFries)
+        case "pasta":
+            return Image(.spaguetti)
+        case "vegetarian":
+            return Image(.leaf)
+        case "starter":
+            return Image(.nachos)
+        case "cocktails":
+            return Image(.martini)
+        case "favorite":
+            return Image(.star)
+        case "dessert":
+            return Image(.dessert)
+        case "miscellaneous":
+            return Image(.tacos)
+        case "lamb":
+            return Image(.ewe)
+        case "seafood":
+            return Image(.fish)
+        default:
+            return Image(systemName: "fork.knife.circle")
+        }
     }
 }
