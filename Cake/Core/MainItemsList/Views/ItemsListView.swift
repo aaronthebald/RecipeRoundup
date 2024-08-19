@@ -130,28 +130,22 @@ extension ItemsListView {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 Button {
-                    viewModel.showFavorites = true
-                    viewModel.isCocktail = false
+                    viewModel.showFavoritesList()
                 } label: {
-                    CategoryIcon(image: getCategoryIcon(categoryString: "favorite"), category: "Favorites")
-                        .underline(viewModel.showFavorites, color: Color.black)
+                    CategoryIcon(image: getCategoryIcon(categoryString: "favorite"), category: "Favorites", isSelectedTab: viewModel.showFavorites)
                 }
                 Button {
-                    viewModel.isCocktail = true
                     Task {
-                        await viewModel.fetchAllCocktails()
-                        viewModel.selectedCategory = ""
+                        await viewModel.showCocktailList()
                     }
                 } label: {
-                    CategoryIcon(image: getCategoryIcon(categoryString: "cocktails"), category: "Cocktails")
-                        .underline(viewModel.isCocktail && viewModel.showFavorites == false && viewModel.selectedCategory == "", color: Color.black)
+                    CategoryIcon(image: getCategoryIcon(categoryString: "cocktails"), category: "Cocktails", isSelectedTab: viewModel.shouldCocktailsBeUnderlined())
                 }
                 ForEach(viewModel.categories, id: \.idCategory) { category in
                     Button {
-                        viewModel.selectedCategory = category.category
+                        viewModel.showSelectedCategory(category: category.category)
                     } label: {
-                        CategoryIcon(image: getCategoryIcon(categoryString: category.category), category: category.category)
-                            .underline(viewModel.selectedCategory == category.category && viewModel.showFavorites == false, color: Color.black)
+                        CategoryIcon(image: getCategoryIcon(categoryString: category.category), category: category.category, isSelectedTab: viewModel.shouldFoodCategoryBeUnderlined(category: category.category))
                     }
                 }
             }

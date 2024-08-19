@@ -140,6 +140,39 @@ class ItemsListViewModel: ObservableObject {
         }
     }
     
+    func showFavoritesList() {
+        filterString = ""
+        showFavorites = true
+        isCocktail = false
+    }
     
+    func showCocktailList() async {
+        filterString = ""
+        isCocktail = true
+        await fetchAllCocktails()
+        selectedCategory = ""
+    }
+    
+    func showSelectedCategory(category: String) {
+        filterString = ""
+        showFavorites = false
+        selectedCategory = category
+    }
+    
+    func shouldCocktailsBeUnderlined() -> Bool {
+        if isCocktail && !showFavorites && selectedCategory == "" {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func shouldFoodCategoryBeUnderlined(category: String) -> Bool {
+        if selectedCategory == category && showFavorites == false {
+            return true
+        } else {
+            return false
+        }
+    }
     
 }
