@@ -45,7 +45,7 @@ struct SettingsView: View {
                 
                 Section("Information") {
                     HStack {
-                        Image("AaronWilson")
+                      Image(.aaronWilson)
                             .resizable()
                             .frame(width: 100, height: 100)
                             .clipShape(.rect(cornerRadius: 15))

@@ -40,7 +40,7 @@ class DataService: ObservableObject, DataServiceProtocol {
     }
     
     func fetchAllCocktails() async throws -> [Drink] {
-        guard let url = URL(string: allCocktailsString) else {  throw DataServiceError.invalidURL }
+        guard let url = URL(string: allCocktailsString) else { throw DataServiceError.invalidURL }
         var cocktails: [Drink] = []
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
@@ -56,7 +56,7 @@ class DataService: ObservableObject, DataServiceProtocol {
     }
     
     func fetchAllCategories() async throws -> [Category] {
-        guard let url = URL(string: allMealCategories) else {  throw DataServiceError.invalidURL }
+        guard let url = URL(string: allMealCategories) else { throw DataServiceError.invalidURL }
         var categories: [Category] = []
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
@@ -72,7 +72,7 @@ class DataService: ObservableObject, DataServiceProtocol {
     }
     
     func fetchItems(category: String) async throws -> [FoodDrinkItem] {
-        guard let url = URL(string: listOfItemsURLString + category) else {  throw DataServiceError.invalidURL }
+        guard let url = URL(string: listOfItemsURLString + category) else { throw DataServiceError.invalidURL }
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             guard (response as? HTTPURLResponse)?.statusCode == 200 else {
