@@ -140,23 +140,29 @@ class ItemsListViewModel: ObservableObject {
         }
     }
     
-    func showFavoritesList() {
+    func showFavoritesList() async {
+      await MainActor.run {
         filterString = ""
         showFavorites = true
         isCocktail = false
+      }
     }
     
     func showCocktailList() async {
+      await MainActor.run {
         filterString = ""
         isCocktail = true
-        await fetchAllCocktails()
         selectedCategory = ""
+      }
+        await fetchAllCocktails()
     }
     
-    func showSelectedCategory(category: String) {
+    func showSelectedCategory(category: String) async {
+      await MainActor.run {
         filterString = ""
         showFavorites = false
         selectedCategory = category
+      }
     }
     
     func shouldCocktailsBeUnderlined() -> Bool {

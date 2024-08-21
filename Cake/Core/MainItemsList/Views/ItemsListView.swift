@@ -130,7 +130,9 @@ extension ItemsListView {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 Button {
-                    viewModel.showFavoritesList()
+                  Task {
+                   await viewModel.showFavoritesList()
+                  }
                 } label: {
                     CategoryIcon(image: getCategoryIcon(categoryString: "favorite"), category: "Favorites", isSelectedTab: viewModel.showFavorites)
                 }
@@ -143,7 +145,9 @@ extension ItemsListView {
                 }
                 ForEach(viewModel.categories, id: \.idCategory) { category in
                     Button {
-                        viewModel.showSelectedCategory(category: category.category)
+                      Task {
+                        await viewModel.showSelectedCategory(category: category.category)
+                      }
                     } label: {
                         CategoryIcon(image: getCategoryIcon(categoryString: category.category), category: category.category, isSelectedTab: viewModel.shouldFoodCategoryBeUnderlined(category: category.category))
                     }
