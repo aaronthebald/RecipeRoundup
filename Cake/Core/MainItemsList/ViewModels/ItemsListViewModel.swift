@@ -181,4 +181,43 @@ class ItemsListViewModel: ObservableObject {
         }
     }
     
+    func getCategoryIcon(categoryString: String) -> Image {
+        let lowercasedString = categoryString.lowercased()
+        switch lowercasedString {
+        case "beef":
+            return Image(.cow)
+        case "chicken":
+            return Image(.chicken)
+        case "pork":
+            return Image(.pig)
+        case "vegan":
+            return Image(.vegan)
+        case "breakfast":
+            return Image(.waffle)
+        case "goat":
+            return Image(.goat)
+        case "side":
+            return Image(.frenchFries)
+        case "pasta":
+            return Image(.spaguetti)
+        case "vegetarian":
+            return Image(.leaf)
+        case "starter":
+            return Image(.nachos)
+        case "cocktails":
+            return Image(.martini)
+        case "favorite":
+            return Image(.star)
+        case "dessert":
+            return Image(.dessert)
+        case "miscellaneous":
+            return Image(.tacos)
+        case "lamb":
+            return Image(.ewe)
+        case "seafood":
+            return Image(.fish)
+        default:
+            return Image(systemName: "fork.knife.circle")
+        }
+    }
 }

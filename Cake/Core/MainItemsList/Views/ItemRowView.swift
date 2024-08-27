@@ -15,14 +15,14 @@ struct ItemRowView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .bottom) {
-                if let data = imageData {
-                    if let image = UIImage(data: data) {
+                if let imageData,
+                   let image = UIImage(data: imageData) {
                         Image(uiImage: image)
                         .resizable()
                         .frame(width: 100, height: 100)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
-                }
+                
                 else {
                     ProgressView()
                         .frame(width: 100, height: 100)

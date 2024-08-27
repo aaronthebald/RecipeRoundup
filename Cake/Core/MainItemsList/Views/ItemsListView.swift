@@ -134,14 +134,14 @@ extension ItemsListView {
                    await viewModel.showFavoritesList()
                   }
                 } label: {
-                    CategoryIcon(image: getCategoryIcon(categoryString: "favorite"), category: "Favorites", isSelectedTab: viewModel.showFavorites)
+                    CategoryIcon(image: viewModel.getCategoryIcon(categoryString: "favorite"), category: "Favorites", isSelectedTab: viewModel.showFavorites)
                 }
                 Button {
                     Task {
                         await viewModel.showCocktailList()
                     }
                 } label: {
-                    CategoryIcon(image: getCategoryIcon(categoryString: "cocktails"), category: "Cocktails", isSelectedTab: viewModel.shouldCocktailsBeUnderlined())
+                    CategoryIcon(image: viewModel.getCategoryIcon(categoryString: "cocktails"), category: "Cocktails", isSelectedTab: viewModel.shouldCocktailsBeUnderlined())
                 }
                 ForEach(viewModel.categories, id: \.idCategory) { category in
                     Button {
@@ -149,7 +149,7 @@ extension ItemsListView {
                         await viewModel.showSelectedCategory(category: category.category)
                       }
                     } label: {
-                        CategoryIcon(image: getCategoryIcon(categoryString: category.category), category: category.category, isSelectedTab: viewModel.shouldFoodCategoryBeUnderlined(category: category.category))
+                        CategoryIcon(image: viewModel.getCategoryIcon(categoryString: category.category), category: category.category, isSelectedTab: viewModel.shouldFoodCategoryBeUnderlined(category: category.category))
                     }
                 }
             }
@@ -174,43 +174,5 @@ extension ItemsListView {
             .background(.ultraThinMaterial.opacity(0.33))
     }
     
-    private func getCategoryIcon(categoryString: String) -> Image {
-        let lowercasedString = categoryString.lowercased()
-        switch lowercasedString {
-        case "beef":
-            return Image(.cow)
-        case "chicken":
-            return Image(.chicken)
-        case "pork":
-            return Image(.pig)
-        case "vegan":
-            return Image(.vegan)
-        case "breakfast":
-            return Image(.waffle)
-        case "goat":
-            return Image(.goat)
-        case "side":
-            return Image(.frenchFries)
-        case "pasta":
-            return Image(.spaguetti)
-        case "vegetarian":
-            return Image(.leaf)
-        case "starter":
-            return Image(.nachos)
-        case "cocktails":
-            return Image(.martini)
-        case "favorite":
-            return Image(.star)
-        case "dessert":
-            return Image(.dessert)
-        case "miscellaneous":
-            return Image(.tacos)
-        case "lamb":
-            return Image(.ewe)
-        case "seafood":
-            return Image(.fish)
-        default:
-            return Image(systemName: "fork.knife.circle")
-        }
-    }
+   
 }
