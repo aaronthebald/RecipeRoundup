@@ -65,6 +65,9 @@ struct SettingsView: View {
                     Link(destination: URL(string: "https://www.revenuecat.com")!) {
                         Text("RevenueCat.com")
                     }
+                    Link(destination: URL(string: "https://github.com/aaronthebald/RecipeRoundup/blob/main/IconAcknowledgments")!) {
+                        Text("Icon Acknowledgements")
+                    }
                     
                     Link(destination: URL(string: "https://github.com/aaronthebald/Cake/blob/main/PrivacyPolicy")!, label: {
                         Text("Privacy Policy")
